@@ -171,7 +171,58 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Attributes\Abstraction\BasePropertyAttribute.cs" />
+    <Compile Include="Infrastructure\Attributes\Abstraction\IPropertyAttribute.cs" />
+    <Compile Include="Infrastructure\Attributes\AttributeType.cs" />
+    <Compile Include="Infrastructure\Attributes\Implementation\LengthPropertyAttribute.cs" />
+    <Compile Include="Infrastructure\Attributes\Implementation\RequiredPropertyAttribute.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Abstraction\DomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Abstraction\ViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Book\BookCopyDomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Book\BookCopyViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Book\BookDomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Book\BookViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Category\CategoryDomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Category\CategoryViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Language\LanguageDomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Language\LanguageViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Permission\PermissionDomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Permission\PermissionViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\RolePermission\RelationRolePermissionDomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\RolePermission\RelationRolePermissionViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\UserBookCopy\RelationUserBookCopyDomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\UserBookCopy\RelationUserBookCopyViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\UserPermission\RelationUserPermissionDomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\UserPermission\RelationUserPermissionViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\UserRole\RelationUserRoleDomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\UserRole\RelationUserRoleViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Role\RoleDomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\Role\RoleViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\User\UserDomainModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilders\Implementation\User\UserViewModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelConstructor\Implementation\ModelConstructor.cs" />
+    <Compile Include="Infrastructure\ModelConstructor\Interfaces\IModelConstructor.cs" />
+    <Compile Include="Infrastructure\Validation\ILMSValidator.cs" />
+    <Compile Include="Infrastructure\Validation\LMSValidator.cs" />
+    <Compile Include="Infrastructure\Validation\Model\Implementation\PropertyModel.cs" />
+    <Compile Include="Infrastructure\Validation\Model\Implementation\ValidationModel.cs" />
+    <Compile Include="Infrastructure\Validation\Model\Interfaces\IValidationModel.cs" />
+    <Compile Include="Infrastructure\Validation\ValidationExpressionGenerator.cs" />
+    <Compile Include="Models\ViewModels\Book\BookCopyViewModel.cs" />
+    <Compile Include="Models\ViewModels\Book\BookViewModel.cs" />
+    <Compile Include="Models\ViewModels\Category\CategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\Language\LanguageViewModel.cs" />
+    <Compile Include="Models\ViewModels\Permission\PermissionViewModel.cs" />
+    <Compile Include="Models\ViewModels\Relation\RelationRolePermissionViewModel.cs" />
+    <Compile Include="Models\ViewModels\Relation\RelationUserBookCopyViewModel.cs" />
+    <Compile Include="Models\ViewModels\Relation\RelationUserPermissionViewModel.cs" />
+    <Compile Include="Models\ViewModels\Relation\RelationUserRoleViewModel.cs" />
+    <Compile Include="Models\ViewModels\Role\RoleViewModel.cs" />
+    <Compile Include="Models\ViewModels\User\UserViewModel.cs" />
+    <Compile Include="Models\ViewModels\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Implementation\BuilderResolverServiceImpl.cs" />
+    <Compile Include="Services\Interfaces\IBuilderResolverService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +266,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BusinessLogic\" />
-    <Folder Include="Models\" />
+    <Folder Include="Infrastructure\Validation\Validators\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

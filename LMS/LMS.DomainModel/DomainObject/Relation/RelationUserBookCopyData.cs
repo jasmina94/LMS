@@ -15,9 +15,9 @@ namespace LMS.DomainModel.DomainObject.Relation
         public DateTime DateReturned { get; set; }
 
         [DBColumn("RefBookCopy")]
-        public int RefBookCopy { get; set; }
+        public int BookCopyId { get; set; }
 
         [DBColumn("RefUser")]
-        public int RefUser { get; set; }
+        public int UserId { get; set; }
     }
 }

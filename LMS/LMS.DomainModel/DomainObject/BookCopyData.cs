@@ -5,6 +5,6 @@ namespace LMS.DomainModel.DomainObject
     public class BookCopyData : BaseData
     {
         [DBColumn("RefBook")]
-        public int RefBook { get; set; }
+        public int BookId { get; set; }
     }
 }

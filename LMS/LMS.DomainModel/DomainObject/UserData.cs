@@ -25,5 +25,13 @@ namespace LMS.DomainModel.DomainObject
 
         [DBColumn("RefCategory")]
         public int RefCategory { get; set; }
+
+        public string FullFirstAndLastName
+        {
+            get
+            {
+                return Firstname + " " + Lastname;
+            }
+        }
     }
 }

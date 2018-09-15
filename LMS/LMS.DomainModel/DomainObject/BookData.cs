@@ -29,12 +29,28 @@ namespace LMS.DomainModel.DomainObject
         public string MIME { get; set; }
 
         [DBColumn("RefCategory")]
-        public int RefCategory { get; set; }
+        public int CategoryId { get; set; }
 
         [DBColumn("RefLanguage")]
-        public int RefLanguage { get; set; }
+        public int LanguageId { get; set; }
 
         [DBColumn("RefCataloguer")]
-        public int RefCataloguer { get; set; }
+        public int CataloguerId { get; set; }
+
+        public string BookAuthorAndTitle
+        {
+            get
+            {
+                return string.Join("-", Author, Title);
+            }
+        }
+
+        public string BookTitleAndAuthorAndYear
+        {
+            get
+            {
+                return Title + "-" + Author + "(" + PublicationYear + ")";
+            }
+        }
     }
 }

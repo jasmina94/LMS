@@ -8,6 +8,12 @@ using LMS.DomainModel.Infrastructure.ORM.Mapper.Interfaces;
 using System.Configuration;
 using System.Reflection;
 using System.Web.Mvc;
+using System;
+using LMS.Infrastructure.Validation;
+using LMS.Infrastructure.ModelConstructor.Implementation;
+using LMS.Infrastructure.ModelConstructor.Interfaces;
+using LMS.Services.Implementation;
+using LMS.Services.Interfaces;
 
 namespace LMS.App_Start
 {
@@ -21,6 +27,8 @@ namespace LMS.App_Start
             RegisterDataSource();
             RegisterORMMapper();
             RegisterRepositories();
+            RegisterValidator();
+            RegisterModelConstruction();
             RegisterFilterProvider();
 
             var container = builder.Build();
@@ -71,6 +79,38 @@ namespace LMS.App_Start
                .AsImplementedInterfaces()
                .SingleInstance()
                .PropertiesAutowired(PropertyWiringOptions.None);
+        }
+
+        private static void RegisterValidator()
+        {
+            builder
+            .RegisterType<LMSValidator>()
+            .As<ILMSValidator>()
+            .SingleInstance()
+            .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+        }
+
+        private static void RegisterModelConstruction()
+        {
+            var dataAccess = Assembly.GetExecutingAssembly();
+
+            builder
+               .RegisterAssemblyTypes(dataAccess)
+               .Where(t => t.Name.EndsWith("ModelBuilder"))
+               .InstancePerDependency()
+               .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+
+            builder
+               .RegisterType<ModelConstructor>()
+               .As<IModelConstructor>()
+               .SingleInstance()
+               .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+
+            builder
+               .RegisterType<BuilderResolverServiceImpl>()
+               .As<IBuilderResolverService>()
+               .SingleInstance()
+               .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
         }
 
         private static void RegisterFilterProvider()

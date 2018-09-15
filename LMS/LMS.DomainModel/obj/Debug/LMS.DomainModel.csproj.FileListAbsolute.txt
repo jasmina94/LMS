@@ -21,3 +21,27 @@ C:\Users\Jasmina\Desktop\master rad\LMS\LMS.DomainModel\bin\Debug\System.Web.Web
 C:\Users\Jasmina\Desktop\master rad\LMS\LMS.DomainModel\obj\Debug\LMS.DomainModel.csprojResolveAssemblyReference.cache
 C:\Users\Jasmina\Desktop\master rad\LMS\LMS.DomainModel\obj\Debug\LMS.DomainModel.dll
 C:\Users\Jasmina\Desktop\master rad\LMS\LMS.DomainModel\obj\Debug\LMS.DomainModel.pdb
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\LMS.DomainModel.dll.config
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\LMS.DomainModel.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\LMS.DomainModel.pdb
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\Autofac.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\Autofac.Integration.Mvc.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Linq.Dynamic.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.Helpers.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.Mvc.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.Razor.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.WebPages.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\Autofac.xml
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\Autofac.Integration.Mvc.xml
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.Helpers.xml
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.Mvc.xml
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.Razor.xml
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.WebPages.xml
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\obj\Debug\LMS.DomainModel.csprojResolveAssemblyReference.cache
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\obj\Debug\LMS.DomainModel.dll
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\obj\Debug\LMS.DomainModel.pdb

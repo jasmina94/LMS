@@ -5,9 +5,9 @@ namespace LMS.DomainModel.DomainObject.Relation
     public class RelationUserRoleData : BaseData
     {
         [DBColumn("RefUser")]
-        public int RefUser { get; set; }
+        public int UserId { get; set; }
 
         [DBColumn("RefRole")]
-        public int RefRole { get; set; }
+        public int RoleId { get; set; }
     }
 }

@@ -41,6 +41,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -88,6 +92,10 @@
     <Compile Include="DomainObject\Relation\RelationUserRoleData.cs" />
     <Compile Include="DomainObject\RoleData.cs" />
     <Compile Include="DomainObject\UserData.cs" />
+    <Compile Include="Infrastructure\FilterMapper\DataCollectionFilterSorter.cs" />
+    <Compile Include="Infrastructure\FilterMapper\Model\FilterModel.cs" />
+    <Compile Include="Infrastructure\FilterMapper\Model\FilterSorterModel.cs" />
+    <Compile Include="Infrastructure\FilterMapper\Model\SorterModel.cs" />
     <Compile Include="Infrastructure\ORM\Attributes\DBColumnAttribute.cs" />
     <Compile Include="Infrastructure\ORM\Mapper\Implementation\LMSMapper.cs" />
     <Compile Include="Infrastructure\ORM\Mapper\Interfaces\ILMSMapper.cs" />

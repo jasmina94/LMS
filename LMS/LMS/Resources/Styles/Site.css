@@ -1,0 +1,73 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.lms-navbar-brand {
+    padding-bottom: 5px;
+    padding-top: 10px;
+    /*pointer-events: none;*/
+}
+
+.lms-main-banner {
+    background-image: url(../Images/ebook_photo.jpg);
+}
+
+.lms-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-size: x-small;
+}
+
+.lms-login-panel {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.lms-login-container {
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.lms-login-jumbotron {
+    position: relative;
+    background-color: #fbda8a;
+    border-radius: 10px;
+}
+
+.lms-login-btn{
+    background-color: #fbda8a;
+    width: 100px;
+    margin-left: 30%;
+    margin-top: 5%;
+}
+
+.lms-login-back-link{
+    font-size: small;
+    color: black;
+    margin-left: 35%;
+}
+
+.lms-error-label {
+    font-style: italic;
+    color: red;
+}

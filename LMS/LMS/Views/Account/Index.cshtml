@@ -1,0 +1,30 @@
+﻿@model LMS.Models.ViewModels.Account.LoginViewModel
+@using LMS.Infrastructure.HtmlHelpers
+
+<div style="overflow: hidden;margin-top:10%;">
+    <div style="width: 500px;float:left;margin-top:3%;">
+        <img src="~/Resources/Images/lms.jpg" />
+    </div>
+    <div style="overflow: hidden;">
+        <div class="lms-login-container">
+            <div class="lms-login-jumbotron">
+                <h1 style="text-align:center">Library management system</h1>
+                <h5 style="text-align:center">To continue with work please confirm your credentials. </h5>
+                <hr />
+                <div class="panel panel-default col-sm-6 col-sm-offset-2 lms-login-panel">
+                    <div class="panel-body">
+                        <form action="/Account/Login" method="post" id="LoginUserForm">
+                            @Html.ErrorLabel(value: (string)ViewBag.CredentialsError)
+                            @Html.SimpleFormInput(model => model.Username, "Username:", divClass: "", labelClass: "control-label", inputClass: "form-control", inputValue: Model.Username)
+                            @Html.SimpleFormInput(model => model.Password, "Password:", divClass: "", labelClass: "control-label", inputClass: "form-control", inputType: "password", inputValue: Model.Password)
+                            @Html.CheckboxFormInput(model => model.RememberMe, "Remember me")
+                            @Html.FormSubmit(value: "Login", specialBtnClass: "lms-login-btn")
+                        </form>
+                        @Html.ActionLink("Cancel login", "Index", "Home", new { area = "" }, new { @class = "lms-login-back-link" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

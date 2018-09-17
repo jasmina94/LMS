@@ -9,23 +9,61 @@ namespace LMS
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Resources/Scripts/jquery/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Resources/Scripts/jquery/jquery.validate*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                        "~/Resources/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Resources/Scripts/bootstrap/bootstrap.js",
+                      "~/Resources/Scripts/bootstrap-datetimepicker/moment.js",
+                      "~/Resources/Scripts/bootstrap-datetimepicker/bootstrap-datetimepicker.js",
+                      "~/Resources/Scripts/bootstrap/respond.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/global").Include(
+                    "~/Resources/Scripts/Site.js",
+                    "~/Resources/Scripts/Validation.js",
+                    "~/Resources/Scripts/ajax/AjaxHttpSender.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dialogs").Include(
+                "~/Resources/Scripts/dialogs/DialogTypeEnum.js",
+                "~/Resources/Scripts/dialogs/DialogUtility.js",
+                "~/Resources/Scripts/dialogs/BaseDialog.js",
+                "~/Resources/Scripts/dialogs/DialogFactory.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dialogs/chat")
+                .IncludeDirectory("~/Resources/Scripts/dialogs/Chat", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/bundles/dialogs/user")
+                .IncludeDirectory("~/Resources/Scripts/dialogs/User", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/bundles/grid")
+                .IncludeDirectory("~/Resources/Scripts/lms-grid", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/bundles/ribbon")
+                .IncludeDirectory("~/Resources/Scripts/lms-ribbon", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/bundles/select")
+               .IncludeDirectory("~/Resources/Scripts/select", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/bundles/signalR")
+               .IncludeDirectory("~/Resources/Scripts/signalR", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/bundles/toastr")
+               .IncludeDirectory("~/Resources/Scripts/toastr", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/bundles/css").Include(
+                    "~/Resources/Scripts/css-element-queries/ElementQueries.js",
+                    "~/Resources/Scripts/ResizeSensor.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Resources/Styles/bootstrap/bootstrap.css",
+                      "~/Resources/Styles/Site.css"));
         }
     }
 }

@@ -28,6 +28,10 @@ namespace LMS.Models.ViewModels.User
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        public int CategoryId { get; set; }
+
+        public string Category { get; set; }
+
         public override string Validate(ILMSValidator validator)
         {
             return validator.InvokeValidation(this);

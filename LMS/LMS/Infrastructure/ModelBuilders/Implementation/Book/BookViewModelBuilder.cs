@@ -59,9 +59,11 @@ namespace LMS.Infrastructure.ModelBuilders.Implementation.Book
 
         private string GetUserFullName(int userId)
         {
-            string fullname;
-            UserData user = UserRepository.GetDataById(userId);
-            fullname = user.FullFirstAndLastName;
+            string fullname = string.Empty;
+            if(userId != 0){
+                UserData user = UserRepository.GetDataById(userId);
+                fullname = user.FullFirstAndLastName;
+            }            
 
             return fullname;
         }

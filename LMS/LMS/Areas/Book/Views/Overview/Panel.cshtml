@@ -1,0 +1,30 @@
+﻿<div class="jumbotron lms-jumbotron-small">
+    <p>List of books</p>
+</div>
+
+<div id="BookGrid" class="lms-grid-container">
+</div>
+
+
+<script>
+    $("#BookGrid").lmsGrid({
+      source: "@Url.Action("GetAllActive")",
+      visibleHead: true,
+      sorting: true,
+      filtering: true,
+      multipleFieldFilter: true,
+      paging: true,
+      showPrevNext: true,
+      showFirstLast: true,
+      fields: [
+         { label: "Id", name: "Id", type: "int", sorted: true, width: "50px" },
+         { label: "Is active", name: "IsActive", type: "bool" },
+         { label: "Author", name: "Author", type: "string" },
+         { label: "Title", name: "Title", type: "string" },
+         { label: "Year", name: "PublicationYear", type: "int" },
+         { label: "Available copies", name: "NumOfAvailableCopies", type: "int" },
+         { label: "Category", name: "Category", type: "string" },
+         { label: "Language", name: "Language", type: "string" },
+      ]
+   });
+</script>

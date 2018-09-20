@@ -22,7 +22,7 @@ namespace LMS.DomainModel.DomainObject
         [DBColumn("Keywords")]
         public string Keywords { get; set; }
 
-        [DBColumn("Filename")]
+        [DBColumn("BookFilename")]
         public string Filename { get; set; }
 
         [DBColumn("MIME")]

@@ -10,7 +10,7 @@ AddMemberDialog.prototype = Object.create(BaseDialog.prototype);
 
 AddMemberDialog.prototype.initSpecific = function () {
 
-    var $selectMembers = $(this.container).find("#cms-chat-group-members-select");
+    var $selectMembers = $(this.container).find("#lms-chat-group-members-select");
     var placeHolder = "Add members...";
     var url = "/Chat/Home/GetUsers";
     var pageSize = 20;

@@ -10,7 +10,7 @@ GroupChatDialog.prototype = Object.create(BaseDialog.prototype);
 
 GroupChatDialog.prototype.initSpecific = function () {
 
-    var $selectMembers = $(this.container).find("#cms-chat-group-members-select");    
+    var $selectMembers = $(this.container).find("#lms-chat-group-members-select");    
     var placeHolder = "Add members...";
     var url = "/Chat/Home/GetUsers";
     var pageSize = 20;
@@ -42,8 +42,8 @@ GroupChatDialog.prototype.initSpecific = function () {
     });
 
     $selectMembers.attr("name", "SelectMembers");
-    $(this.container).find("#cms-chat-group-name").attr("name", "GroupName");
-    $(this.container).find("#cms-chat-group-message").attr("name", "FirstMessage");
+    $(this.container).find("#lms-chat-group-name").attr("name", "GroupName");
+    $(this.container).find("#lms-chat-group-message").attr("name", "FirstMessage");
 }
 
 GroupChatDialog.prototype.initValidator = function () {

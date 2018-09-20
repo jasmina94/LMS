@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 
-namespace CMS.Infrastructure.HtmlHelpers
+namespace LMS.Infrastructure.HtmlHelpers
 {
     public static class HtmlTooltipHelper
    {

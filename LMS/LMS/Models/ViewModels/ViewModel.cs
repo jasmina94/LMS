@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace LMS.Models.ViewModels
 {
@@ -13,14 +11,20 @@ namespace LMS.Models.ViewModels
 
         public bool IsActive { get; set; }
 
-        public int RefUserCreatedBy { get; set; }
+        public int UserCreatedByInt { get; set; }
+
+        public string UserCreatedBy { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateTimeCreatedOn { get; set; }
 
-        public int RefUserDeletedBy { get; set; }
+        public int UserDeletedById { get; set; }
 
+        public string UserDeletedBy { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateTimeDeletedOn { get; set; }
 
         public abstract string Validate(ILMSValidator validator);

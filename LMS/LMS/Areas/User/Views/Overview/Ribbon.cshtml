@@ -1,0 +1,10 @@
+﻿@using LMS.Infrastructure.HtmlHelpers
+
+@{
+    var ribbonItems = new List<IHtmlString>
+    {
+        @Html.RibbonItem("item1", "List", "List of users.", Html.Glyphicon("list"))
+    };
+
+    @Html.Ribbon("users", "item1", ribbonItems)
+}

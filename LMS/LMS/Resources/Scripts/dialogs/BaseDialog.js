@@ -48,7 +48,7 @@ BaseDialog.prototype = {
         var wrapper = $(this.container)[0];
         var datepickers = $(wrapper).find(".DatePicker");
         var timepickers = $(wrapper).find(".TimePicker");
-        var selectpickers = $(wrapper).find(".cms-selectpicker");
+        var selectpickers = $(wrapper).find(".lms-selectpicker");
 
         $(datepickers).each(function () {
             $(this).datepicker({

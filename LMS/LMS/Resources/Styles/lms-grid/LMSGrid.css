@@ -1,0 +1,130 @@
+﻿table.table.table-hover {
+   border: 1px solid;
+   border-color: #f8d14a;
+}
+
+table.table.table-hover thead {
+   display: table;
+   width: 100%;
+   table-layout: fixed;
+   background-color: white;
+}
+
+table.table.table-hover tbody {
+   display: block;
+   height: 120px;
+   overflow-y: auto;
+   background-color: white;
+}
+
+table.table.table-hover tbody tr {
+   display: table;
+   width: calc(100% - 0.002em);
+   table-layout: fixed;
+   cursor: pointer;
+}
+
+table.table.table-hover tbody tr:hover td {
+   background-color: #f2f2f2 !important;   
+}   
+
+.lms-grid-head-label {
+   text-align: center;
+   background-color: #f7ebc2;
+}
+
+.lms-grid-head-label-sorting {
+   cursor: pointer;
+   color: #0094ff;
+}
+
+.lms-grid-head-label-sorting:hover {
+   background-color: #f6da7a;
+   color: #0079d0;
+}
+
+.lms-grid-head-label-sorted:before {
+   content: " ";
+   display: block;
+   float: left;
+   width: 0;
+   height: 0;
+   border-style: solid;
+}
+
+.lms-grid-head-label-sorted-asc:before {
+   border-width: 0 5px 5px 5px;
+   border-color: transparent transparent #009a67 transparent;
+}
+
+.lms-grid-head-label-sorted-desc:before {
+   border-width: 5px 5px 0 5px;
+   border-color: #009a67 transparent transparent transparent;
+}
+
+.lms-grid-head-filter-field {
+   width: 100% !important;
+   min-width: 1em !important;
+   max-width: 100% !important;
+}
+
+table.table.table-hover td.lms-grid-td {
+   border: 1px solid #e6e6e6;
+   padding: 5px;
+   width: auto;
+}
+
+table.table.table-hover thead, table.table.table-hover tbody, table.table.table-hover tfoot {
+   border-right: 2px solid #f8d14a;
+}
+
+table.table.table-hover tfoot.lms-grid-footer {
+   background-color: #f7ebc2;
+}
+
+table.table.table-hover tfoot.lms-grid-footer tr td{
+   padding: 0px;
+   margin:0px;
+}
+
+td.lms-grid-pager-wrapper {
+   text-align: center;
+}
+
+.lms-grid-pager {
+   margin: 2px;
+   margin-left: 0px;
+   display: inline-block;
+   list-style-type: none;
+   list-style: none;
+}
+
+.lms-grid-pager li{
+   float:left;
+}
+
+.lms-grid-pager-input {
+   width: 40px;
+   height: 20px;
+}
+
+.lms-grid-pager-label {
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
+.lms-grid-pager-picker {
+   margin-left: 10px;
+}
+
+.lms-grid-pager-status {
+   margin: 0;
+   text-align: right;
+   padding-left: 10px;
+}
+
+.disabled {
+   pointer-events: none;
+   cursor: default;
+   color: gray;
+}

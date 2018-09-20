@@ -24,7 +24,7 @@ namespace LMS.DomainModel.DomainObject
         public string Email { get; set; }
 
         [DBColumn("RefCategory")]
-        public int RefCategory { get; set; }
+        public int CategoryId { get; set; }
 
         public string FullFirstAndLastName
         {

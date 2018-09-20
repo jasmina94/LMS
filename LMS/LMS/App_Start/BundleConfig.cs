@@ -28,7 +28,9 @@ namespace LMS
             bundles.Add(new ScriptBundle("~/bundles/global").Include(
                     "~/Resources/Scripts/Site.js",
                     "~/Resources/Scripts/Validation.js",
-                    "~/Resources/Scripts/ajax/AjaxHttpSender.js"));
+                    "~/Resources/Scripts/ajax/AjaxHttpSender.js",
+                    "~/Resources/Scripts/css-element-queries/ElementQueries.js",
+                    "~/Resources/Scripts/css-element-queries/ResizeSensor.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/dialogs").Include(
                 "~/Resources/Scripts/dialogs/DialogTypeEnum.js",
@@ -63,7 +65,9 @@ namespace LMS
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Resources/Styles/bootstrap/bootstrap.css",
-                      "~/Resources/Styles/Site.css"));
+                      "~/Resources/Styles/Site.css",
+                      "~/Resources/Styles/lms-grid/LMSGrid.css",
+                      "~/Resources/Styles/lms-ribbon/LMSRibbon.css"));
         }
     }
 }

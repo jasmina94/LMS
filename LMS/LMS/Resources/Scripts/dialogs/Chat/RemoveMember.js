@@ -10,7 +10,7 @@ RemoveMemberDialog.prototype = Object.create(BaseDialog.prototype);
 
 RemoveMemberDialog.prototype.initSpecific = function () {
 
-    $(this.container).find("#cms-chat-group-member-username").attr("name", "MemberUsername");
+    $(this.container).find("#lms-chat-group-member-username").attr("name", "MemberUsername");
 }
 
 RemoveMemberDialog.prototype.initValidator = function () {

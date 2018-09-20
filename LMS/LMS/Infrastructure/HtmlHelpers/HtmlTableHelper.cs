@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace CMS.Infrastructure.HtmlHelpers
+namespace LMS.Infrastructure.HtmlHelpers
 {
     public static class HtmlTableHelper
    {

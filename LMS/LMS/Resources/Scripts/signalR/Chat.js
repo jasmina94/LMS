@@ -5,20 +5,20 @@ var chatHub = null;
 var CMSChat = function () {
 
     var self = this;
-    var cmsChatHub = null;
+    var lmsChatHub = null;
     var loggedInUser = null;
 
-    var $sendBtn = $("#cms-chat-send");
-    var $messageAreaBox = $(".cms-chat-msg-area-box");
-    var $messageArea = $("#cms-chat-txt-area");
-    var $receiverName = $(".cms-chat-receiver-name");
-    var $receiverStatus = $(".cms-chat-receiver-status");
-    var $createGroup = $(".cms-chat-group-create-btn");
-    var $manageGroupMembers = $(".cms-chat-group-manage-members");
+    var $sendBtn = $("#lms-chat-send");
+    var $messageAreaBox = $(".lms-chat-msg-area-box");
+    var $messageArea = $("#lms-chat-txt-area");
+    var $receiverName = $(".lms-chat-receiver-name");
+    var $receiverStatus = $(".lms-chat-receiver-status");
+    var $createGroup = $(".lms-chat-group-create-btn");
+    var $manageGroupMembers = $(".lms-chat-group-manage-members");
 
     this.initChat = function () {
-        self.cmsChatHub = $.connection.cMSChatHub;
-        chatHub = self.cmsChatHub;
+        self.lmsChatHub = $.connection.cMSChatHub;
+        chatHub = self.lmsChatHub;
 
         self.loggedInUser = JSON.parse(sessionStorage.getItem(CmsSecurityEnum.CURRENT_USER));
         $messageAreaBox.hide();
@@ -33,9 +33,9 @@ var CMSChat = function () {
 
         $.connection.hub.start()
             .done(function () {
-                self.cmsChatHub.server.connect(self.loggedInUser);
-                self.cmsChatHub.server.getOnlineUsers();
-                self.cmsChatHub.server.getAllGroupsForUser(self.loggedInUser.Username);
+                self.lmsChatHub.server.connect(self.loggedInUser);
+                self.lmsChatHub.server.getOnlineUsers();
+                self.lmsChatHub.server.getAllGroupsForUser(self.loggedInUser.Username);
             });
     }
 
@@ -43,9 +43,9 @@ var CMSChat = function () {
         var senderUsername = self.loggedInUser.Username;
         $.connection.hub.start()
             .done(function () {
-                var messages = self.cmsChatHub.server.getMessages(senderUsername, receiverUsername)
+                var messages = self.lmsChatHub.server.getMessages(senderUsername, receiverUsername)
                     .done(function (data) {
-                        $(".cms-chat-msg-list").empty();
+                        $(".lms-chat-msg-list").empty();
                         if (data.length !== 0) {
                             for (var i = 0; i < data.length; i++) {
                                 var message = (data[i]);
@@ -63,25 +63,25 @@ var CMSChat = function () {
         var messageType = null;
         var currentUsername = self.loggedInUser.Username;
         if (currentUsername === message.SenderUsername) {
-            messageType = cmsChatEnum.SENDER_MSG;
+            messageType = lmsChatEnum.SENDER_MSG;
         } else {
-            messageType = cmsChatEnum.RECEIVER_MSG;
+            messageType = lmsChatEnum.RECEIVER_MSG;
         }
         return messageType;
     }
 
     this.showHideMessages = function (nextReceiver, previousReceiver) {
-        var $messageList = $(".cms-chat-msg-list");
+        var $messageList = $(".lms-chat-msg-list");
         var $messages = $messageList.children("");
         for (var i = 0; i < $messages.length; i++) {
             var $message = $($messages[i]);
             var conversationWith = $message.attr("data-receiver");
             if (conversationWith !== undefined && conversationWith === nextReceiver) {
-                $message.removeClass("cms-chat-hide-msg");
+                $message.removeClass("lms-chat-hide-msg");
                 $message.removeAttr("data-receiver");
             } else {
                 $message.attr("data-receiver", previousReceiver);
-                $message.addClass("cms-chat-hide-msg");
+                $message.addClass("lms-chat-hide-msg");
             }
         }
     }
@@ -111,32 +111,32 @@ var CMSChat = function () {
         var $newMessage = $("<div>");
 
         $msgSenderUsername.text(senderUsername);
-        $msgSenderUsername.addClass("cms-chat-msg-sender");
+        $msgSenderUsername.addClass("lms-chat-msg-sender");
 
-        $newMessage.addClass("cms-chat-msg");
+        $newMessage.addClass("lms-chat-msg");
         $newMessage.text(msg);
 
-        if (type === cmsChatEnum.SENDER_MSG) {
-            $msgBubble.addClass("cms-chat-msg-bubble-sender");
+        if (type === lmsChatEnum.SENDER_MSG) {
+            $msgBubble.addClass("lms-chat-msg-bubble-sender");
         } else {
-            $msgBubble.addClass("cms-chat-msg-bubble-receiver");
+            $msgBubble.addClass("lms-chat-msg-bubble-receiver");
         }
 
         $msgBubble.append($msgSenderUsername);
         $msgBubble.append($newMessage);
 
-        $(".cms-chat-msg-list").append($msgBubble);
-        $("#cms-chat-txt-area").val("");
+        $(".lms-chat-msg-list").append($msgBubble);
+        $("#lms-chat-txt-area").val("");
     }
 
     this.buildUserCard = function (id, username, name) {
-        var $cardList = $(".cms-chat-box-list");
+        var $cardList = $(".lms-chat-box-list");
 
         if (!self.checkIfCardExists(id)) {
             var $card = $("<div>");
             var $name = $("<p>");
 
-            $card.attr("class", "cms-chat-user-card");
+            $card.attr("class", "lms-chat-user-card");
             $card.attr("id", id);
             $card.attr("data-username", username);
 
@@ -148,7 +148,7 @@ var CMSChat = function () {
 
     this.buildSearchOptions = function () {
         var chat = self;
-        var $searchInput = $(".cms-chat-search-user");
+        var $searchInput = $(".lms-chat-search-user");
         var id = $searchInput.attr("id");
         var url = id.split("&")[0];
         var placeholder = id.split("&")[1];
@@ -183,23 +183,23 @@ var CMSChat = function () {
             var userId = selected.split(" ")[0];
             var username = selected.split(" ")[1];
 
-            $(".cms-chat-receiver-name").text(name);
-            $(".cms-chat-receiver-name").attr("id", username);
-            $(".cms-chat-msg-area-box").show();
+            $(".lms-chat-receiver-name").text(name);
+            $(".lms-chat-receiver-name").attr("id", username);
+            $(".lms-chat-msg-area-box").show();
             $(this).text("");
             $(this).val("");
             chat.buildUserCard(userId, username, name);
             chat.getMessages(username);
             self.updateSelectedChatByUsername(username);
 
-            var status = self.cmsChatHub.server.isOnline(username, userId).done(function (data) {
+            var status = self.lmsChatHub.server.isOnline(username, userId).done(function (data) {
                 if (data) {
-                    status = cmsChatEnum.ONLINE;
+                    status = lmsChatEnum.ONLINE;
                 } else {
-                    status = cmsChatEnum.OFFLINE;
+                    status = lmsChatEnum.OFFLINE;
                 }
-                $(".cms-chat-receiver-status").text("");
-                $(".cms-chat-receiver-status").text(status);
+                $(".lms-chat-receiver-status").text("");
+                $(".lms-chat-receiver-status").text(status);
             });
         });
     };
@@ -207,17 +207,17 @@ var CMSChat = function () {
     this.setMessageHandler = function () {
         $sendBtn.on("click", function () {
             var message = $messageArea.val();
-            var receiverUsername = $(".cms-chat-receiver-name").attr("id");
+            var receiverUsername = $(".lms-chat-receiver-name").attr("id");
             if (receiverUsername.indexOf("group|") !== -1) {
                 var groupName = receiverUsername.split("|")[1];
                 $.connection.hub.start()
                     .done(function () {
-                        self.cmsChatHub.server.sendGroupMessage(message, groupName, self.loggedInUser.Username);
+                        self.lmsChatHub.server.sendGroupMessage(message, groupName, self.loggedInUser.Username);
                     });
             } else {
                 $.connection.hub.start()
                     .done(function () {
-                        self.cmsChatHub.server.sendMessage(message, receiverUsername, self.loggedInUser.Username);
+                        self.lmsChatHub.server.sendMessage(message, receiverUsername, self.loggedInUser.Username);
                     });
             }
         });
@@ -227,18 +227,18 @@ var CMSChat = function () {
             if (key === 13) {
                 e.preventDefault();
                 var message = $messageArea.val();
-                var receiverUsername = $(".cms-chat-receiver-name").attr("id");
+                var receiverUsername = $(".lms-chat-receiver-name").attr("id");
 
                 if (receiverUsername.indexOf("group|") !== -1) {
                     var groupName = receiverUsername.split("|")[1];
                     $.connection.hub.start()
                         .done(function () {
-                            self.cmsChatHub.server.sendGroupMessage(message, groupName, self.loggedInUser.Username);
+                            self.lmsChatHub.server.sendGroupMessage(message, groupName, self.loggedInUser.Username);
                         });
                 } else {
                     $.connection.hub.start()
                         .done(function () {
-                            self.cmsChatHub.server.sendMessage(message, receiverUsername, self.loggedInUser.Username);
+                            self.lmsChatHub.server.sendMessage(message, receiverUsername, self.loggedInUser.Username);
                         });
                 }
             }
@@ -247,7 +247,7 @@ var CMSChat = function () {
     }
 
     this.setChatHandler = function () {
-        $(document).on("click", "div.cms-chat-user-card", function () {
+        $(document).on("click", "div.lms-chat-user-card", function () {
             var $card = $(this);
             var currentReceiverUsername = $receiverName.attr("id");
             var nextReceiverUsername = $card.attr("data-username");
@@ -257,11 +257,11 @@ var CMSChat = function () {
             if (currentReceiverUsername !== nextReceiverUsername) {
                 var nextReceiverFullName = $card.find(">:first-child").text();
                 var nextReceiverId = $card.attr("id");
-                var status = self.cmsChatHub.server.isOnline(nextReceiverUsername, nextReceiverId).done(function (data) {
+                var status = self.lmsChatHub.server.isOnline(nextReceiverUsername, nextReceiverId).done(function (data) {
                     if (data) {
-                        status = cmsChatEnum.ONLINE;
+                        status = lmsChatEnum.ONLINE;
                     } else {
-                        status = cmsChatEnum.OFFLINE;
+                        status = lmsChatEnum.OFFLINE;
                     }
                     $receiverStatus.text("");
                     $receiverStatus.text(status);
@@ -287,7 +287,7 @@ var CMSChat = function () {
     }
 
     this.setGroupChatHandler = function () {
-        $(document).on("click", "div.cms-chat-group-card", function () {
+        $(document).on("click", "div.lms-chat-group-card", function () {
             var $card = $(this);
             var groupId = $card.attr("id");
             var groupName = groupId.split("|")[1];
@@ -297,12 +297,12 @@ var CMSChat = function () {
             $receiverName.text(groupName);
             $receiverName.attr("id", groupId);
 
-            var group = self.cmsChatHub.server.getGroup(groupName)
+            var group = self.lmsChatHub.server.getGroup(groupName)
                 .done(function (data) {
                     if (data != null) {
                         var messages = data.GroupMessages;
                         var members = self.createGroupMembersNames(data);
-                        $(".cms-chat-msg-list").empty();
+                        $(".lms-chat-msg-list").empty();
                         self.showGroupMessages(messages);
                         $receiverStatus.text("Members: " + members);
 
@@ -327,41 +327,41 @@ var CMSChat = function () {
 
     this.updateSelectedChat = function (selectCard) {
         var $selectCard = $(selectCard);
-        var $cards = $(".cms-chat-box-list").children();
+        var $cards = $(".lms-chat-box-list").children();
         for (var i = 0; i < $cards.length; i++) {
             var $card = $($cards[i]);
-            if ($card.hasClass("cms-chat-card-selected")) {
-                $card.removeClass("cms-chat-card-selected");
+            if ($card.hasClass("lms-chat-card-selected")) {
+                $card.removeClass("lms-chat-card-selected");
                 break;
             }
         }
-        $selectCard.addClass("cms-chat-card-selected");
+        $selectCard.addClass("lms-chat-card-selected");
     }
 
     this.updateSelectedChatByUsername = function (username) {
-        var $cards = $(".cms-chat-box-list").children();
+        var $cards = $(".lms-chat-box-list").children();
         var $cardToSelect = null;
         for (var i = 0; i < $cards.length; i++) {
             var $card = $($cards[i]);
             if ($card.attr("data-username") === username) {
                 $cardToSelect = $card;
-            } else if ($card.hasClass("cms-chat-card-selected")) {
-                $card.removeClass("cms-chat-card-selected");
+            } else if ($card.hasClass("lms-chat-card-selected")) {
+                $card.removeClass("lms-chat-card-selected");
             }
         }
-        $cardToSelect.addClass("cms-chat-card-selected");
+        $cardToSelect.addClass("lms-chat-card-selected");
     }
 
     this.makeNotificationOnCard = function (sender) {
         var receiverUsername = sender.Username;
-        var $cards = $(".cms-chat-box-list").children();
+        var $cards = $(".lms-chat-box-list").children();
         for (var i = 0; i < $cards.length; i++) {
             var $card = $($cards[i]);
             var usernameOnCard = $card.attr("data-username");
             if (usernameOnCard === receiverUsername) {
                 var $cardChildren = $card.children();
                 if ($cardChildren.length > 1) {
-                    var $notificationParagraph = $card.children(".cms-chat-msg-counter-notification");
+                    var $notificationParagraph = $card.children(".lms-chat-msg-counter-notification");
                     var $span = $($notificationParagraph.children()[0]);
                     var currentNumber = $span.text();
                     currentNumberInt = parseInt(currentNumber);
@@ -378,14 +378,14 @@ var CMSChat = function () {
 
     this.makeNotificationOnGroupCard = function (groupName) {
         var comparer = "group|" + groupName;
-        var $cards = $(".cms-chat-box-list").children();
+        var $cards = $(".lms-chat-box-list").children();
         for (var i = 0; i < $cards.length; i++) {
             var $card = $($cards[i]);
             var id = $card.attr("id");
             if (comparer === id) {
                 var $cardChildren = $card.children();
                 if ($cardChildren.length > 1) {
-                    var $notificationParagraph = $card.children(".cms-chat-msg-counter-notification");
+                    var $notificationParagraph = $card.children(".lms-chat-msg-counter-notification");
                     var $span = $($notificationParagraph.children()[0]);
                     var currentNumber = $span.text();
                     currentNumberInt = parseInt(currentNumber);
@@ -403,15 +403,15 @@ var CMSChat = function () {
     this.makeNotification = function () {
         var $paragraph = $("<p>");
         var $span = $("<span>");
-        $paragraph.addClass("cms-chat-msg-counter-notification");
-        $span.addClass("cms-chat-msg-counter-notification-span");
+        $paragraph.addClass("lms-chat-msg-counter-notification");
+        $span.addClass("lms-chat-msg-counter-notification-span");
         $span.text("1");
         $paragraph.append($span);
         return $paragraph;
     }
 
     this.buildGroupCard = function (group, focus) {
-        var $cardList = $(".cms-chat-box-list");
+        var $cardList = $(".lms-chat-box-list");
         var groupName = group.GroupName;
 
         var id = "group|" + groupName;
@@ -421,7 +421,7 @@ var CMSChat = function () {
             var $text = $("<p>");
             var $name = $("<b>");
 
-            $card.attr("class", "cms-chat-group-card");
+            $card.attr("class", "lms-chat-group-card");
             $card.attr("id", id);
 
             $name.text(groupName);
@@ -437,7 +437,7 @@ var CMSChat = function () {
     }
 
     this.removeAllGroupCards = function () {
-        var $cardList = $(".cms-chat-box-list");
+        var $cardList = $(".lms-chat-box-list");
         var $cardListElements = $cardList.children();
         for (var i = 0; i < $cardListElements.length; i++) {
             var $card = $($cardListElements[i]);
@@ -450,7 +450,7 @@ var CMSChat = function () {
 
     this.removeGroupCard = function (groupName) {
         var compare = "group|" + groupName;
-        var $cardList = $(".cms-chat-box-list");
+        var $cardList = $(".lms-chat-box-list");
         var $cardListElements = $cardList.children();
         for (var i = 0; i < $cardListElements.length; i++) {
             var $card = $($cardListElements[i]);
@@ -471,7 +471,7 @@ var CMSChat = function () {
             $receiverName.attr("id", "");
             $receiverStatus.text("");
             $manageGroupMembers.empty();
-            $(".cms-chat-msg-list").empty();
+            $(".lms-chat-msg-list").empty();
         }
     }
 
@@ -499,7 +499,7 @@ var CMSChat = function () {
     }
 
     this.checkIfCardExists = function (id) {
-        var $cardList = $(".cms-chat-box-list");
+        var $cardList = $(".lms-chat-box-list");
         var $cardListElements = $cardList.children();
         var exists = false;
         for (var i = 0; i < $cardListElements.length; i++) {
@@ -530,7 +530,7 @@ var CMSChat = function () {
             $addMembersParagraph.css("margin-bottom", 0);
             $addMembersLink.attr("href", "#");
             $addMembersLink.attr("id", groupId);
-            $addMembersLink.attr("class", "cms-chat-group-add-members-link");
+            $addMembersLink.attr("class", "lms-chat-group-add-members-link");
             $addMembersLink.text("Add members to group");
 
             $addMembersParagraph.append($addMembersLink);
@@ -546,7 +546,7 @@ var CMSChat = function () {
             $removeMembersParagraph.css("margin-bottom", 0);
             $removeMembersLink.attr("href", "#");
             $removeMembersLink.attr("id", groupId);
-            $removeMembersLink.attr("class", "cms-chat-group-remove-members-link");
+            $removeMembersLink.attr("class", "lms-chat-group-remove-members-link");
             $removeMembersLink.text("Remove members from group");
 
             $removeMembersParagraph.append($removeMembersLink);
@@ -559,7 +559,7 @@ var CMSChat = function () {
         var id = "group|" + group.GroupName;
         var messages = group.GroupMessages;
 
-        $(".cms-chat-msg-list").empty();
+        $(".lms-chat-msg-list").empty();
         self.showGroupMessages(messages)
 
         $messageAreaBox.show();
@@ -575,7 +575,7 @@ var CMSChat = function () {
     }
 
     this.setAddMembersHandler = function () {
-        $(document).on("click", "a.cms-chat-group-add-members-link", function () {
+        $(document).on("click", "a.lms-chat-group-add-members-link", function () {
             var dialogType = new DialogTypeEnum().CHAT_ADD_MEMBERS;
             var dialog = new DialogFactory().createDialog(dialogType);
             dialog.open("");
@@ -583,7 +583,7 @@ var CMSChat = function () {
     }
 
     this.setRemoveMembersHandler = function () {
-        $(document).on("click", "a.cms-chat-group-remove-members-link", function () {
+        $(document).on("click", "a.lms-chat-group-remove-members-link", function () {
             var dialogType = new DialogTypeEnum().CHAT_REMOVE_MEMBER;
             var dialog = new DialogFactory().createDialog(dialogType);
             dialog.open("");
@@ -597,7 +597,7 @@ chat.initChat();
 
 
 chatHub.client.updateUsersOnline = function (data) {
-    $(".cms-chat-box-list").empty();
+    $(".lms-chat-box-list").empty();
     var loggedUserUsername = chat.loggedInUser.Username;
     if (data.success) {
         var onlineUsers = data.onlineUsers;
@@ -625,8 +625,8 @@ chatHub.client.updateGroups = function (data) {
 
 chatHub.client.updateGroup = function (data) {
     var $dialog = $("#Dialog");
-    var $form = $("form.cms-chat-dialog-form");
-    var $selection = $("#cms-chat-group-members-select");
+    var $form = $("form.lms-chat-dialog-form");
+    var $selection = $("#lms-chat-group-members-select");
     var focus = false;
 
     if ($dialog.hasClass("ui-dialog-content")) {
@@ -657,19 +657,19 @@ chatHub.client.updateGroup = function (data) {
 
 chatHub.client.updateChat = function (sender, message, groupName) {
     if (chat.loggedInUser.Username === sender.Username) {
-        chat.buildMessage(message, cmsChatEnum.SENDER_MSG, sender.Username);
+        chat.buildMessage(message, lmsChatEnum.SENDER_MSG, sender.Username);
     } else {
-        var currentReceiver = $(".cms-chat-receiver-name").text();
+        var currentReceiver = $(".lms-chat-receiver-name").text();
         var messageSender = sender.Firstname + " " + sender.Lastname;
         if (groupName !== "" && groupName != null) {
             if (currentReceiver === groupName) {
-                chat.buildMessage(message, cmsChatEnum.RECEIVER_MSG, sender.Username);
+                chat.buildMessage(message, lmsChatEnum.RECEIVER_MSG, sender.Username);
             } else {
                 chat.makeNotificationOnGroupCard(groupName);
             }
         } else {
             if (currentReceiver === messageSender) {
-                chat.buildMessage(message, cmsChatEnum.RECEIVER_MSG, sender.Username);
+                chat.buildMessage(message, lmsChatEnum.RECEIVER_MSG, sender.Username);
             } else {
                 chat.makeNotificationOnCard(sender);
             }
@@ -698,42 +698,42 @@ chatHub.client.removedFromGroup = function (data) {
     }
 }
 
-$(document).on("click", ".cms-chat-submit-group", function () {
-    if ($("#cms-chat-create-group-form").valid()) {
+$(document).on("click", ".lms-chat-submit-group", function () {
+    if ($("#lms-chat-create-group-form").valid()) {
         var groupCreator = chat.loggedInUser.Username;
-        var groupName = $("#cms-chat-group-name").val();
-        var message = $("#cms-chat-group-message").val();
-        var selectedMembers = $("#cms-chat-group-members-select").val();
+        var groupName = $("#lms-chat-group-name").val();
+        var message = $("#lms-chat-group-message").val();
+        var selectedMembers = $("#lms-chat-group-members-select").val();
         var groupMembers = null;
         if (selectedMembers != null)
             groupMembers = chat.createGroupMembersFromSelection(selectedMembers);
 
         $.connection.hub.start()
             .done(function () {
-                chat.cmsChatHub.server.createChatGroup(groupCreator, groupName, message, groupMembers);
+                chat.lmsChatHub.server.createChatGroup(groupCreator, groupName, message, groupMembers);
             });
     }
 });
 
-$(document).on("click", ".cms-chat-add-members-submit", function () {
-    if ($("#cms-chat-add-members-form").valid()) {
-        var groupName = $(".cms-chat-receiver-name").text();
-        var newMembers = $("#cms-chat-group-members-select").val();
+$(document).on("click", ".lms-chat-add-members-submit", function () {
+    if ($("#lms-chat-add-members-form").valid()) {
+        var groupName = $(".lms-chat-receiver-name").text();
+        var newMembers = $("#lms-chat-group-members-select").val();
         newMembers = chat.createGroupMembersFromSelection(newMembers);
         $.connection.hub.start()
             .done(function () {
-                chat.cmsChatHub.server.addNewMembers(groupName, newMembers);
+                chat.lmsChatHub.server.addNewMembers(groupName, newMembers);
             });
     }
 });
 
-$(document).on("click", ".cms-chat-remove-member-submit", function () {
-    if ($("#cms-chat-remove-member-form").valid()) {
-        var groupName = $(".cms-chat-receiver-name").text();
-        var username = $("#cms-chat-group-member-username").val();
+$(document).on("click", ".lms-chat-remove-member-submit", function () {
+    if ($("#lms-chat-remove-member-form").valid()) {
+        var groupName = $(".lms-chat-receiver-name").text();
+        var username = $("#lms-chat-group-member-username").val();
         $.connection.hub.start()
             .done(function () {
-                chat.cmsChatHub.server.removeMember(groupName, username);
+                chat.lmsChatHub.server.removeMember(groupName, username);
             });
     }
 });

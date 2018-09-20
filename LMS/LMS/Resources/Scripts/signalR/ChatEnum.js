@@ -5,4 +5,4 @@
     this.OFFLINE = "Offline";
 };
 
-var cmsChatEnum = new chatEnum();
+var lmsChatEnum = new chatEnum();

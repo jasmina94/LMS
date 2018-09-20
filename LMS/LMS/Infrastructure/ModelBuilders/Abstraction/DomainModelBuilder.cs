@@ -17,9 +17,9 @@ namespace LMS.Infrastructure.ModelBuilders.Abstraction
         {
             model.Id = viewModel.Id;
             model.IsActive = viewModel.IsActive;
-            model.RefUserCreatedBy = viewModel.RefUserCreatedBy;
+            model.RefUserCreatedBy = viewModel.UserCreatedByInt;
             model.DateTimeCreatedOn = viewModel.DateTimeCreatedOn;
-            model.RefUserDeletedBy = viewModel.RefUserDeletedBy;
+            model.RefUserDeletedBy = viewModel.UserDeletedById;
             model.DateTimeDeletedOn = viewModel.DateTimeDeletedOn;
         }
 

@@ -1,13 +1,13 @@
-﻿/// <reference path="~/Resources/Scripts/lms-grid/CMSGrid.js" />
+﻿/// <reference path="~/Resources/Scripts/lms-grid/LMSGrid.js" />
 /// <reference path="~/Resources/Scripts/lms-ribbon/CMSRibbonInitializer.js" />
 /// <reference path="~/Resources/Scripts/ajax/AjaxHttpSender.js" />
 /// <reference path="~/Resources/Scripts/dialogs/DialogFactory.js"/>
 /// <reference path="~/Resources/Scripts/Validator.js"/>
 
 (function ($) {
-    $.fn.cmsGrid = cmsGrid($);
+    $.fn.lmsGrid = lmsGrid($);
     $(window).on("load", function () {
-        cmsRibbonInitializer($);
+        lmsRibbonInitializer($);
     });
 }(jQuery));
 

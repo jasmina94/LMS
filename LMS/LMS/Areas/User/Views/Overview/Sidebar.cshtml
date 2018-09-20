@@ -1,0 +1,15 @@
+﻿@using LMS.Infrastructure.HtmlHelpers
+
+<ul class="nav nav-pills nav-stacked sidebar">
+    <li>
+        @Html.SidebarItem("refresh", "Refresh", "Refresh content", Html.Glyphicon("refresh"))
+    </li>
+    <li>
+        @Html.SidebarItem("filter", "Filter", "Filter content of the table", Html.Glyphicon("filter"))
+    </li>
+    <li>
+        @Html.SidebarItem("add", "Add", "Add new item", Html.Glyphicon("plus"))
+    </li>
+</ul>
+
+

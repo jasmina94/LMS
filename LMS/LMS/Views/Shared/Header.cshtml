@@ -36,10 +36,10 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Category", "Index", "Category", new { area = "Category" }, "")</li>
-                        <li>@Html.ActionLink("Book", "Index", "Book", new { area = "Book" }, "")</li>
-                        <li>@Html.ActionLink("Language", "Index", "Language", new { area = "Language" }, "")</li>
-                        <li>@Html.ActionLink("User", "Index", "User", new { area = "User" }, "")</li>
+                        <li>@Html.ActionLink("Category", "Form", "Category", new { area = "Category" }, new { @class = "lms-open-dialog" })</li>
+                        <li>@Html.ActionLink("Book", "Form", "Book", new { area = "Book" }, new { @class = "lms-open-dialog" })</li>
+                        <li>@Html.ActionLink("Language", "Form", "Language", new { area = "Language" }, new { @class = "lms-open-dialog" })</li>
+                        <li>@Html.ActionLink("User", "Form", "User", new { area = "User" }, new { @class = "lms-open-dialog" })</li>
                     </ul>
                 </li>
                 <li class="dropdown">@Html.ActionLink("e-books", "Index", "Category", new { area = "EBook" }, "")</li>

@@ -17,6 +17,7 @@ using LMS.Services.Interfaces;
 using System.Configuration;
 using System.Reflection;
 using System.Web.Mvc;
+using System;
 
 namespace LMS.App_Start
 {
@@ -35,6 +36,7 @@ namespace LMS.App_Start
             RegisterFilterProvider();
             RegisterMembershipProvider();
             RegisterAccessControlService();
+            RegisterBusinessLogicLayer();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
@@ -139,6 +141,18 @@ namespace LMS.App_Start
                .As<IAccessControlService>()
                .SingleInstance()
                .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+        }
+
+        private static void RegisterBusinessLogicLayer()
+        {
+            var dataAccess = Assembly.GetExecutingAssembly();
+
+            builder
+            .RegisterAssemblyTypes(dataAccess)
+            .Where(t => t.Name.EndsWith("ServiceImpl") && t.Namespace.Contains("Management"))
+            .AsImplementedInterfaces()
+            .SingleInstance()
+            .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
         }
     }
 }

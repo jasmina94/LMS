@@ -3,10 +3,14 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/bootstrap")    
+    @Scripts.Render("~/bundles/bootstrap")   
+    @Scripts.Render("~/bundles/jqueryUI")    
     @Scripts.Render("~/bundles/dialogs")
     @Scripts.Render("~/bundles/dialogs/chat")
     @Scripts.Render("~/bundles/dialogs/user")
+    @Scripts.Render("~/bundles/dialogs/category")
+    @Scripts.Render("~/bundles/dialogs/language")
+    @Scripts.Render("~/bundles/dialogs/book")
     @Scripts.Render("~/bundles/grid")
     @Scripts.Render("~/bundles/ribbon")
     @Scripts.Render("~/bundles/select")
@@ -14,7 +18,11 @@
     @Scripts.Render("~/bundles/global")
     @Scripts.Render("~/bundles/css")
 
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/bootstrap/css")
+    @Styles.Render("~/jqueryUI/css")
+    @Styles.Render("~/select/css")
+    @Styles.Render("~/toastr/css")
+    @Styles.Render("~/custom/css")
 </head>
 <body>
     @if (@Request.RawUrl != "/Account")

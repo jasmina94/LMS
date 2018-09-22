@@ -13,7 +13,7 @@
 
 $(function () {
 
-    var $dialogOpener = $(".OpenDialog");
+    var $dialogOpener = $(".lms-open-dialog");
     var $container = $("#Dialog");
     var $loginForm = $("#LoginUserForm");
 
@@ -29,7 +29,7 @@ $(function () {
         dialog.open(data);
     });
 
-    $container.on("click", ".saveBtn", function (e) {
+    $container.on("click", ".lms-save-button", function (e) {
         e.preventDefault();
         var $form = $("div.panel-body > form");
         new AjaxHttpSender().saveData($form);

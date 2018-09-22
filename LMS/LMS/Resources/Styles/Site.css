@@ -73,3 +73,78 @@
 .tooltip-inner {
     max-width: 350px;
 }
+
+/* Forms styles*/
+/* Set width on the form input elements since they're 100% wide by default */
+input[type="text"],
+input[type="password"] {
+    max-width: 280px;
+}
+
+input.InputWithGlyphicon {
+    max-width: 240px;
+}
+
+input.SpecificInputType {
+    max-width: 280px;
+}
+
+.lms-save-button {
+    margin-left: 40%;
+    width: 80px;
+}
+
+    .lms-save-button.with-delete {
+        margin-right: 10px;
+        width: 110px;
+    }
+
+.lms-delete-button {
+    margin-right: 10px;
+}
+
+.lms-selectpicker {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.lms-selectpicker {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.select2-container--bootstrap .select2-results > .select2-results__options {
+    height: 100px;
+}
+
+
+/*Validation tooltips*/
+.errorTooltip {
+    position: fixed;
+    display: inline-block;
+    width: 120px;
+    z-index: 2;
+}
+
+    .errorTooltip .errorTooltipText {
+        display: block;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        padding: 4px;
+        border-radius: 6px;
+        position: relative;
+        bottom: 50%;
+        margin-left: -70px;
+    }
+
+        .errorTooltip .errorTooltipText:after {
+            content: "";
+            position: absolute;
+            height: 0;
+            width: 0;
+            top: 0%;
+            right: 98%;
+            border: 10px solid transparent;
+            border-right: 10px solid #555;
+        }

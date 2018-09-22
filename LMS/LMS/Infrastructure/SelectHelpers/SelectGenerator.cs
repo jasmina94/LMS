@@ -1,4 +1,6 @@
-﻿using LMS.DomainModel.DomainObject;
+﻿using LMS.Models.ViewModels.Category;
+using LMS.Models.ViewModels.Language;
+using LMS.Models.ViewModels.User;
 using System.Collections.Generic;
 
 namespace LMS.MVC.Infrastructure.SelectHelpers
@@ -20,7 +22,7 @@ namespace LMS.MVC.Infrastructure.SelectHelpers
             return jsonItems;
         }
 
-        public static SelectPageResult UsersToSelectPageResult(List<UserData> usersList, int usersCount)
+        public static SelectPageResult UsersToSelectPageResult(List<UserViewModel> usersList, int usersCount)
         {
             SelectPageResult jsonUsers = new SelectPageResult();
             jsonUsers.Results = new List<SelectResult>();
@@ -35,7 +37,37 @@ namespace LMS.MVC.Infrastructure.SelectHelpers
             return jsonUsers;
         }
 
-        public static SelectPageResult ChatUsersToSelectPageResult(List<UserData> usersList, int usersCount)
+        public static SelectPageResult CategoriesToSelectPageResult(List<CategoryViewModel> categoryList, int usersCount)
+        {
+            SelectPageResult jsonUsers = new SelectPageResult();
+            jsonUsers.Results = new List<SelectResult>();
+
+            foreach (var item in categoryList)
+            {
+                jsonUsers.Results.Add(new SelectResult { id = item.Id.ToString(), text = item.Name.ToString() });
+            }
+
+            jsonUsers.Total = usersCount;
+
+            return jsonUsers;
+        }
+
+        public static SelectPageResult LanguagesToSelectPageResult(List<LanguageViewModel> languageList, int usersCount)
+        {
+            SelectPageResult jsonUsers = new SelectPageResult();
+            jsonUsers.Results = new List<SelectResult>();
+
+            foreach (var item in languageList)
+            {
+                jsonUsers.Results.Add(new SelectResult { id = item.Id.ToString(), text = item.Name.ToString() });
+            }
+
+            jsonUsers.Total = usersCount;
+
+            return jsonUsers;
+        }
+
+        public static SelectPageResult ChatUsersToSelectPageResult(List<UserViewModel> usersList, int usersCount)
         {
             SelectPageResult jsonUsers = new SelectPageResult();
             jsonUsers.Results = new List<SelectResult>();

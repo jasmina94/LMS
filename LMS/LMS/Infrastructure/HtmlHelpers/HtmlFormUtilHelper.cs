@@ -6,7 +6,7 @@ namespace LMS.Infrastructure.HtmlHelpers
     public static class HtmlFormUtilHelper
    {
       public static MvcHtmlString FormSubmit(this HtmlHelper htmlHeleper, string value = "Save", bool newLine = false,
-         string divClass = "form-group", string specialBtnClass = "saveBtn", string buttonClass = "btn btn-default", string type="submit")
+         string divClass = "form-group", string specialBtnClass = "lms-save-button", string buttonClass = "btn btn-default", string type="submit")
       {
          var divTag = new TagBuilder("div");
          var buttonTag = new TagBuilder("button");
@@ -29,7 +29,7 @@ namespace LMS.Infrastructure.HtmlHelpers
 
 
       public static MvcHtmlString FormSubmitOrDelete(this HtmlHelper htmlHelper, string btnClass = "btn btn-default", bool newLine = false,
-         string saveLabel = "Save", string deleteLabel = "Delete", string specialSaveBtnClass = "saveBtn withDelete", string specialDeleteBtnClass = "deleteBtn",
+         string saveLabel = "Save", string deleteLabel = "Delete", string specialSaveBtnClass = "lms-save-button with-delete", string specialDeleteBtnClass = "lms-delete-button",
          string url = "")
       {
 

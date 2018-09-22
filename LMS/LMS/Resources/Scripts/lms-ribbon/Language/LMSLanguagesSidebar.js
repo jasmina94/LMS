@@ -29,8 +29,8 @@ LMSLanguagesSidebar.prototype.filter = function () {
     this.base.prototype.filter.call(this);
 };
 LMSLanguagesSidebar.prototype.add = function () {
-    var path = "/Language/Language/Create";
-    var data = "";
+    var path = new DialogTypeEnum().LANGUAGE;
+    var data = null;
     var dialog = new DialogFactory().createDialog(path);
     dialog.open(data);
 };

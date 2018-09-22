@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 
-namespace LMS.Areas.Users
+namespace LMS.Areas.User
 {
-    public class UsersAreaRegistration : AreaRegistration 
+    public class UserAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
         {

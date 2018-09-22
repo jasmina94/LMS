@@ -1,0 +1,26 @@
+﻿@model LMS.Models.ViewModels.User.UserViewModel
+@using LMS.Infrastructure.HtmlHelpers
+@using LMS.Infrastructure.HtmlHelpers.Utility
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @Html.DialogTitle(value: "User")
+        <form action="/User/User/Save" method="post" id="LanguageForm" class="form-horizontal">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.IsActive)
+            @Html.HiddenFor(model => model.UserCreatedBy)
+            @Html.HiddenFor(model => model.DateTimeCreatedOn)
+            @Html.HiddenFor(model => model.UserDeletedBy)
+            @Html.HiddenFor(model => model.DateTimeDeletedOn)
+
+            @Html.SimpleFormInput(model => model.Firstname, "Firstname:", inputValue: Model.Firstname)
+            @Html.SimpleFormInput(model => model.Lastname, "Lastname:", inputValue: Model.Lastname)
+            @Html.IconFormInput(model => model.BirthDate, "Date of birth:", specialInputClass: "InputWithGlyphicon DatePicker", iconHtmlString: Html.Glyphicon("calendar", true))
+            @Html.SimpleFormInput(model => model.Username, "Username:", inputValue: Model.Username)
+            @Html.SimpleFormInput(model => model.UserPassword, "Password:")
+            @Html.SimpleFormInput(model => model.Email, "Email:", inputType: FormInputType.EMAIL, specialInputClass: "SpecificInputType", inputValue: Model.Email)
+
+            @Html.FormSubmit(newLine: true)
+        </form>
+    </div>
+</div>

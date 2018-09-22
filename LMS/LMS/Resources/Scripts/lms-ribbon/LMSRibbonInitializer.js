@@ -39,7 +39,6 @@ var lmsRibbonInitializer = function ($) {
     }
 
     function changeRibbonItemView() {
-        console.log($ribbon);
         $ribbon
            .find("li[class='active'] > a")
            .each(function () {

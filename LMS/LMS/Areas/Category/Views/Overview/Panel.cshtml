@@ -1,5 +1,5 @@
 ﻿<div class="jumbotron lms-jumbotron-small">
-    <p>List of categories</p>
+    <p>List of active categories</p>
 </div>
 
 <div id="CategoryGrid" class="lms-grid-container">
@@ -17,12 +17,11 @@
       showPrevNext: true,
       showFirstLast: true,
       fields: [
-         { label: "Id", name: "Id", type: "int", sorted: true, width: "50px" },
-         { label: "Is active", name: "IsActive", type: "bool" },
+         { label: "Id", name: "Id", type: "int", sorted: true, width: "40px" },
          { label: "Name", name: "Name", type: "string" },
          { label: "Code", name: "Code", type: "string" },
          { label: "Created by", name: "UserCreatedBy", type: "string", link: "/User/User/AboutUser" },
-         { label: "Creation date", name: "DateTimeCreated", type: "date" }
+         { label: "Creation date", name: "DateTimeCreatedOn", type: "date" }
       ]
    });
 </script>

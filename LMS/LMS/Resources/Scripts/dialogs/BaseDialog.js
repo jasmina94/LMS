@@ -11,12 +11,10 @@ BaseDialog.prototype = {
 
     open: function (data) {
         var self = this;
-        self.container = $("#Dialog");
-
+        self.container = $("#Dialog");  
         if (data != "") {
             self.url = self.url + "/" + data;
         }
-
         $.ajax({
             url: self.url,
             data: JSON.stringify(data),
@@ -108,12 +106,11 @@ BaseDialog.prototype = {
             parts = id.split("&");
             placeholder = parts[1];
         } else {
-            if (url.indexOf("GetUsers") !== -1) {
-                placeholder = "Select user for note";
-            } else if (url.indexOf("GetPersons") !== -1) {
-                placeholder = "Select person for note";
-            } else if (url.indexOf("GetCompanies") !== -1) {
-                placeholder = "Select company for note";
+            if (url.indexOf("Category") !== -1) {
+                placeholder = "Select category";
+            }
+            if (url.indexOf("Language") !== -1) {
+                placeholder = "Select language";
             }
         }
 
@@ -122,7 +119,6 @@ BaseDialog.prototype = {
 
     findUrl: function (id) {
         var url = "";
-
         if (id.indexOf("&") !== -1) {
             url = id.split("&")[0];
         } else {

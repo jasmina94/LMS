@@ -18,7 +18,7 @@ UserDialog.prototype.initValidator = function () {
          Lastname: "required",
          Username: "required",
          UserPassword: "required",
-         DateOfBirth: {
+         BirthDate: {
             required: true,
             date: true,
          },
@@ -32,7 +32,7 @@ UserDialog.prototype.initValidator = function () {
          Lastname: "Lastname is required!",
          Username: "Username is required!",
          UserPassword: "Password is required!",
-         DateOfBirth: {
+         BirthDate: {
             required: "Date of birth is required!",
             date: "Date of birth must be in date format."
          },

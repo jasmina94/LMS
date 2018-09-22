@@ -29,7 +29,7 @@ LMSCategoriesSidebar.prototype.filter = function () {
    this.base.prototype.filter.call(this);
 };
 LMSCategoriesSidebar.prototype.add = function () {
-   var path = "/Category/Category/Create";
+    var path = new DialogTypeEnum().CATEGORY;
    var data = "";
    var dialog = new DialogFactory().createDialog(path);
    dialog.open(data);

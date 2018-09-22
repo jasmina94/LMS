@@ -29,7 +29,7 @@ LMSBooksSidebar.prototype.filter = function () {
     this.base.prototype.filter.call(this);
 };
 LMSBooksSidebar.prototype.add = function () {
-    var path = "/Book/Book/Create";
+    var path = new DialogTypeEnum().BOOK;
     var data = "";
     var dialog = new DialogFactory().createDialog(path);
     dialog.open(data);

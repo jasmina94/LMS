@@ -7,8 +7,10 @@
         <form action="/Category/Category/Save" method="post" id="CategoryForm" class="form-horizontal">
             @Html.HiddenFor(model => model.Id)
             @Html.HiddenFor(model => model.IsActive)
+            @Html.HiddenFor(model => model.UserCreatedById)
             @Html.HiddenFor(model => model.UserCreatedBy)
             @Html.HiddenFor(model => model.DateTimeCreatedOn)
+            @Html.HiddenFor(model => model.UserDeletedById)
             @Html.HiddenFor(model => model.UserDeletedBy)
             @Html.HiddenFor(model => model.DateTimeDeletedOn)
 

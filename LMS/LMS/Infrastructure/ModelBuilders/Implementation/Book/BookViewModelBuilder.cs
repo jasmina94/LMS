@@ -41,18 +41,22 @@ namespace LMS.Infrastructure.ModelBuilders.Implementation.Book
 
         private string GetCategoryName(int categoryId)
         {
-            string categoryName;
+            string categoryName = string.Empty;           
             CategoryData category = CategoryRepository.GetDataById(categoryId);
-            categoryName = category.NameCategory;
+
+            if(category != null)
+                categoryName = category.NameCategory;
 
             return categoryName;
         }
 
         private string GetLanguageName(int categoryId)
         {
-            string languageName;
+            string languageName = string.Empty;
             LanguageData language = LanguageRepository.GetDataById(categoryId);
-            languageName = language.NameLanguage;
+
+            if (language != null)
+                languageName = language.NameLanguage;
 
             return languageName;
         }
@@ -60,10 +64,10 @@ namespace LMS.Infrastructure.ModelBuilders.Implementation.Book
         private string GetUserFullName(int userId)
         {
             string fullname = string.Empty;
-            if(userId != 0){
-                UserData user = UserRepository.GetDataById(userId);
-                fullname = user.FullFirstAndLastName;
-            }            
+            UserData user = UserRepository.GetDataById(userId);
+
+            if (user != null)
+                fullname = user.FullFirstAndLastName;         
 
             return fullname;
         }

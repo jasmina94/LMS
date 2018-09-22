@@ -14,6 +14,8 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
     {
         public IBookRepository BookRepository { get; set; }
 
+        public IBookCopyRepository BookCopyRepository { get; set; }
+
         public IModelConstructor Constructor { get; set; }
 
         public IBuilderResolverService BuilderResolverService { get; set; }
@@ -69,6 +71,33 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             if (id != 0)
             {
                 result = new SaveBookResult(id, domainModel.BookAuthorAndTitle);
+            }
+
+            return result;
+        }
+
+        public SaveBookResult Save(BookCopyViewModel viewModel)
+        {
+            var result = new SaveBookResult();
+
+            viewModel.Id = 0;  //Always create never update
+
+            BookCopyDomainModelBuilder builder = BuilderResolverService.Get<BookCopyDomainModelBuilder, BookCopyViewModel>(viewModel);
+            Constructor.ConstructDomainModelData(builder);
+            BookCopyData domainModel = builder.GetDataModel();
+
+            int id = BookCopyRepository.SaveData(domainModel);
+            if (id != 0)
+            {
+                BookViewModel bookViewModel = Get(viewModel.BookId);
+                bookViewModel.NumOfAvailableCopies = bookViewModel.NumOfAvailableCopies + 1;
+                SaveBookResult updateResult = Save(bookViewModel);
+
+                if (updateResult.Success)
+                {
+                    result = new SaveBookResult(id, viewModel.BookAuthorAndTitle, 
+                        "Successfully added copy of book " + viewModel.BookAuthorAndTitle);
+                }
             }
 
             return result;

@@ -108,7 +108,9 @@
     <Compile Include="Repository\Base\Implementation\Repository.cs" />
     <Compile Include="Repository\Base\Interfaces\IBaseRepository.cs" />
     <Compile Include="Repository\Base\Interfaces\IRepository.cs" />
+    <Compile Include="Repository\Book\Implementation\BookCopyRepository.cs" />
     <Compile Include="Repository\Book\Implementation\BookRepository.cs" />
+    <Compile Include="Repository\Book\Interfaces\IBookCopyRepository.cs" />
     <Compile Include="Repository\Book\Interfaces\IBookRepository.cs" />
     <Compile Include="Repository\Category\Implementation\CategoryRepository.cs" />
     <Compile Include="Repository\Category\Interfaces\ICategoryRepository.cs" />

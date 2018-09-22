@@ -7,6 +7,7 @@
 /// <reference path="~/Resources/Scripts/dialogs/Language/Language.js"/>
 
 /// <reference path="~/Resources/Scripts/dialogs/Book/Book.js"/>
+/// <reference path="~/Resources/Scripts/dialogs/Book/BookCopy.js"/>
 
 /// <reference path="~/Resources/Scripts/dialogs/User/About.js"/>
 /// <reference path="~/Resources/Scripts/dialogs/Chat/GroupChat.js"/>
@@ -26,6 +27,7 @@ var DialogFactory = function () {
     dialogDictionary[dialogTypeEnum.LANGUAGE] = new LanguageDialog();
 
     dialogDictionary[dialogTypeEnum.BOOK] = new BookDialog();
+    dialogDictionary[dialogTypeEnum.BOOK_COPY] = new BookCopyDialog();
 
     dialogDictionary[dialogTypeEnum.CHAT_GROUP] = new GroupChatDialog();
     dialogDictionary[dialogTypeEnum.CHAT_ADD_MEMBERS] = new AddMemberDialog();

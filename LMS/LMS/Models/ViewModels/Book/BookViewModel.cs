@@ -39,6 +39,14 @@ namespace LMS.Models.ViewModels.Book
 
         public string Cataloguer { get; set; }
 
+        public string AuthorAndTitle
+        {
+            get
+            {
+                return Author + " - " + Title;
+            }
+        }
+
         public override string Validate(ILMSValidator validator)
         {
             return validator.InvokeValidation(this);

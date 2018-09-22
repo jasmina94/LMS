@@ -11,23 +11,27 @@
         <form action="/Book/Book/Save" method="post" id="BookForm" class="form-horizontal">
             @Html.HiddenFor(model => model.Id)
             @Html.HiddenFor(model => model.IsActive)
+            @Html.HiddenFor(model => model.UserCreatedById)
             @Html.HiddenFor(model => model.UserCreatedBy)
             @Html.HiddenFor(model => model.DateTimeCreatedOn)
+            @Html.HiddenFor(model => model.UserDeletedById)
             @Html.HiddenFor(model => model.UserDeletedBy)
             @Html.HiddenFor(model => model.DateTimeDeletedOn)
 
-            @Html.SimpleFormInput(model => model.Title, "Title:")
-            @Html.SimpleFormInput(model => model.Author, "Author:")
+            @Html.SimpleFormInput(model => model.Title, "Title:", inputValue: Model.Title)
+            @Html.SimpleFormInput(model => model.Author, "Author:", inputValue: Model.Author)
             @Html.SimpleFormInput(model => model.PublicationYear, "Publication year:",
-                inputType: FormInputType.NUMBER, specialInputClass: "SpecificInputType")
-            @Html.SimpleFormInput(model => model.PublicationYear, "Number of copies:", 
-                inputType: FormInputType.NUMBER, specialInputClass: "SpecificInputType")
-            @Html.DropDownSelect(model => model.Category, "Category:", selectValue: @Model.CategoryId, 
+                inputType: FormInputType.NUMBER, specialInputClass: "SpecificInputType", 
+                inputValue: Model.PublicationYear.ToString())
+            @Html.SimpleFormInput(model => model.NumOfAvailableCopies, "Number of copies:", 
+                inputType: FormInputType.NUMBER, specialInputClass: "SpecificInputType", 
+                inputValue: Model.NumOfAvailableCopies.ToString())
+            @Html.DropDownSelect(model => model.CategoryId, "Category:", selectValue: @Model.CategoryId, 
                 innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Category/Category/GetSelect", 
-                value: Model.Category, edit: editMode)
-            @Html.DropDownSelect(model => model.Language, "Language:", selectValue: @Model.CategoryId,
+                value: Model.CategoryId.ToString(), edit: editMode)
+            @Html.DropDownSelect(model => model.LanguageId, "Language:", selectValue: @Model.CategoryId,
                 innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Language/Language/GetSelect",
-                value: Model.Language, edit: editMode)
+                value: Model.LanguageId.ToString(), edit: editMode)
 
             @Html.FormSubmit(newLine: true)
         </form>

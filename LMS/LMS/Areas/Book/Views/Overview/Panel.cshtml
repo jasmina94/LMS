@@ -16,12 +16,27 @@
       paging: true,
       showPrevNext: true,
       showFirstLast: true,
+      rowClickable: true,
+      rowAction: function (rowId) {
+          var dialog = new DialogFactory().createDialog(new DialogTypeEnum().BOOK);
+          dialog.open(rowId);
+      },
+      cellAction: function (cell) {
+          console.log(cell);
+          if (cell.field.label === "Available copies") {
+              var action = cell.field.link;
+              var id = cell.id;
+              var dialog = new DialogFactory().createDialog(action);
+              dialog.open(id);
+          }
+      },
       fields: [
          { label: "Id", name: "Id", type: "int", sorted: true, width: "40px" },
          { label: "Author", name: "Author", type: "string" },
          { label: "Title", name: "Title", type: "string" },
          { label: "Year", name: "PublicationYear", type: "int" },
-         { label: "Available copies", name: "NumOfAvailableCopies", type: "int" },
+         { label: "Id", name: "Id", type: "int", style: "hidden" },
+         { label: "Available copies", name: "NumOfAvailableCopies", type: "int", link: "/Book/BookCopy/Form" },
          { label: "Category", name: "Category", type: "string" },
          { label: "Language", name: "Language", type: "string" },
       ]

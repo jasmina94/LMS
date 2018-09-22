@@ -23,5 +23,13 @@
             Id = id;
             Name = name;
         }
+
+        public SaveBookResult(int id, string name, string message)
+        {
+            Success = true;
+            Message = message;
+            Id = id;
+            Name = name;
+        }
     }
 }

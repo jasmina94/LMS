@@ -12,6 +12,8 @@ namespace LMS.BusinessLogic.BookManagement.Interfaces
 
         SaveBookResult Save(BookViewModel viewModel);
 
+        SaveBookResult Save(BookCopyViewModel viewModel);
+
         DeleteBookResult Delete(int? bookId);
     }
 }

@@ -167,6 +167,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Book\Controllers\BookController.cs" />
+    <Compile Include="Areas\Book\Controllers\BookCopyController.cs" />
     <Compile Include="Areas\Book\Controllers\OverviewController.cs" />
     <Compile Include="Areas\Category\CategoryAreaRegistration.cs" />
     <Compile Include="Areas\Category\Controllers\CategoryController.cs" />
@@ -304,6 +305,7 @@
     <Content Include="Resources\Scripts\css-element-queries\ResizeSensor.js" />
     <Content Include="Resources\Scripts\dialogs\BaseDialog.js" />
     <Content Include="Resources\Scripts\dialogs\Book\Book.js" />
+    <Content Include="Resources\Scripts\dialogs\Book\BookCopy.js" />
     <Content Include="Resources\Scripts\dialogs\Category\Category.js" />
     <Content Include="Resources\Scripts\dialogs\Chat\AddMember.js" />
     <Content Include="Resources\Scripts\dialogs\Chat\GroupChat.js" />
@@ -469,6 +471,8 @@
     <Content Include="Areas\Language\Views\Language\LanguageForm.cshtml" />
     <Content Include="Areas\Book\Views\Book\BookForm.cshtml" />
     <Content Include="Areas\User\Views\User\UserForm.cshtml" />
+    <Content Include="Areas\Book\Views\BookCopy\BookCopyForm.cshtml" />
+    <Content Include="Areas\User\Views\User\About.cshtml" />
     <None Include="Resources\Scripts\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="Resources\Scripts\jquery\jquery-1.10.2.js" />
     <None Include="Resources\Scripts\jquery\jquery.validate-vsdoc.js" />

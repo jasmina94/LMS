@@ -1,5 +1,5 @@
 /*User*/
-INSERT INTO [dbo].[Users]([IdUser],[IsActive],[BirthDate],[Firstname],[Lastname],[Username],[UserPassword],[Email],[RefCategory],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
+INSERT INTO [LMS].[dbo].[Users]([IdUser],[IsActive],[BirthDate],[Firstname],[Lastname],[Username],[UserPassword],[Email],[RefCategory],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
 VALUES
 (1, -1, '1994-08-02 22:10:00.00', 'Admin', 'Admin', 'admin', 'admin', 'admin@gmail.com', NULL, NULL, GETDATE(), NULL, NULL),
 (2, -1, '1984-08-22 22:10:00.00', 'Jane', 'Smith', 'jane', 'jane', 'jane@gmail.com', NULL, NULL, GETDATE(), NULL, NULL),
@@ -8,14 +8,14 @@ VALUES
 (5, -1, '1991-01-29 09:45:00.00', 'Nick', 'Potter', 'nickpotter', 'nickpotter', 'nick@gmail.com', NULL, NULL, GETDATE(), NULL, NULL);
 
 /*Role*/
-INSERT INTO [dbo].[Roles]([IdRole],[IsActive],[NameRole],[CodeRole],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
+INSERT INTO [LMS].[dbo].[Roles]([IdRole],[IsActive],[NameRole],[CodeRole],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
 VALUES
 (1, -1, 'admin', 'RoleAdmin', 1, GETDATE(), NULL, NULL),
 (2, -1, 'librarian', 'RoleLibrarian', 1, GETDATE(), NULL, NULL),
 (3, -1, 'subscriber', 'RoleSubscriber', 1, GETDATE(), NULL, NULL);
 
 /*UserRole*/
-INSERT INTO [dbo].[RelationUserRole]([IdRelationUserRole],[IsActive],[RefUser],[RefRole],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
+INSERT INTO [LMS].[dbo].[RelationUserRole]([IdRelationUserRole],[IsActive],[RefUser],[RefRole],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
 VALUES
 (1, -1, 1, 1, NULL, GETDATE(), NULL, NULL),
 (2, -1, 2, 2, 1, GETDATE(), NULL, NULL),
@@ -24,7 +24,7 @@ VALUES
 (5, -1, 5, 3, 1, GETDATE(), NULL, NULL);
 
 /*Permission*/
-INSERT INTO [dbo].[Permission]([IdPermission],[IsActive],[NamePermission],[CodePermission],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
+INSERT INTO [LMS].[dbo].[Permission]([IdPermission],[IsActive],[NamePermission],[CodePermission],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
 VALUES
 (1, -1, 'View overview book', 'ViewOverviewBook', 1, GETDATE(), NULL, NULL),
 (2, -1, 'Deny view overview book', 'DenyViewOverviewBook', 1, GETDATE(), NULL, NULL),
@@ -57,7 +57,7 @@ VALUES
 
 
 /*Role Permission -> admin part*/
-INSERT INTO [dbo].[RelationRolePermission]([IdRelationRolePermission],[IsActive],[RefRole],[RefPermission],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
+INSERT INTO [LMS].[dbo].[RelationRolePermission]([IdRelationRolePermission],[IsActive],[RefRole],[RefPermission],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
 VALUES
 (1, -1, 1, 1, 1, GETDATE(), NULL, NULL),
 (2, -1, 1, 3, 1, GETDATE(), NULL, NULL),
@@ -76,7 +76,7 @@ VALUES
 
 
 /*Language*/
-INSERT INTO [dbo].[Languages]([IdLanguage],[IsActive],[NameLanguage],[CodeLanguage],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
+INSERT INTO [LMS].[dbo].[Languages]([IdLanguage],[IsActive],[NameLanguage],[CodeLanguage],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
 VALUES
 (1, -1, 'English', 'en-US', 1, GETDATE(), NULL, NULL),
 (2, -1, 'German', 'de-DE', 1, GETDATE(), NULL, NULL),
@@ -85,7 +85,7 @@ VALUES
 
 
 /*Category*/
-INSERT INTO [dbo].[Category]([IdCategory],[IsActive],[NameCategory],[CodeCategory],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
+INSERT INTO [LMS].[dbo].[Category]([IdCategory],[IsActive],[NameCategory],[CodeCategory],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
 VALUES
 (1, -1, 'Art', 'cat_ART', 1, GETDATE(), NULL, NULL),
 (2, -1, 'Biography', 'cat_Biography', 1, GETDATE(), NULL, NULL),
@@ -99,7 +99,7 @@ VALUES
 (10, -1, 'Mystery', 'cat_Mystery', 1, GETDATE(), NULL, NULL);
 
 /*Books*/
-INSERT INTO [dbo].[Book]([IdBook],[IsActive],[IsElectronic],[NumOfAvailableCopies],[Title],[Author],[PublicationYear],[Keywords],[BookFilename],[MIME],[RefCategory],[RefLanguage],[RefCataloguer],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
+INSERT INTO [LMS].[dbo].[Book]([IdBook],[IsActive],[IsElectronic],[NumOfAvailableCopies],[Title],[Author],[PublicationYear],[Keywords],[BookFilename],[MIME],[RefCategory],[RefLanguage],[RefCataloguer],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
 VALUES
 (1, -1, 0, 1, 'World of Art', 'Henry M. Sayre', 1999, NULL, NULL, NULL, 1, 1, NULL, 1, GETDATE(), NULL, NULL),
 (2, -1, 0, 3, 'The diary of a young girl', 'Anne Frank', 2005, NULL, NULL, NULL, 2, 1, NULL, 1, GETDATE(), NULL, NULL),
@@ -114,25 +114,25 @@ VALUES
 
 
 /*Books copies*/
-INSERT INTO [dbo].[BookCopy]([IdBookCopy],[IsActive],[RefBook],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
+INSERT INTO [LMS].[dbo].[BookCopy]([IdBookCopy],[IsActive],[RefBook],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
 VALUES
 (1, -1, 1, 1, GETDATE(), NULL, NULL),
 (2, -1, 2, 1, GETDATE(), NULL, NULL),
+(3, -1, 2, 1, GETDATE(), NULL, NULL),
 (4, -1, 2, 1, GETDATE(), NULL, NULL),
-(5, -1, 2, 1, GETDATE(), NULL, NULL),
+(5, -1, 3, 1, GETDATE(), NULL, NULL),
 (6, -1, 3, 1, GETDATE(), NULL, NULL),
-(7, -1, 3, 1, GETDATE(), NULL, NULL),
+(7, -1, 4, 1, GETDATE(), NULL, NULL),
 (8, -1, 4, 1, GETDATE(), NULL, NULL),
-(9, -1, 4, 1, GETDATE(), NULL, NULL),
+(9, -1, 5, 1, GETDATE(), NULL, NULL),
 (10, -1, 5, 1, GETDATE(), NULL, NULL),
-(11, -1, 5, 1, GETDATE(), NULL, NULL),
+(11, -1, 6, 1, GETDATE(), NULL, NULL),
 (12, -1, 6, 1, GETDATE(), NULL, NULL),
 (13, -1, 6, 1, GETDATE(), NULL, NULL),
 (14, -1, 6, 1, GETDATE(), NULL, NULL),
-(15, -1, 6, 1, GETDATE(), NULL, NULL),
-(16, -1, 7, 1, GETDATE(), NULL, NULL),
-(17, -1, 8, 1, GETDATE(), NULL, NULL),
+(15, -1, 7, 1, GETDATE(), NULL, NULL),
+(16, -1, 8, 1, GETDATE(), NULL, NULL),
+(17, -1, 9, 1, GETDATE(), NULL, NULL),
 (18, -1, 9, 1, GETDATE(), NULL, NULL),
 (19, -1, 9, 1, GETDATE(), NULL, NULL),
-(20, -1, 9, 1, GETDATE(), NULL, NULL),
-(21, -1, 10, 1, GETDATE(), NULL, NULL); 
+(20, -1, 10, 1, GETDATE(), NULL, NULL); 

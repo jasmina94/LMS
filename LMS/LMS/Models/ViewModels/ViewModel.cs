@@ -11,7 +11,7 @@ namespace LMS.Models.ViewModels
 
         public bool IsActive { get; set; }
 
-        public int UserCreatedByInt { get; set; }
+        public int UserCreatedById { get; set; }
 
         public string UserCreatedBy { get; set; }
 
@@ -26,6 +26,14 @@ namespace LMS.Models.ViewModels
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateTimeDeletedOn { get; set; }
+
+        public bool IsNew
+        {
+            get
+            {
+                return Id != 0 ? false : true;
+            }
+        }
 
         public abstract string Validate(ILMSValidator validator);
     }

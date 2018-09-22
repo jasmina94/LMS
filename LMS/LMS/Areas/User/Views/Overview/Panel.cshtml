@@ -16,6 +16,20 @@
       paging: true,
       showPrevNext: true,
       showFirstLast: true,
+      rowClickable: true,
+      rowAction: function (rowId) {
+          var dialog = new DialogFactory().createDialog(new DialogTypeEnum().USER);
+          dialog.open(rowId);
+      },
+      cellAction: function (cell) {
+          console.log(cell);
+          if (cell.field.label === "Created by") {
+              var action = cell.field.link;
+              var id = cell.id;
+              var dialog = new DialogFactory().createDialog(action);
+              dialog.open(id);
+          }
+      },
       fields: [
          { label: "Id", name: "Id", type: "int", sorted: true, width: "40px" },
          { label: "Firstname", name: "Firstname", type: "string" },
@@ -23,6 +37,8 @@
          { label: "Username", name: "Username", type: "string" },
          { label: "Email", name: "Email", type: "string" },
          { label: "Birth date", name: "BirthDate", type: "date" },
+         { label: "Id", name: "UserCreatedById", type: "int", style: "hidden" },
+         { label: "Created by", name: "UserCreatedBy", type: "string", link: "/User/User/About" },
          { label: "Creation date", name: "DateTimeCreatedOn", type: "date" }
       ]
    });

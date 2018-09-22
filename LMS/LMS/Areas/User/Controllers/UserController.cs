@@ -31,5 +31,12 @@ namespace LMS.Areas.User.Controllers
 
             return response;
         }
+
+        public ActionResult About(int id)
+        {
+            var viewModel = UserService.Get(id);
+
+            return PartialView("About", viewModel);
+        }
     }
 }

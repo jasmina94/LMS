@@ -1,0 +1,30 @@
+﻿@model LMS.Models.ViewModels.User.UserViewModel
+@using LMS.Infrastructure.HtmlHelpers
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @Html.DialogTitle(value: "Details for user: " + @Model.Firstname)
+        <table class="table-condensed">
+            <tr>
+                @Html.TableField("Firstname:", isHeader: true)
+                @Html.TableField(@Model.Firstname)
+            </tr>
+            <tr>
+                @Html.TableField("Lastname:", isHeader: true)
+                @Html.TableField(@Model.Lastname)
+            </tr>
+            <tr>
+                @Html.TableField("Username:", isHeader: true)
+                @Html.TableField(@Model.Username)
+            </tr>
+            <tr>
+                @Html.TableField("Birthday:", isHeader: true)
+                @Html.TableField(@Model.BirthDate)
+            </tr>
+            <tr>
+                @Html.TableField("Email:", isHeader: true)
+                @Html.TableField(@Model.Email)
+            </tr>
+        </table>
+    </div>
+</div>

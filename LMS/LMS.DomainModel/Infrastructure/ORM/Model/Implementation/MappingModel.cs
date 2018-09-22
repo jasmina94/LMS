@@ -30,10 +30,10 @@ namespace LMS.DomainModel.Infrastructure.ORM.Model.Implementation
 
         private void InitializeStatements()
         {
-            this.dictionaryStatement = MakeDictionaryStatement();
-            this.conversionStatement = MakeConversionStatement();
-            this.updateCommandStatement = MakeCommandStatement(ORMConstant.Update);
-            this.insertCommandStatement = MakeCommandStatement(ORMConstant.Insert);
+            dictionaryStatement = MakeDictionaryStatement();
+            conversionStatement = MakeConversionStatement();
+            updateCommandStatement = MakeCommandStatement(ORMConstant.Update);
+            insertCommandStatement = MakeCommandStatement(ORMConstant.Insert);
         }
 
         private Func<T, Dictionary<string, object>> MakeDictionaryStatement()
@@ -141,13 +141,13 @@ namespace LMS.DomainModel.Infrastructure.ORM.Model.Implementation
 
             string tableName = NamingService.GetTableNameFromDomainModel(typeof(T));
 
-            builderInsert.Append(String.Format("INSERT INTO {0} (", tableName));
+            builderInsert.Append(string.Format("INSERT INTO {0} (", tableName));
             builderValues.Append("VALUES (");
 
             foreach (var item in dictionary)
             {
-                builderInsert.Append(String.Format("{0}, ", item.Key));
-                builderValues.Append(String.Format("@{0}, ", item.Key));
+                builderInsert.Append(string.Format("{0}, ", item.Key));
+                builderValues.Append(string.Format("@{0}, ", item.Key));
             }
 
             builderInsert.Append(")");
@@ -156,7 +156,7 @@ namespace LMS.DomainModel.Infrastructure.ORM.Model.Implementation
             builderInsert.Replace(",", "", builderInsert.ToString().Length - 3, 1);
             builderValues.Replace(",", "", builderValues.ToString().Length - 3, 1);
 
-            builderInsert.Append(String.Format(" {0}", builderValues.ToString()));
+            builderInsert.Append(string.Format(" {0}", builderValues.ToString()));
 
             query = builderInsert.ToString();
 
@@ -171,23 +171,23 @@ namespace LMS.DomainModel.Infrastructure.ORM.Model.Implementation
 
             string tableName = NamingService.GetTableNameFromDomainModel(typeof(T));
 
-            builderUpdate.Append(String.Format("UPDATE {0} SET ", tableName));
-            builderWhere.Append(String.Format("WHERE "));
+            builderUpdate.Append(string.Format("UPDATE {0} SET ", tableName));
+            builderWhere.Append(string.Format("WHERE "));
 
             foreach (var item in dictionary)
             {
                 if (!item.Key.Contains("Id"))
                 {
-                    builderUpdate.Append(String.Format("{0} = @{0}, ", item.Key));
+                    builderUpdate.Append(string.Format("{0} = @{0}, ", item.Key));
                 }
                 else
                 {
-                    builderWhere.Append(String.Format("{0} = @{0} ", item.Key));
+                    builderWhere.Append(string.Format("{0} = @{0} ", item.Key));
                 }
             }
 
             builderUpdate.Replace(",", "", builderUpdate.ToString().Length - 2, 1);
-            builderUpdate.Append(String.Format("{0}", builderWhere.ToString()));
+            builderUpdate.Append(string.Format("{0}", builderWhere.ToString()));
 
             query = builderUpdate.ToString();
 

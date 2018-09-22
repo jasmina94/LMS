@@ -1,11 +1,6 @@
 ﻿using LMS.DomainModel.DomainObject;
-using LMS.DomainModel.Repository.User.Interfaces;
 using LMS.Infrastructure.ModelBuilders.Abstraction;
 using LMS.Models.ViewModels.Book;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace LMS.Infrastructure.ModelBuilders.Implementation.Book
 {
@@ -22,10 +17,10 @@ namespace LMS.Infrastructure.ModelBuilders.Implementation.Book
             model.NumOfAvailableCopies = viewModel.NumOfAvailableCopies;
             model.Title = viewModel.Title;
             model.Author = viewModel.Author;
-            model.Keywords = viewModel.Keywords;
+            model.Keywords = viewModel.Keywords == null ? string.Empty : viewModel.Keywords;
             model.PublicationYear = viewModel.PublicationYear;
-            model.Filename = viewModel.Filename;
-            model.MIME = viewModel.MIME;
+            model.Filename = viewModel.Filename == null ? string.Empty : viewModel.Filename;
+            model.MIME = viewModel.MIME == null ? string.Empty : viewModel.MIME;
             model.CataloguerId = viewModel.CataloguerId;
             model.CategoryId = viewModel.CategoryId;
             model.LanguageId = viewModel.LanguageId;

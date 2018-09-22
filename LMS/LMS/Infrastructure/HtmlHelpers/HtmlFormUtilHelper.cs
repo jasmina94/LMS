@@ -16,7 +16,7 @@ namespace LMS.Infrastructure.HtmlHelpers
          buttonTag.MergeAttribute("value", value);
          buttonTag.InnerHtml = value;
 
-         if (!String.IsNullOrEmpty(specialBtnClass))
+         if (!string.IsNullOrEmpty(specialBtnClass))
          {
             buttonClass = buttonClass + " " + specialBtnClass;
          }
@@ -40,7 +40,7 @@ namespace LMS.Infrastructure.HtmlHelpers
 
          divTag.MergeAttribute("class", "form-group pull-right");
 
-         if (!String.IsNullOrEmpty(specialSaveBtnClass))
+         if (!string.IsNullOrEmpty(specialSaveBtnClass))
          {
             btnClass = btnClass + " " + specialSaveBtnClass;
          }

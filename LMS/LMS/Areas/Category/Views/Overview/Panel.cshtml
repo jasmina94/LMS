@@ -16,11 +16,26 @@
       paging: true,
       showPrevNext: true,
       showFirstLast: true,
+      rowClickable: true,
+      rowAction: function (rowId) {
+          var dialog = new DialogFactory().createDialog(new DialogTypeEnum().CATEGORY);
+          dialog.open(rowId);
+      },
+      cellAction: function (cell) {
+          console.log(cell);
+          if (cell.field.label === "Created by") {
+              var action = cell.field.link;
+              var id = cell.id;
+              var dialog = new DialogFactory().createDialog(action);
+              dialog.open(id);
+          }
+      },
       fields: [
          { label: "Id", name: "Id", type: "int", sorted: true, width: "40px" },
          { label: "Name", name: "Name", type: "string" },
          { label: "Code", name: "Code", type: "string" },
-         { label: "Created by", name: "UserCreatedBy", type: "string", link: "/User/User/AboutUser" },
+         { label: "Id", name: "UserCreatedById", type: "int", style: "hidden" },
+         { label: "Created by", name: "UserCreatedBy", type: "string", link: "/User/User/About" },
          { label: "Creation date", name: "DateTimeCreatedOn", type: "date" }
       ]
    });

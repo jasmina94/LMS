@@ -2,7 +2,7 @@
 
 @{
     var ribbonItems = new List<IHtmlString>{
-         @Html.RibbonItem("item1", "List", "List of active categories.", Html.Glyphicon("list")),
+         @Html.RibbonItem("item1", "List", "List of active categories.", style: "CategoryListRibbonItem")
     };
 
     @Html.Ribbon("categories", "item1", ribbonItems)

@@ -3,7 +3,7 @@
 @{
     var ribbonItems = new List<IHtmlString>
     {
-        @Html.RibbonItem("item1", "List", "List of users.", Html.Glyphicon("list"))
+        @Html.RibbonItem("item1", "List", "List of users.", style: "UserListRibbonItem")
     };
 
     @Html.Ribbon("users", "item1", ribbonItems)

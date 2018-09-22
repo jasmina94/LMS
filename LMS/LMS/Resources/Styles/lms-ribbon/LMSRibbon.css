@@ -1,26 +1,83 @@
-﻿#ribbon-container {
-   background-color: #e0dede;
-   margin-right: 0;
-   margin-left: 0;
+﻿.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: #999999;
+}
+
+#ribbon-container {
+    background-color: #e0dede;
+    margin-right: 0;
+    margin-left: 0;
 }
 
 #ribbon-item-view {
-   margin-top: 1em;
-   margin-right: 0;
-   margin-bottom: 0;
-   margin-left: 0;
-   display: flex;
+    margin-top: 1em;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    display: flex;
 }
 
 #sidebar-container {
-   background-color: #e0dede;
-   margin-bottom: 0;
-   float: left;
+    background-color: #e0dede;
+    margin-bottom: 0;
+    float: left;
 }
 
 #panel-container {
-   background-color: #ebe9e9;
-   margin-bottom: 0;
-   margin-left: 1em;
-   width: 100%;
+    background-color: #ebe9e9;
+    margin-bottom: 0;
+    margin-left: 1em;
+    width: 100%;
+}
+
+.lms-sidebar-item {
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+#RefreshSideBar {
+    background-image: url("../../Images/refresh.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
+#FilterSideBar {
+    background-image: url("../../Images/filter.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
+#AddSideBar {
+    background-image: url("../../Images/plus.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
+#BookListRibbonItem {
+    background-image: url("../../Images/books.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
+#BookCopyListRibbonItem {
+    background-image: url("../../Images/book_copies.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
+#CategoryListRibbonItem {
+    background-image: url("../../Images/category.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
+#LanguageListRibbonItem {
+    background-image: url("../../Images/language.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
+#UserListRibbonItem {
+    background-image: url("../../Images/users.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
 }

@@ -3,7 +3,7 @@
 @{
     var ribbonItems = new List<IHtmlString>
     {
-        @Html.RibbonItem("item1", "List", "List of active languages.", Html.Glyphicon("list"))
+        @Html.RibbonItem("item1", "List", "List of active languages.", style: "LanguageListRibbonItem")
     };
 
     @Html.Ribbon("languages", "item1", ribbonItems)

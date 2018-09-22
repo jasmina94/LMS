@@ -298,9 +298,18 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Images\books.png" />
     <Content Include="Resources\Images\bookshelf.png" />
+    <Content Include="Resources\Images\book_copies.png" />
+    <Content Include="Resources\Images\category.png" />
+    <Content Include="Resources\Images\delete.png" />
     <Content Include="Resources\Images\ebook_photo.jpg" />
+    <Content Include="Resources\Images\filter.png" />
+    <Content Include="Resources\Images\language.png" />
     <Content Include="Resources\Images\lms.jpg" />
+    <Content Include="Resources\Images\plus.png" />
+    <Content Include="Resources\Images\refresh.png" />
+    <Content Include="Resources\Images\users.png" />
     <Content Include="Resources\Scripts\ajax\AjaxHttpSender.js" />
     <Content Include="Resources\Scripts\bootstrap-datetimepicker\bootstrap-datetimepicker.js" />
     <Content Include="Resources\Scripts\bootstrap-datetimepicker\moment.js" />

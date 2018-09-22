@@ -1,6 +1,5 @@
 ﻿using LMS.Infrastructure.Validation;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LMS.Models.ViewModels
@@ -10,6 +9,8 @@ namespace LMS.Models.ViewModels
         public int Id { get; set; }
 
         public bool IsActive { get; set; }
+
+        public string IsActiveLabel { get; set; }
 
         public int UserCreatedById { get; set; }
 

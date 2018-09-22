@@ -18,6 +18,8 @@ namespace LMS.Infrastructure.ModelBuilders.Implementation.Book
         {
             viewModel.BookId = model.BookId;
             viewModel.BookAuthorAndTitle = GetTitleAndAuthor(model.BookId);
+            viewModel.Available = !model.OnLoan;
+            viewModel.AvailableLabel = model.OnLoan ? "No" : "Yes";
         }
 
         private string GetTitleAndAuthor(int bookId)

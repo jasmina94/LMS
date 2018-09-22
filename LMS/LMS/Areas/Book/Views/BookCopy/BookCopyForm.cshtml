@@ -12,8 +12,10 @@
             @Html.HiddenFor(model => model.UserDeletedBy)
             @Html.HiddenFor(model => model.DateTimeDeletedOn)
 
-            @Html.SimpleFormInput(model => model.BookId, "Book identification:", inputValue: Model.BookId.ToString(), readOnly: true)
-            @Html.SimpleFormInput(model => model.BookAuthorAndTitle, "Book:", inputValue: Model.BookAuthorAndTitle, readOnly: true)            
+            @Html.SimpleFormInput(model => model.BookId, "Book identification:", 
+                inputValue: Model.BookId.ToString(), readOnly: true)
+            @Html.SimpleFormInput(model => model.BookAuthorAndTitle, "Book:", 
+                inputValue: Model.BookAuthorAndTitle, readOnly: true)            
 
             @Html.FormSubmit(newLine: true, value: "Add copy")
         </form>

@@ -8,11 +8,19 @@ namespace LMS.BusinessLogic.BookManagement.Interfaces
     {
         BookViewModel Get(int? bookId);
 
+        BookCopyViewModel GetCopy(int? bookCopyId);
+
         List<BookViewModel> GetAll(bool active);
+
+        List<BookCopyViewModel> GetAllCopies(bool active);
+
+        List<BookCopyViewModel> GetAvailableCopies();
 
         SaveBookResult Save(BookViewModel viewModel);
 
         SaveBookResult Save(BookCopyViewModel viewModel);
+
+        SaveBookResult SaveOnly(BookCopyViewModel viewModel);
 
         DeleteBookResult Delete(int? bookId);
     }

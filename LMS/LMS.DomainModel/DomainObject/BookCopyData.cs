@@ -6,5 +6,8 @@ namespace LMS.DomainModel.DomainObject
     {
         [DBColumn("RefBook")]
         public int BookId { get; set; }
+
+        [DBColumn("OnLoan")]
+        public bool OnLoan { get; set; }
     }
 }

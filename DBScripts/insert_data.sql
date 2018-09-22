@@ -114,25 +114,25 @@ VALUES
 
 
 /*Books copies*/
-INSERT INTO [LMS].[dbo].[BookCopy]([IdBookCopy],[IsActive],[RefBook],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
+INSERT INTO [LMS].[dbo].[BookCopy]([IdBookCopy],[IsActive],[RefBook],[OnLoan],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
 VALUES
-(1, -1, 1, 1, GETDATE(), NULL, NULL),
-(2, -1, 2, 1, GETDATE(), NULL, NULL),
-(3, -1, 2, 1, GETDATE(), NULL, NULL),
-(4, -1, 2, 1, GETDATE(), NULL, NULL),
-(5, -1, 3, 1, GETDATE(), NULL, NULL),
-(6, -1, 3, 1, GETDATE(), NULL, NULL),
-(7, -1, 4, 1, GETDATE(), NULL, NULL),
-(8, -1, 4, 1, GETDATE(), NULL, NULL),
-(9, -1, 5, 1, GETDATE(), NULL, NULL),
-(10, -1, 5, 1, GETDATE(), NULL, NULL),
-(11, -1, 6, 1, GETDATE(), NULL, NULL),
-(12, -1, 6, 1, GETDATE(), NULL, NULL),
-(13, -1, 6, 1, GETDATE(), NULL, NULL),
-(14, -1, 6, 1, GETDATE(), NULL, NULL),
-(15, -1, 7, 1, GETDATE(), NULL, NULL),
-(16, -1, 8, 1, GETDATE(), NULL, NULL),
-(17, -1, 9, 1, GETDATE(), NULL, NULL),
-(18, -1, 9, 1, GETDATE(), NULL, NULL),
-(19, -1, 9, 1, GETDATE(), NULL, NULL),
-(20, -1, 10, 1, GETDATE(), NULL, NULL); 
+(1, -1, 1, 0, 1, GETDATE(), NULL, NULL),
+(2, -1, 2, 0, 1, GETDATE(), NULL, NULL),
+(3, -1, 2, 0, 1, GETDATE(), NULL, NULL),
+(4, -1, 2, 0, 1, GETDATE(), NULL, NULL),
+(5, -1, 3, 0, 1, GETDATE(), NULL, NULL),
+(6, -1, 3, 0, 1, GETDATE(), NULL, NULL),
+(7, -1, 4, 0, 1, GETDATE(), NULL, NULL),
+(8, -1, 4, 0, 1, GETDATE(), NULL, NULL),
+(9, -1, 5, 0, 1, GETDATE(), NULL, NULL),
+(10, -1, 5, 0, 1, GETDATE(), NULL, NULL),
+(11, -1, 6, 0, 1, GETDATE(), NULL, NULL),
+(12, -1, 6, 0, 1, GETDATE(), NULL, NULL),
+(13, -1, 6, 0, 1, GETDATE(), NULL, NULL),
+(14, -1, 6, 0, 1, GETDATE(), NULL, NULL),
+(15, -1, 7, 0, 1, GETDATE(), NULL, NULL),
+(16, -1, 8, 0, 1, GETDATE(), NULL, NULL),
+(17, -1, 9, 0, 1, GETDATE(), NULL, NULL),
+(18, -1, 9, 0, 1, GETDATE(), NULL, NULL),
+(19, -1, 9, 0, 1, GETDATE(), NULL, NULL),
+(20, -1, 10, 0, 1, GETDATE(), NULL, NULL); 

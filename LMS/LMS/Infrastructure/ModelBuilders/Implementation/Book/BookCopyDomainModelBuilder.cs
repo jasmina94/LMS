@@ -14,6 +14,7 @@ namespace LMS.Infrastructure.ModelBuilders.Implementation.Book
         public override void BuildConcreteData()
         {
             model.BookId = viewModel.BookId;
+            model.OnLoan = viewModel.Available ? false : true;
         }
     }
 }

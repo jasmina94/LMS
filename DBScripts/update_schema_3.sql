@@ -15,6 +15,7 @@ CREATE TABLE BookCopy
 	IdBookCopy int NOT NULL,
 	IsActive int NOT NULL,
 	RefBook int NOT NULL,
+	OnLoan int NOT NULL,
 	RefUserCreatedBy int,
 	DateTimeCreatedOn datetime,
 	RefUserDeletedBy int,

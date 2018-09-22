@@ -20,13 +20,27 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
 
         public IBuilderResolverService BuilderResolverService { get; set; }
 
-        public BookViewModel Get(int? userId)
+        public BookViewModel Get(int? bookId)
         {
             var viewModel = new BookViewModel();
-            if (userId.HasValue)
+            if (bookId.HasValue)
             {
-                BookData domainModel = BookRepository.GetDataById(userId.Value);
+                BookData domainModel = BookRepository.GetDataById(bookId.Value);
                 BookViewModelBuilder builder = BuilderResolverService.Get<BookViewModelBuilder, BookData>(domainModel);
+                Constructor.ConstructViewModelData(builder);
+                viewModel = builder.GetViewModel();
+            }
+
+            return viewModel;
+        }
+
+        public BookCopyViewModel GetCopy(int? bookCopyId)
+        {
+            var viewModel = new BookCopyViewModel();
+            if (bookCopyId.HasValue)
+            {
+                BookCopyData domainModel = BookCopyRepository.GetDataById(bookCopyId.Value);
+                BookCopyViewModelBuilder builder = BuilderResolverService.Get<BookCopyViewModelBuilder, BookCopyData>(domainModel);
                 Constructor.ConstructViewModelData(builder);
                 viewModel = builder.GetViewModel();
             }
@@ -45,6 +59,28 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             return viewModels;
         }
 
+        public List<BookCopyViewModel> GetAllCopies(bool active)
+        {
+            var viewModels = new List<BookCopyViewModel>();
+            var domainModels = new List<BookCopyData>();
+
+            domainModels = active ? BookCopyRepository.GetAllActiveData() : BookCopyRepository.GetAllData();
+            viewModels = ConvertDataToViewModels(domainModels);
+
+            return viewModels;
+        }
+
+        public List<BookCopyViewModel> GetAvailableCopies()
+        {
+            var viewModels = new List<BookCopyViewModel>();
+            var domainModels = new List<BookCopyData>();
+
+            domainModels = BookCopyRepository.GetAvailableCopies();
+            viewModels = ConvertDataToViewModels(domainModels);
+
+            return viewModels;
+        }
+
         private List<BookViewModel> ConvertDataToViewModels(List<BookData> domainModels)
         {
             var viewModels = new List<BookViewModel>();
@@ -52,6 +88,20 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             foreach (var item in domainModels)
             {
                 BookViewModelBuilder builder = BuilderResolverService.Get<BookViewModelBuilder, BookData>(item);
+                Constructor.ConstructViewModelData(builder);
+                viewModels.Add(builder.GetViewModel());
+            }
+
+            return viewModels;
+        }
+
+        private List<BookCopyViewModel> ConvertDataToViewModels(List<BookCopyData> domainModels)
+        {
+            var viewModels = new List<BookCopyViewModel>();
+
+            foreach (var item in domainModels)
+            {
+                BookCopyViewModelBuilder builder = BuilderResolverService.Get<BookCopyViewModelBuilder, BookCopyData>(item);
                 Constructor.ConstructViewModelData(builder);
                 viewModels.Add(builder.GetViewModel());
             }
@@ -80,8 +130,6 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
         {
             var result = new SaveBookResult();
 
-            viewModel.Id = 0;  //Always create never update
-
             BookCopyDomainModelBuilder builder = BuilderResolverService.Get<BookCopyDomainModelBuilder, BookCopyViewModel>(viewModel);
             Constructor.ConstructDomainModelData(builder);
             BookCopyData domainModel = builder.GetDataModel();
@@ -98,6 +146,22 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
                     result = new SaveBookResult(id, viewModel.BookAuthorAndTitle, 
                         "Successfully added copy of book " + viewModel.BookAuthorAndTitle);
                 }
+            }
+
+            return result;
+        }
+
+        public SaveBookResult SaveOnly(BookCopyViewModel viewModel)
+        {
+            var result = new SaveBookResult();
+            BookCopyDomainModelBuilder builder = BuilderResolverService.Get<BookCopyDomainModelBuilder, BookCopyViewModel>(viewModel);
+            Constructor.ConstructDomainModelData(builder);
+            BookCopyData domainModel = builder.GetDataModel();
+
+            int id = BookCopyRepository.SaveData(domainModel);
+            if (id != 0)
+            {
+                result = new SaveBookResult(id, domainModel.BookId.ToString());
             }
 
             return result;

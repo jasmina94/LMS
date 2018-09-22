@@ -19,5 +19,18 @@ var lmsBooksRibbon = function () {
             html: null
         }
     };
+
+    ribbonItems.item2 = {
+        id: ribbonEnum.RIBBON_ITEM_ELEMENT1,
+        sidebar: {
+            path: "/Book/Overview/SidebarCopy",
+            html: null,
+            actions: new LMSBookCopiesSidebar()
+        },
+        panel: {
+            path: "/Book/Overview/PanelCopy",
+            html: null
+        }
+    };
     return ribbon;
 };

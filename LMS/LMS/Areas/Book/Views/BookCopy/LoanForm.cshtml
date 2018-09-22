@@ -1,0 +1,42 @@
+﻿@model LMS.Models.ViewModels.Relation.RelationUserBookCopyViewModel
+@using LMS.Infrastructure.HtmlHelpers
+@{ 
+    var dd = Model.DateDueForReturn;
+    var di = Model.DateOfIssue;
+    var dr = Model.DateReturned;
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        @Html.DialogTitle(value: "Make book loan")
+        <form action="/Book/BookCopy/Borrow" method="post" id="LoanForm" class="form-horizontal">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.IsActive)
+            @Html.HiddenFor(model => model.UserCreatedBy)
+            @Html.HiddenFor(model => model.DateTimeCreatedOn)
+            @Html.HiddenFor(model => model.UserDeletedBy)
+            @Html.HiddenFor(model => model.DateTimeDeletedOn)
+            @Html.HiddenFor(model => model.DateReturned)
+
+            @Html.SimpleFormInput(model => model.BookCopyId, "Book identification:", 
+                inputValue: Model.BookCopyId.ToString(), readOnly: true)
+
+            @Html.DropDownSelect(model => model.UserId, "User:", selectValue: @Model.UserId,
+                innerDivSpecialClass: "lms-selectpicker", selectionSource: "/User/User/GetSelect")
+
+            @Html.IconFormInput(model => model.DateOfIssue, "Date of issue:",
+                inputValue: Model.DateOfIssue.Date.ToString("MM/dd/yyyy"),
+                specialInputClass: "InputWithGlyphicon DatePicker",
+                iconHtmlString: Html.Glyphicon("calendar", true),
+                readOnly: true)
+
+            @Html.IconFormInput(model => model.DateDueForReturn, "Date for return:",
+                inputValue: Model.DateDueForReturn.Date.ToString("MM/dd/yyyy"),
+                specialInputClass: "InputWithGlyphicon DatePicker",
+                iconHtmlString: Html.Glyphicon("calendar", true),
+                readOnly: true)
+
+            @Html.FormSubmit(newLine: true, value: "Confirm")
+        </form>
+    </div>
+</div>
+

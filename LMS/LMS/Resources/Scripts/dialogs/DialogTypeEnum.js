@@ -6,6 +6,8 @@
     this.BOOK = "/Book/Book/Form";
     this.BOOK_COPY = "/Book/BookCopy/Form";
 
+    this.LOAN = "/Book/BookCopy/Loan";
+
     this.LANGUAGE = "/Language/Language/Form";
 
     this.CATEGORY = "/Category/Category/Form";

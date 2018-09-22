@@ -24,6 +24,7 @@ namespace LMS.Infrastructure.ModelBuilders.Implementation.Book
         public override void BuildViewModelConcreteData()
         {
             viewModel.IsElectronic = model.IsElectronic;
+            viewModel.IsElectronicLabel = model.IsElectronic ? "True" : "False";
             viewModel.NumOfAvailableCopies = model.NumOfAvailableCopies;
             viewModel.Title = model.Title;
             viewModel.Author = model.Author;

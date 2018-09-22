@@ -8,6 +8,8 @@ namespace LMS.Models.ViewModels.Book
         [RequiredProperty("Book must be either electronic or not!")]
         public bool IsElectronic { get; set; }
 
+        public string IsElectronicLabel { get; set; }
+
         [RequiredProperty("Book title is required!")]
         public string Title { get; set; }
 

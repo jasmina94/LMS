@@ -1,8 +1,6 @@
 ﻿using LMS.BusinessLogic.BookManagement.Interfaces;
-using LMS.DomainModel.DomainObject;
 using LMS.DomainModel.Infrastructure.FilterMapper;
 using LMS.DomainModel.Infrastructure.FilterMapper.Model;
-using LMS.Infrastructure.ModelBuilders.Implementation.Book;
 using LMS.Models.ViewModels.Book;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +27,17 @@ namespace LMS.Areas.Book.Controllers
             return PartialView();
         }
 
+        public ActionResult SidebarCopy()
+        {
+            return PartialView();
+        }
+
         public ActionResult Panel()
+        {
+            return PartialView();
+        }
+
+        public ActionResult PanelCopy()
         {
             return PartialView();
         }
@@ -42,6 +50,16 @@ namespace LMS.Areas.Book.Controllers
             enumBookValuesViewModel = filterSorter.FilterAndSort(enumBookValuesViewModel, filterSorterModel);
 
             return Json(enumBookValuesViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAvailableCopies(FilterSorterModel filterSorterModel)
+        {
+            var bookCopyViewModels = BookService.GetAvailableCopies();
+            var filterSorter = new DataCollectionFilterSorter<BookCopyViewModel>();
+            IEnumerable<BookCopyViewModel> enumBookCopyValuesViewModel = bookCopyViewModels.AsEnumerable();
+            enumBookCopyValuesViewModel = filterSorter.FilterAndSort(enumBookCopyValuesViewModel, filterSorterModel);
+
+            return Json(enumBookCopyValuesViewModel, JsonRequestBehavior.AllowGet);
         }
     }
 }

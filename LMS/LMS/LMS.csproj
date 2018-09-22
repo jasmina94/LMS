@@ -182,7 +182,10 @@
     <Compile Include="BusinessLogic\AccessControlManagement\Implementation\AccessControlServiceImpl.cs" />
     <Compile Include="BusinessLogic\AccessControlManagement\Interfaces\IAccessControlService.cs" />
     <Compile Include="BusinessLogic\BookManagement\Implementation\BookServiceImpl.cs" />
+    <Compile Include="BusinessLogic\BookManagement\Implementation\LoanServiceImpl.cs" />
     <Compile Include="BusinessLogic\BookManagement\Interfaces\IBookService.cs" />
+    <Compile Include="BusinessLogic\BookManagement\Interfaces\ILoanService.cs" />
+    <Compile Include="BusinessLogic\BookManagement\Model\BorrowResult.cs" />
     <Compile Include="BusinessLogic\BookManagement\Model\DeleteBookResult.cs" />
     <Compile Include="BusinessLogic\BookManagement\Model\SaveBookResult.cs" />
     <Compile Include="BusinessLogic\CategoryManagement\Implementation\CategoryServiceImpl.cs" />
@@ -306,6 +309,7 @@
     <Content Include="Resources\Scripts\dialogs\BaseDialog.js" />
     <Content Include="Resources\Scripts\dialogs\Book\Book.js" />
     <Content Include="Resources\Scripts\dialogs\Book\BookCopy.js" />
+    <Content Include="Resources\Scripts\dialogs\Book\Loan.js" />
     <Content Include="Resources\Scripts\dialogs\Category\Category.js" />
     <Content Include="Resources\Scripts\dialogs\Chat\AddMember.js" />
     <Content Include="Resources\Scripts\dialogs\Chat\GroupChat.js" />
@@ -322,6 +326,7 @@
     <Content Include="Resources\Scripts\lms-grid\LMSGridEnum.js" />
     <Content Include="Resources\Scripts\lms-grid\LMSGridPager.js" />
     <Content Include="Resources\Scripts\lms-grid\LMSGridUtillity.js" />
+    <Content Include="Resources\Scripts\lms-ribbon\Book\LMSBookCopiesSidebar.js" />
     <Content Include="Resources\Scripts\lms-ribbon\Book\LMSBooksRibbon.js" />
     <Content Include="Resources\Scripts\lms-ribbon\Book\LMSBooksSidebar.js" />
     <Content Include="Resources\Scripts\lms-ribbon\Category\LMSCategoriesRibbon.js" />
@@ -473,6 +478,9 @@
     <Content Include="Areas\User\Views\User\UserForm.cshtml" />
     <Content Include="Areas\Book\Views\BookCopy\BookCopyForm.cshtml" />
     <Content Include="Areas\User\Views\User\About.cshtml" />
+    <Content Include="Areas\Book\Views\Overview\PanelCopy.cshtml" />
+    <Content Include="Areas\Book\Views\Overview\SidebarCopy.cshtml" />
+    <Content Include="Areas\Book\Views\BookCopy\LoanForm.cshtml" />
     <None Include="Resources\Scripts\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="Resources\Scripts\jquery\jquery-1.10.2.js" />
     <None Include="Resources\Scripts\jquery\jquery.validate-vsdoc.js" />

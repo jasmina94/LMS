@@ -21,6 +21,7 @@ namespace LMS.Infrastructure.ModelBuilders.Abstraction
         {
             viewModel.Id = model.Id;
             viewModel.IsActive = model.IsActive;
+            viewModel.IsActiveLabel = model.IsActive ? "Yes" : "No";
             viewModel.UserCreatedById = model.RefUserCreatedBy;
             viewModel.UserCreatedBy = GetNameForUser(model.RefUserCreatedBy);
             viewModel.DateTimeCreatedOn = model.DateTimeCreatedOn;

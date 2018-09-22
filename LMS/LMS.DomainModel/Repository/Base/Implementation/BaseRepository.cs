@@ -23,7 +23,10 @@ namespace LMS.DomainModel.Repository.Base.Implementation
         public int GetNextId()
         {
             SqlCommand sqlCommand = CreateSqlCommandGetMaxId();
-            int id = Convert.ToInt32(DataSource.GetScalarValue(sqlCommand));
+            object dbId = DataSource.GetScalarValue(sqlCommand);
+            int id = 0;
+            if(!(dbId is DBNull))
+                id = Convert.ToInt32(DataSource.GetScalarValue(sqlCommand));
             int nextId = CalculateNextId(id);
 
             return nextId;

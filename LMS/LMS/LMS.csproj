@@ -301,12 +301,16 @@
     <Content Include="Resources\Images\books.png" />
     <Content Include="Resources\Images\bookshelf.png" />
     <Content Include="Resources\Images\book_copies.png" />
+    <Content Include="Resources\Images\borrowed_books.png" />
+    <Content Include="Resources\Images\cancel.png" />
     <Content Include="Resources\Images\category.png" />
+    <Content Include="Resources\Images\confirm.png" />
     <Content Include="Resources\Images\delete.png" />
     <Content Include="Resources\Images\ebook_photo.jpg" />
     <Content Include="Resources\Images\filter.png" />
     <Content Include="Resources\Images\language.png" />
     <Content Include="Resources\Images\lms.jpg" />
+    <Content Include="Resources\Images\make_loan.png" />
     <Content Include="Resources\Images\plus.png" />
     <Content Include="Resources\Images\refresh.png" />
     <Content Include="Resources\Images\users.png" />
@@ -335,6 +339,7 @@
     <Content Include="Resources\Scripts\lms-grid\LMSGridEnum.js" />
     <Content Include="Resources\Scripts\lms-grid\LMSGridPager.js" />
     <Content Include="Resources\Scripts\lms-grid\LMSGridUtillity.js" />
+    <Content Include="Resources\Scripts\lms-ribbon\Book\LMSBookBorrowedSidebar.js" />
     <Content Include="Resources\Scripts\lms-ribbon\Book\LMSBookCopiesSidebar.js" />
     <Content Include="Resources\Scripts\lms-ribbon\Book\LMSBooksRibbon.js" />
     <Content Include="Resources\Scripts\lms-ribbon\Book\LMSBooksSidebar.js" />
@@ -490,6 +495,8 @@
     <Content Include="Areas\Book\Views\Overview\PanelCopy.cshtml" />
     <Content Include="Areas\Book\Views\Overview\SidebarCopy.cshtml" />
     <Content Include="Areas\Book\Views\BookCopy\LoanForm.cshtml" />
+    <Content Include="Areas\Book\Views\Overview\SidebarBorrowed.cshtml" />
+    <Content Include="Areas\Book\Views\Overview\PanelBorrowed.cshtml" />
     <None Include="Resources\Scripts\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="Resources\Scripts\jquery\jquery-1.10.2.js" />
     <None Include="Resources\Scripts\jquery\jquery.validate-vsdoc.js" />

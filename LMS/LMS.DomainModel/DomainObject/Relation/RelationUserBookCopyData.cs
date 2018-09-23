@@ -19,5 +19,10 @@ namespace LMS.DomainModel.DomainObject.Relation
 
         [DBColumn("RefUser")]
         public int UserId { get; set; }
+
+        public string GetUserFullName(int userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

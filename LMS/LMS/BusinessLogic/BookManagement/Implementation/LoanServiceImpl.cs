@@ -10,11 +10,13 @@ using LMS.Infrastructure.ModelBuilders.Implementation.Relation.UserBookCopy;
 using LMS.DomainModel.DomainObject.Relation;
 using LMS.Models.ViewModels.Book;
 using LMS.BusinessLogic.UserManagement.Interfaces;
+using System.Collections.Generic;
 
 namespace LMS.BusinessLogic.BookManagement.Implementation
 {
     public class LoanServiceImpl : ILoanService
     {
+        #region Injected properties
         public IRelationUserBookCopyRepository RelationUserBookCopyRepository { get; set; }
 
         public IBookRepository BookRepository { get; set; }
@@ -28,6 +30,7 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
         public IBookService BookService { get; set; }
 
         public IUserService UserService { get; set; }
+        #endregion
 
         public RelationUserBookCopyViewModel CreateLoanModel(int bookCopyId)
         {
@@ -84,6 +87,32 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
             }
 
             return result;
+        }
+
+        public List<RelationUserBookCopyViewModel> GetActiveLoans()
+        {
+            var viewModels = new List<RelationUserBookCopyViewModel>();
+            var domainModels = new List<RelationUserBookCopyData>();
+
+            domainModels = RelationUserBookCopyRepository.GetAllActiveData();
+            viewModels = ConvertToViewModels(domainModels);
+
+            return viewModels;
+        }
+
+        private List<RelationUserBookCopyViewModel> ConvertToViewModels(List<RelationUserBookCopyData> domainModels)
+        {
+            var viewModels = new List<RelationUserBookCopyViewModel>();
+
+            foreach (var item in domainModels)
+            {
+                RelationUserBookCopyViewModelBuilder builder = BuilderResolverService.Get
+                    <RelationUserBookCopyViewModelBuilder, RelationUserBookCopyData>(item);
+                Constructor.ConstructViewModelData(builder);
+                viewModels.Add(builder.GetViewModel());
+            }
+
+            return viewModels;
         }
     }
 }

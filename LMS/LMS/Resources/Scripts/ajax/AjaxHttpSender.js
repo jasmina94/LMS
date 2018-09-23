@@ -39,8 +39,24 @@
             success: function (data) {
                 if (data.Success) {
                     toastr.success(data.Message, "Success");
-                    $(id)[0].reset();
+                    if (id != undefined) {
+                        $(id)[0].reset();
+                    }
+                    
                     $form.closest("div#Dialog").dialog("close");
+
+                    var $lmsGrid = $(".lms-grid-container");
+                    if ($lmsGrid != undefined) {
+                        var lmsGridData = $lmsGrid.data("LMSGrid");
+                        lmsGridData.selectMode = false;
+                        lmsGridData.filterTable();                        
+                    }
+                    var $sidebar = $("ul.sidebar");
+                    var id = $sidebar.attr("id");
+                    if (id === "BookCopySidebar") {
+                        var sidebar = new LMSBookCopiesSidebar();
+                        sidebar.changeLookForRegularMode();
+                    }
                 }
                 else {
                     toastr.error(data.Message, "Error");

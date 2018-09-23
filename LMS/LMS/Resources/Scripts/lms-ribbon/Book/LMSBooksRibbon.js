@@ -32,5 +32,18 @@ var lmsBooksRibbon = function () {
             html: null
         }
     };
+
+    ribbonItems.item3 = {
+        id: ribbonEnum.RIBBON_ITEM_ELEMENT2,
+        sidebar: {
+            path: "/Book/Overview/SidebarBorrowed",
+            html: null,
+            actions: new LMSBookBorrowedSidebar()
+        },
+        panel: {
+            path: "/Book/Overview/PanelBorrowed",
+            html: null
+        }
+    };
     return ribbon;
 };

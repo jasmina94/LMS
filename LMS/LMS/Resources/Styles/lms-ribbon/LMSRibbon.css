@@ -1,5 +1,5 @@
 ﻿.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
-    background-color: #999999;
+    background-color: #666666;
 }
 
 #ribbon-container {
@@ -34,6 +34,12 @@
     padding-top: 3px;
 }
 
+.lms-sidebar-item-disabled > a{
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+}
+
 #RefreshSideBar {
     background-image: url("../../Images/refresh.png") !important;
     background-repeat: no-repeat;
@@ -52,6 +58,30 @@
     height: 32px;
 }
 
+#DeleteSideBar {
+    background-image: url("../../Images/delete.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
+#ConfirmSideBar {
+    background-image: url("../../Images/confirm.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
+#CancelSideBar {
+    background-image: url("../../Images/cancel.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
+#MakeBookLoanSideBar{
+    background-image: url("../../Images/make_loan.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
 #BookListRibbonItem {
     background-image: url("../../Images/books.png") !important;
     background-repeat: no-repeat;
@@ -60,6 +90,12 @@
 
 #BookCopyListRibbonItem {
     background-image: url("../../Images/book_copies.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
+#BorrowedBooksRibbonItem{
+    background-image: url("../../Images/borrowed_books.png") !important;
     background-repeat: no-repeat;
     height: 32px;
 }

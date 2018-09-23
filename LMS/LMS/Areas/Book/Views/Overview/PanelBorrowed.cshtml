@@ -1,0 +1,35 @@
+﻿<div class="jumbotron lms-jumbotron-small">
+    <p>List of books on reading</p>
+</div>
+
+<div id="BookBorrowGrid" class="lms-grid-container">
+</div>
+
+
+<script>
+    $("#BookBorrowGrid").lmsGrid({
+      source: "@Url.Action("GetAllActiveLoans")",
+      visibleHead: true,
+      sorting: true,
+      filtering: true,
+      multipleFieldFilter: true,
+      paging: true,
+      showPrevNext: true,
+      showFirstLast: true,
+      rowClickable: true,
+      rowAction: function (rowId) {
+          console.log(rowId);
+          //Vracanje pozajmice
+      },
+      fields: [
+         { label: "Loan id", name: "Id", type: "int", sorted: true, width: "40px" },
+         { label: "Book copy id", name: "BookCopyId", type: "int" },
+         { label: "Book", name: "BookFullName", type: "string" },
+         { label: "User id", name: "UserId", type: "int" },
+         { label: "User", name: "UserFullName", type: "string" },
+         { label: "Issue date", name: "DateOfIssue", type: "date" },
+         { label: "Due for return", name: "DateDueForReturn", type: "date" },
+         { label: "Return date", name: "DateReturned", type: "date" }
+      ]
+   });
+</script>

@@ -4,7 +4,8 @@
     var ribbonItems = new List<IHtmlString>
     {
         @Html.RibbonItem("item1", "List", "List of active books.", style: "BookListRibbonItem"),
-        @Html.RibbonItem("item2", "List", "List of book copies.", style: "BookCopyListRibbonItem")
+        @Html.RibbonItem("item2", "List", "List of book copies.", style: "BookCopyListRibbonItem"),
+        @Html.RibbonItem("item3", "List", "List of books on reading.", style: "BorrowedBooksRibbonItem")
     };
 
     @Html.Ribbon("books", "item1", ribbonItems)

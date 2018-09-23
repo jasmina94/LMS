@@ -10,8 +10,12 @@ namespace LMS.Models.ViewModels.Relation
         [RequiredProperty("Book copy is required!")]
         public int BookCopyId { get; set; }
 
+        public string BookFullName { get; set; }
+
         [RequiredProperty("User is required!")]
         public int UserId { get; set; }
+
+        public string UserFullName { get; set; }
 
         [RequiredProperty("Date of issue is required!")]
         [DataType(DataType.Date)]

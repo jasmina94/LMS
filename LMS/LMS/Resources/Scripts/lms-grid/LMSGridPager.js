@@ -11,7 +11,7 @@
    this.createPager = function (lmsGrid) {
       $(self.tableFooter).empty();
       self.grid = lmsGrid;
-      self.rowsPerPage = 5;
+      self.rowsPerPage = 10;
       self.statusFrom = 1;
 
       if (self.rowsPerPage > self.grid.data.length) {
@@ -216,10 +216,10 @@
 
       $picker.addClass("lms-grid-pager-picker");
 
-      $picker.append("<option>5</option>");
       $picker.append("<option>10</option>");
       $picker.append("<option>20</option>");
-      $picker.append("<option>30</option>");
+      $picker.append("<option>50</option>");
+      $picker.append("<option>100</option>");
 
       return $picker;
    }

@@ -12,7 +12,7 @@ table.table.table-hover thead {
 
 table.table.table-hover tbody {
    display: block;
-   height: 120px;
+   height: 366px;
    overflow-y: auto;
    background-color: white;
 }

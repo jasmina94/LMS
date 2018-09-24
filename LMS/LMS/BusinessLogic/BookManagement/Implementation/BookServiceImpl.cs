@@ -172,15 +172,93 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             var result = new DeleteBookResult();
             if (bookId.HasValue)
             {
-                BookData domainModel = BookRepository.GetDataById(bookId.Value);
-                if (domainModel != null)
+                DeleteBookResult deletingCopies = DeleteCopiesByBook(bookId.Value);
+                if (deletingCopies.Success)
                 {
-                    BookRepository.DeleteById(bookId.Value);
-                    result = new DeleteBookResult(bookId.Value, domainModel.BookAuthorAndTitle);
-                }
+                    BookData domainModel = BookRepository.GetDataById(bookId.Value);
+                    if (domainModel != null)
+                    {
+                        BookRepository.DeleteById(bookId.Value);
+                        result = new DeleteBookResult(bookId.Value, domainModel.BookAuthorAndTitle);
+                    }
+                }                
             }
 
             return result;
+        }
+
+        public DeleteBookResult DeleteCopy(int bookCopyId)
+        {
+            var result = new DeleteBookResult();
+            BookCopyData bookCopyData = BookCopyRepository.GetDataById(bookCopyId);
+            if (bookCopyData != null)
+            {
+                List<BookCopyData> list = new List<BookCopyData>() { bookCopyData };
+                if (CheckIfAnyCopyIsBorrowed(list))
+                {
+                    result.Message = "Book copy is currently borrowed. Can't be deleted.";
+                }
+                else
+                {
+                    BookCopyRepository.DeleteById(bookCopyData.Id);
+
+                    BookData book = BookRepository.GetDataById(bookCopyData.BookId);
+                    book.NumOfAvailableCopies = book.NumOfAvailableCopies - 1;
+                    BookRepository.SaveData(book);
+
+                    result = new DeleteBookResult(book.Id, book.BookAuthorAndTitle, bookCopyData.Id);
+                }
+            }
+            else
+            {
+                result.Message = "Please select book copy for delete.";
+            }
+
+            return result;
+        }
+
+        public DeleteBookResult DeleteCopiesByBook(int refBookId)
+        {
+            var result = new DeleteBookResult();
+            List<BookCopyData> bookCopies = BookCopyRepository.GetCopiesForBook(refBookId);
+            if(bookCopies != null && bookCopies.Count != 0)
+            {
+                if (CheckIfAnyCopyIsBorrowed(bookCopies))
+                {
+                    result.Message = "Book copy is currently borrowed. Can't be deleted.";
+                }
+                else
+                {
+                    DeleteEachBookCopy(bookCopies);
+                    result.Success = true;
+                }
+                    
+            }
+
+            return result;
+        }
+
+        private bool CheckIfAnyCopyIsBorrowed(List<BookCopyData> bookCopies)
+        {
+            bool hasBorrowedCopy = false;
+            foreach (var item in bookCopies)
+            {
+                if (item.OnLoan)
+                {
+                    hasBorrowedCopy = true;
+                    break;
+                }
+            }
+
+            return hasBorrowedCopy;
+        }
+
+        private void DeleteEachBookCopy(List<BookCopyData> bookCopies)
+        {
+            foreach (var item in bookCopies)
+            {
+                BookCopyRepository.DeleteById(item.Id);
+            }
         }
     }
 }

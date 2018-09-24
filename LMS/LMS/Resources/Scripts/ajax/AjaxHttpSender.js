@@ -1,6 +1,10 @@
-﻿var AjaxHttpSender = function () {
+﻿/// <reference path="~/Resources/Scripts/lms-ribbon/LMSRibbonEnum.js"/>
+
+var AjaxHttpSender = function () {
 
     var self = this;
+
+    this.ribbonEnum = new LMSRibbonEnum();
 
     this.sendGet = function (url, callback) {
         $.ajax({
@@ -41,22 +45,10 @@
                     toastr.success(data.Message, "Success");
                     if (id != undefined) {
                         $(id)[0].reset();
-                    }
-                    
+                    }                    
                     $form.closest("div#Dialog").dialog("close");
 
-                    var $lmsGrid = $(".lms-grid-container");
-                    if ($lmsGrid != undefined) {
-                        var lmsGridData = $lmsGrid.data("LMSGrid");
-                        lmsGridData.selectMode = false;
-                        lmsGridData.filterTable();                        
-                    }
-                    var $sidebar = $("ul.sidebar");
-                    var id = $sidebar.attr("id");
-                    if (id === "BookCopySidebar") {
-                        var sidebar = new LMSBookCopiesSidebar();
-                        sidebar.changeLookForRegularMode();
-                    }
+                    self.resetRibbonMode(true, false);                   
                 }
                 else {
                     toastr.error(data.Message, "Error");
@@ -75,6 +67,34 @@
         }
     }
 
+    this.resetRibbonMode = function (changeAddCounter, changeDeleteCounter) {
+        var self = this;    
+        var $sidebar = $("ul.sidebar");
+
+        var id = $sidebar.attr("id");
+
+        switch (id) {
+            case self.ribbonEnum.BookCopySidebar:
+                var sidebar = new LMSBookCopiesSidebar();
+                sidebar.changeLookForRegularMode();
+                var $lmsGrid = $("#BookCopyGrid");
+                if ($lmsGrid != undefined) {
+                    var lmsGridData = $lmsGrid.data("LMSGrid");
+                    lmsGridData.mode = null;
+                    lmsGridData.changeLookByMode();
+                    if (changeDelete) {
+                        lmsGridData.deleteCounter = 0;
+                    }
+                    if (changeAddCounter) {
+                        lmsGridData.addCounter = 0;
+                    }
+                }
+                break;
+            default:
+                console.log(id);
+        }            
+    }
+
     this.loginAjaxCall = function ($form) {
         var url = $form.attr("action");
         var method = $form.attr("method");
@@ -89,7 +109,8 @@
                 }
             },
             failure: function (XMLHttpRequest, textStatus, errorThrown) {
-                toastr.error("Error making AJAX call: " + XMLHttpRequest.statusText + " (" + XMLHttpRequest.status + ")");
+                toastr.error("Error making AJAX call: " +
+                    XMLHttpRequest.statusText + " (" + XMLHttpRequest.status + ")");
             }
         }
 
@@ -108,6 +129,24 @@
 
     this.login = function ($form) {
         self.loginAjaxCall($form);
+    }
+
+    this.delete = function (path) {
+        var callback = {
+            success: function (data) {
+                if (data.Success) {
+                    toastr.success(data.Message, "Success");
+                    self.resetRibbonMode(false, true);
+                } else {
+                    toastr.error(data.Message, "Error");
+                }
+            },
+            failure: function (XMLHttpRequest, textStatus, errorThrown) {
+                toastr.error("Error making AJAX call: " +
+                    XMLHttpRequest.statusText + " (" + XMLHttpRequest.status + ")");
+            }
+        }
+        self.sendGet(path, callback);
     }
 };
 

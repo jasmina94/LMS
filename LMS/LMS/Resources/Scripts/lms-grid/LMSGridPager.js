@@ -11,7 +11,7 @@
    this.createPager = function (lmsGrid) {
       $(self.tableFooter).empty();
       self.grid = lmsGrid;
-      self.rowsPerPage = 10;
+      self.rowsPerPage = 20;
       self.statusFrom = 1;
 
       if (self.rowsPerPage > self.grid.data.length) {

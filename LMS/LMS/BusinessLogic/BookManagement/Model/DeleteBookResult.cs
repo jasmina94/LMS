@@ -23,5 +23,14 @@
             Id = id;
             Name = name;
         }
+
+        public DeleteBookResult(int id, string name, int copyId)
+        {
+            Id = id;
+            Name = name;
+            Success = true;
+            Message = "Successfully deleted copy of book " + Name + 
+                        " with id: " + id + " and copy id: " + copyId + ".";            
+        }
     }
 }

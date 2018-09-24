@@ -37,10 +37,15 @@ function lmsGrid($) {
         rowClickable: null,
         rowAction: null,
         cellAction: null,
+        addAction: null,
+        deleteAction: null,
         paging: false,
         showPrevNext: false,
         showFirstLast: false,
-        selectMode: false,
+        mode: null,
+        selectAllBox: false,
+        deleteCounter: 0,
+        addCounter: 0,
 
         initialize: function (configuration) {
             this.source = configuration[lmsGridEnum.SOURCE];
@@ -61,6 +66,13 @@ function lmsGrid($) {
             if (lmsGridEnum.MULTIPLE_FIELD_FILTER in configuration) {
                 this.multipleFieldFilter = configuration[lmsGridEnum.MULTIPLE_FIELD_FILTER];
             }
+            if (lmsGridEnum.MODE in configuration) {
+                this.mode = configuration[lmsGridEnum.MODE];
+            }
+
+            if (lmsGridEnum.SELECTION_ALL in configuration) {
+                this.selectAllBox = configuration[lmsGridEnum.SELECTION_ALL];
+            }
 
             if (lmsGridEnum.ROW_CLICK in configuration) {
                 this.rowClickable = configuration[lmsGridEnum.ROW_CLICK];
@@ -72,6 +84,14 @@ function lmsGrid($) {
 
             if (lmsGridEnum.CELL_ACTION in configuration) {
                 this.cellAction = configuration[lmsGridEnum.CELL_ACTION];
+            }
+
+            if (lmsGridEnum.ADD_ACTION in configuration) {
+                this.addAction = configuration[lmsGridEnum.ADD_ACTION];
+            }
+
+            if (lmsGridEnum.DELETE_ACTION in configuration) {
+                this.deleteAction = configuration[lmsGridEnum.DELETE_ACTION];
             }
 
             if (lmsGridEnum.PAGING in configuration) {
@@ -319,12 +339,6 @@ function lmsGrid($) {
             }
 
             self.loadData();
-
-            if (self.selectMode) {
-                self.buildCheckboxes();
-            } else {
-                self.removeCheckboxes();
-            }
         },
 
         createBody: function () {
@@ -378,6 +392,8 @@ function lmsGrid($) {
 
                 $body.append($bodyRow);
             }
+
+            
         },
 
         formatBodyRowCellData: function (bodyRowCellData, fieldDetails) {
@@ -452,9 +468,8 @@ function lmsGrid($) {
             }
         },
 
-        buildCheckboxes: function (selectAll) {
-            var self = this;
-            
+        buildCheckboxes: function (selectAll, mode) {
+            var self = this;            
             var $body = this.body;
             var $head = this.head;
 
@@ -481,12 +496,12 @@ function lmsGrid($) {
                 $bodyRow.prepend($bodyCheck);
             }
 
-            self.selectMode = true;
+            self.mode = mode;
         },
 
         removeCheckboxes: function(){
             var self = this;
-            self.selectMode = false;
+            self.mode = null;
 
             $("th.lms-grid-th-checkbox").remove();
             $("td.lms-grid-td-checkbox").remove();
@@ -529,12 +544,38 @@ function lmsGrid($) {
 
         onCheckboxSelected: function(copyId){
             var self = this;
+            
             $(".lms-grid-input-checkbox").change(function () {
                 if (this.checked) {
                     var id = $(this).attr("id");
-                    self.rowAction(id);
+
+                    if (self.mode == "add") {
+                        if (self.addCounter == 0) {
+                            self.addCounter = self.addCounter + 1;
+                            self.addAction(id);                            
+                        }
+                        
+                    } else if (self.mode == "delete") {
+                        if (self.deleteCounter == 0) {
+                            self.deleteCounter = self.deleteCounter + 1;
+                            self.deleteAction(id);                            
+                        }
+                        
+                    }                   
                 }
             });
+        },
+
+        changeLookByMode: function () {
+            var self = this;
+            if (self.mode == "add") {
+                self.buildCheckboxes(self.selectAllBox, "add");
+            } else if (self.mode == "delete") {
+                self.buildCheckboxes(self.selectAllBox, "delete");
+            } else {
+                self.removeCheckboxes();
+                self.loadData();
+            }
         },
     };
 

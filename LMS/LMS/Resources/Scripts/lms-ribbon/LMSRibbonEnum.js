@@ -27,6 +27,10 @@
     this.RIBBON_ITEM_ELEMENT2 = "element2";
     this.RIBBON_ITEM_ELEMENT3 = "element3";
 
-    this.RIBBON_ITEM_BOOK_LIST = "book_list";
-    this.RIBBON_ITEM_BOOK_COPY_LIST = "book_copy_list";
+    this.BookSidebar = "BookSidebar";
+    this.BookCopySidebar = "BookCopySidebar";
+    this.BookBorrowedSidebar = "BookBorrowedSidebar";
+    this.UserSidebar = "UserSidebar";
+    this.LanguageSidebar = "LanguageSidebar";
+    this.CategorySidebar = "CategorySidebar";
 };

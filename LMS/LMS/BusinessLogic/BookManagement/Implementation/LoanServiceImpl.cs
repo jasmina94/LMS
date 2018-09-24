@@ -11,6 +11,7 @@ using LMS.DomainModel.DomainObject.Relation;
 using LMS.Models.ViewModels.Book;
 using LMS.BusinessLogic.UserManagement.Interfaces;
 using System.Collections.Generic;
+using LMS.DomainModel.DomainObject;
 
 namespace LMS.BusinessLogic.BookManagement.Implementation
 {
@@ -34,9 +35,13 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
 
         public RelationUserBookCopyViewModel CreateLoanModel(int bookCopyId)
         {
+            BookCopyData copy = BookCopyRepository.GetDataById(bookCopyId);
+            BookData book = BookRepository.GetDataById(copy.BookId);
+
             var viewModel = new RelationUserBookCopyViewModel
             {
                 BookCopyId = bookCopyId,
+                BookFullName = book.BookAuthorAndTitle,
                 DateOfIssue = DateTime.Now,
                 DateDueForReturn = DateTime.Now.AddDays(14)
             };

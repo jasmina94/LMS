@@ -7,5 +7,7 @@ namespace LMS.DomainModel.Repository.Book.Interfaces
     public interface IBookCopyRepository : IRepository<BookCopyData>
     {
         List<BookCopyData> GetAvailableCopies();
+
+        List<BookCopyData> GetCopiesForBook(int id);
     }
 }

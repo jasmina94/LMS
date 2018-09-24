@@ -62,5 +62,12 @@ namespace LMS.Areas.Book.Controllers
 
             return response;
         }
+
+        public ActionResult Delete(int id)
+        {
+            DeleteBookResult result = BookService.DeleteCopy(id);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -17,9 +17,13 @@
       showPrevNext: true,
       showFirstLast: true,
       rowClickable: false,
-      rowAction: function (rowId) {
+      addAction: function (rowId) {
           var dialog = new DialogFactory().createDialog(new DialogTypeEnum().LOAN);
           dialog.open(rowId);
+      },
+      deleteAction: function(rowId){
+          var url = "/Book/BookCopy/Delete/" + rowId;
+          new AjaxHttpSender().delete(url);
       },
       cellAction: function (cell) {
           if (cell.field.label === "Created by") {

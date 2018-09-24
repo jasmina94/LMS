@@ -10,7 +10,7 @@ DialogUtility.prototype.createDialog = function (container) {
         title: customTitle,
         close: function (e) {
             enableNavbar();
-            //refreshPage(); not necessary right now
+            refreshRibbon();
         }
     });
 };
@@ -38,6 +38,19 @@ function disableNavbar() {
         });
         $(this).prop("disabled", true);
     });
+}
+
+function refreshRibbon() {
+    var $sidebar = $("ul.sidebar");
+    var $lmsGridList = $(".lms-grid-container");
+    for (var i = 0; i < $lmsGridList.length; i++) {
+        var $lmsGrid = $($lmsGridList[i]);
+        if ($lmsGrid.is(":visible")) {
+            var lmsGridData = $lmsGrid.data("LMSGrid");
+            lmsGridData.mode = null;
+            lmsGridData.changeLookByMode();
+        }
+    }
 }
 
 function refreshPage() {

@@ -17,8 +17,11 @@
             @Html.HiddenFor(model => model.DateTimeDeletedOn)
             @Html.HiddenFor(model => model.DateReturned)
 
-            @Html.SimpleFormInput(model => model.BookCopyId, "Book identification:", 
+            @Html.SimpleFormInput(model => model.BookCopyId, "Copy id:", 
                 inputValue: Model.BookCopyId.ToString(), readOnly: true)
+
+            @Html.SimpleFormInput(model => model.BookFullName, "Book:",
+                inputValue: Model.BookFullName, readOnly: true)
 
             @Html.DropDownSelect(model => model.UserId, "User:", selectValue: @Model.UserId,
                 innerDivSpecialClass: "lms-selectpicker", selectionSource: "/User/User/GetSelect")

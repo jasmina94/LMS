@@ -5,6 +5,7 @@ DialogUtility.prototype.createDialog = function (container) {
     container.dialog({
         autoOpen: false,
         width: 550,
+        minHeight: 300,
         resizable: false,
         modal: true,
         title: customTitle,

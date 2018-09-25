@@ -17,7 +17,7 @@
       showPrevNext: true,
       showFirstLast: true,
       rowClickable: false,
-      addAction: function (rowId) {
+      loanAction: function (rowId) {
           var dialog = new DialogFactory().createDialog(new DialogTypeEnum().LOAN);
           dialog.open(rowId);
       },

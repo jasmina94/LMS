@@ -232,7 +232,10 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
                     DeleteEachBookCopy(bookCopies);
                     result.Success = true;
                 }
-                    
+            }
+            else
+            {
+                result.Success = true;
             }
 
             return result;

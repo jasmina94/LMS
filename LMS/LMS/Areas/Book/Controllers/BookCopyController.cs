@@ -24,6 +24,13 @@ namespace LMS.Areas.Book.Controllers
             return PartialView("BookCopyForm", viewModel);
         }
 
+        public ActionResult FormComplex()
+        {
+            var viewModel = new BookCopyViewModel();
+
+            return PartialView("BookCopyFormComplex", viewModel);
+        }
+
         [HttpPost]
         [ValidateModelFilter]
         public ActionResult Save(BookCopyViewModel viewModel)
@@ -33,6 +40,7 @@ namespace LMS.Areas.Book.Controllers
             if (validation.Success)
             {
                 viewModel.Id = 0;
+                viewModel.Available = true;
                 SaveBookResult result = BookService.Save(viewModel);
                 response.Data = result;
             }

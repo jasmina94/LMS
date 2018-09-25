@@ -1,0 +1,22 @@
+﻿@model LMS.Models.ViewModels.Book.BookCopyViewModel
+@using LMS.Infrastructure.HtmlHelpers
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @Html.DialogTitle(value: "Add new book copy")
+        <form action="/Book/BookCopy/Save" method="post" id="BookCopyForm" class="form-horizontal">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.IsActive)
+            @Html.HiddenFor(model => model.UserCreatedBy)
+            @Html.HiddenFor(model => model.DateTimeCreatedOn)
+            @Html.HiddenFor(model => model.UserDeletedBy)
+            @Html.HiddenFor(model => model.DateTimeDeletedOn)
+
+            @Html.DropDownSelect(model => model.BookId, "Book:", selectValue: @Model.BookId,
+                innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Book/Book/GetSelect")
+
+            @Html.FormSubmit(newLine: true, value: "Add copy")
+        </form>
+    </div>
+</div>
+

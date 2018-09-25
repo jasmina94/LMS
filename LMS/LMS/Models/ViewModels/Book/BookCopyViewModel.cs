@@ -8,7 +8,6 @@ namespace LMS.Models.ViewModels.Book
         [RequiredProperty("Book copy must have referencing book!")]
         public int BookId { get; set; }
 
-        [RequiredProperty("Book copy must have referencing book!")]
         public string BookAuthorAndTitle { get; set; }
 
         public bool Available { get; set; }

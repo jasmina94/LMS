@@ -2,12 +2,21 @@
 
 <ul class="nav nav-pills nav-stacked sidebar" id="BookSidebar">
     <li class="lms-sidebar-item">
-        @Html.SidebarItem("refresh", "Refresh", "Refresh content", style: "RefreshSideBar")
+        @Html.SidebarItem("refresh", "Refresh", "Refresh table", style: "RefreshSideBar")
     </li>
     <li class="lms-sidebar-item">
-        @Html.SidebarItem("filter", "Filter", "Filter content of the table", style: "FilterSideBar")
+        @Html.SidebarItem("filter", "Filter", "Filter books", style: "FilterSideBar")
     </li>
     <li class="lms-sidebar-item">
-        @Html.SidebarItem("add", "Add", "Add new item", style: "AddSideBar")
+        @Html.SidebarItem("add", "Add", "Add new book", style: "AddSideBar")
+    </li>
+    <li class="lms-sidebar-item">
+        @Html.SidebarItem("edit", "Edit", "Edit book", style: "EditSideBar")
+    </li>
+    <li class="lms-sidebar-item">
+        @Html.SidebarItem("delete", "Delete", "Delete book", style: "DeleteSideBar")
+    </li>
+    <li class="lms-sidebar-item lms-sidebar-item-disabled">
+        @Html.SidebarItem("cancel", "Cancel", "Cancel action", style: "CancelSideBar")
     </li>
 </ul>

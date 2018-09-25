@@ -323,6 +323,7 @@
     <Content Include="Resources\Scripts\dialogs\BaseDialog.js" />
     <Content Include="Resources\Scripts\dialogs\Book\Book.js" />
     <Content Include="Resources\Scripts\dialogs\Book\BookCopy.js" />
+    <Content Include="Resources\Scripts\dialogs\Book\BookCopyComplex.js" />
     <Content Include="Resources\Scripts\dialogs\Book\Loan.js" />
     <Content Include="Resources\Scripts\dialogs\Category\Category.js" />
     <Content Include="Resources\Scripts\dialogs\Chat\AddMember.js" />
@@ -498,6 +499,7 @@
     <Content Include="Areas\Book\Views\BookCopy\LoanForm.cshtml" />
     <Content Include="Areas\Book\Views\Overview\SidebarBorrowed.cshtml" />
     <Content Include="Areas\Book\Views\Overview\PanelBorrowed.cshtml" />
+    <Content Include="Areas\Book\Views\BookCopy\BookCopyFormComplex.cshtml" />
     <None Include="Resources\Scripts\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="Resources\Scripts\jquery\jquery-1.10.2.js" />
     <None Include="Resources\Scripts\jquery\jquery.validate-vsdoc.js" />

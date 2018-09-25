@@ -48,7 +48,7 @@ var AjaxHttpSender = function () {
                     }                    
                     $form.closest("div#Dialog").dialog("close");
 
-                    self.resetRibbon(true, false, true);
+                    self.resetRibbon(true, false, true, true);
                 }
                 else {
                     toastr.error(data.Message, "Error");
@@ -67,19 +67,38 @@ var AjaxHttpSender = function () {
         }
     }
 
-    this.resetRibbon = function (changeAddCounter, changeDeleteCounter, changeEditCounter) {
+    this.resetRibbon = function (changeAddCounter, changeDeleteCounter, changeEditCounter, changeLoanCounter) {
         var self = this;    
         var $sidebar = $("ul.sidebar");
 
         var id = $sidebar.attr("id");
 
         switch (id) {
+            case self.ribbonEnum.BookSidebar:
+                var sidebar = new LMSBooksSidebar();
+                sidebar.disableCancel();
+                var $lmsGrid = $("#BookGrid");
+                if ($lmsGrid != undefined) {
+                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter,
+                        changeLoanCounter, "BookGrid");
+                }
+                break;
             case self.ribbonEnum.BookCopySidebar:
                 var sidebar = new LMSBookCopiesSidebar();
                 sidebar.disableCancel();
                 var $lmsGrid = $("#BookCopyGrid");
                 if ($lmsGrid != undefined) {
-                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter, "BookCopyGrid");
+                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter,
+                        changeLoanCounter, "BookCopyGrid");
+                }
+                break;
+            case self.ribbonEnum.BookBorrowedSidebar:
+                var sidebar = new LMSBookBorrowedSidebar();
+                sidebar.disableCancel();
+                var $lmsGrid = $("#BookBorrowGrid");
+                if ($lmsGrid != undefined) {
+                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter,
+                        changeLoanCounter, "BookBorrowGrid");
                 }
                 break;
             case self.ribbonEnum.CategorySidebar:
@@ -87,7 +106,8 @@ var AjaxHttpSender = function () {
                 sidebar.disableCancel();
                 var $lmsGrid = $("#CategoryGrid");
                 if ($lmsGrid != undefined) {
-                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter, "CategoryGrid");
+                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter,
+                        changeLoanCounter, "CategoryGrid");
                 }
                 break;
             case self.ribbonEnum.LanguageSidebar:
@@ -95,7 +115,8 @@ var AjaxHttpSender = function () {
                 sidebar.disableCancel();
                 var $lmsGrid = $("#LanguageGrid");
                 if ($lmsGrid != undefined) {
-                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter, "LanguageGrid");
+                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter,
+                        changeLoanCounter, "LanguageGrid");
                 }
                 break;
             default:
@@ -103,7 +124,7 @@ var AjaxHttpSender = function () {
         }            
     }
 
-    this.resetGrid = function (add, del, edit, gridId) {
+    this.resetGrid = function (add, del, edit, loan, gridId) {
         var $lmsGrid = $('#' + gridId);
         var lmsGridData = $lmsGrid.data("LMSGrid");
         lmsGridData.changeLookByMode(null);
@@ -115,6 +136,9 @@ var AjaxHttpSender = function () {
         }
         if (edit) {
             lmsGridData.editCounter = 0;
+        }
+        if (loan) {
+            lmsGridData.loanCounter = 0;
         }
     }
 
@@ -159,7 +183,7 @@ var AjaxHttpSender = function () {
             success: function (data) {
                 if (data.Success) {
                     toastr.success(data.Message, "Success");
-                    self.resetRibbon(false, true, false);
+                    self.resetRibbon(false, true, false, false);
                 } else {
                     toastr.error(data.Message, "Error");
                 }

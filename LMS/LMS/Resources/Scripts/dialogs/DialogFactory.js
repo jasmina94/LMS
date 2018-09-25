@@ -8,6 +8,7 @@
 
 /// <reference path="~/Resources/Scripts/dialogs/Book/Book.js"/>
 /// <reference path="~/Resources/Scripts/dialogs/Book/BookCopy.js"/>
+/// <reference path="~/Resources/Scripts/dialogs/Book/BookCopyComplex.js"/>
 /// <reference path="~/Resources/Scripts/dialogs/Book/Loan.js"/>
 
 /// <reference path="~/Resources/Scripts/dialogs/User/About.js"/>
@@ -29,6 +30,7 @@ var DialogFactory = function () {
 
     dialogDictionary[dialogTypeEnum.BOOK] = new BookDialog();
     dialogDictionary[dialogTypeEnum.BOOK_COPY] = new BookCopyDialog();
+    dialogDictionary[dialogTypeEnum.BOOK_COPY_COMPLEX] = new BookCopyComplexDialog();
 
     dialogDictionary[dialogTypeEnum.LOAN] = new LoanDialog();
 

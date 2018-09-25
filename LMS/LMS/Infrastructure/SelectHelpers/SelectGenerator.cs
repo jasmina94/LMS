@@ -1,4 +1,5 @@
-﻿using LMS.Models.ViewModels.Category;
+﻿using LMS.Models.ViewModels.Book;
+using LMS.Models.ViewModels.Category;
 using LMS.Models.ViewModels.Language;
 using LMS.Models.ViewModels.User;
 using System.Collections.Generic;
@@ -37,34 +38,49 @@ namespace LMS.MVC.Infrastructure.SelectHelpers
             return jsonUsers;
         }
 
-        public static SelectPageResult CategoriesToSelectPageResult(List<CategoryViewModel> categoryList, int usersCount)
+        public static SelectPageResult CategoriesToSelectPageResult(List<CategoryViewModel> categoryList, int categoriesCount)
         {
-            SelectPageResult jsonUsers = new SelectPageResult();
-            jsonUsers.Results = new List<SelectResult>();
+            SelectPageResult jsonCategories = new SelectPageResult();
+            jsonCategories.Results = new List<SelectResult>();
 
             foreach (var item in categoryList)
             {
-                jsonUsers.Results.Add(new SelectResult { id = item.Id.ToString(), text = item.Name.ToString() });
+                jsonCategories.Results.Add(new SelectResult { id = item.Id.ToString(), text = item.Name.ToString() });
             }
 
-            jsonUsers.Total = usersCount;
+            jsonCategories.Total = categoriesCount;
 
-            return jsonUsers;
+            return jsonCategories;
         }
 
-        public static SelectPageResult LanguagesToSelectPageResult(List<LanguageViewModel> languageList, int usersCount)
+        public static SelectPageResult LanguagesToSelectPageResult(List<LanguageViewModel> languageList, int languagesCount)
         {
-            SelectPageResult jsonUsers = new SelectPageResult();
-            jsonUsers.Results = new List<SelectResult>();
+            SelectPageResult jsonLanguages = new SelectPageResult();
+            jsonLanguages.Results = new List<SelectResult>();
 
             foreach (var item in languageList)
             {
-                jsonUsers.Results.Add(new SelectResult { id = item.Id.ToString(), text = item.Name.ToString() });
+                jsonLanguages.Results.Add(new SelectResult { id = item.Id.ToString(), text = item.Name.ToString() });
             }
 
-            jsonUsers.Total = usersCount;
+            jsonLanguages.Total = languagesCount;
 
-            return jsonUsers;
+            return jsonLanguages;
+        }
+
+        public static SelectPageResult BooksToSelectPageResult(List<BookViewModel> bookList, int booksCount)
+        {
+            SelectPageResult jsonBooks = new SelectPageResult();
+            jsonBooks.Results = new List<SelectResult>();
+
+            foreach (var item in bookList)
+            {
+                jsonBooks.Results.Add(new SelectResult { id = item.Id.ToString(), text = item.AuthorAndTitle.ToString() });
+            }
+
+            jsonBooks.Total = booksCount;
+
+            return jsonBooks;
         }
 
         public static SelectPageResult ChatUsersToSelectPageResult(List<UserViewModel> usersList, int usersCount)

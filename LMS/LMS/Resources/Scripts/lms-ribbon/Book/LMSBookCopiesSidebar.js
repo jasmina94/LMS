@@ -5,55 +5,14 @@ function LMSBookCopiesSidebar() {
     this.base = LMSSidebar;
     this.base();
 
-    this.changeLookForAddMode = function () {
-        var $addOptions = $(".sidebar").find("[data-sidebar-action=add]").parent();
-        $addOptions.addClass("lms-sidebar-item-disabled");       
-
-        var $refreshOption = $(".sidebar").find("[data-sidebar-action=refresh]").parent();
-        $refreshOption.addClass("lms-sidebar-item-disabled");
-
-        var $filterOption = $(".sidebar").find("[data-sidebar-action=filter]").parent();
-        $filterOption.addClass("lms-sidebar-item-disabled");
-
-        var $deleteOption = $(".sidebar").find("[data-sidebar-action=delete]").parent();
-        $deleteOption.addClass("lms-sidebar-item-disabled");
-
-        var $cancelOptions = $(".sidebar").find("[data-sidebar-action=cancel]").parent();
-        $cancelOptions.removeClass("lms-sidebar-item-disabled");
+    this.enableBorrow = function () {
+        var $borrowOption = $(".sidebar").find("[data-sidebar-action=loan]").parent();
+        $borrowOption.removeClass("lms-sidebar-item-disabled");
     }
 
-    this.changeLookForDelete = function () {
-        var $addOptions = $(".sidebar").find("[data-sidebar-action=add]").parent();
-        $addOptions.addClass("lms-sidebar-item-disabled");        
-
-        var $refreshOption = $(".sidebar").find("[data-sidebar-action=refresh]").parent();
-        $refreshOption.addClass("lms-sidebar-item-disabled");
-
-        var $filterOption = $(".sidebar").find("[data-sidebar-action=filter]").parent();
-        $filterOption.addClass("lms-sidebar-item-disabled");
-
-        var $deleteOption = $(".sidebar").find("[data-sidebar-action=delete]").parent();
-        $deleteOption.addClass("lms-sidebar-item-disabled");
-
-        var $cancelOptions = $(".sidebar").find("[data-sidebar-action=cancel]").parent();
-        $cancelOptions.removeClass("lms-sidebar-item-disabled");
-    }
-
-    this.changeLookForRegularMode = function () {
-        var $addOptions = $(".sidebar").find("[data-sidebar-action=add]").parent();
-        $addOptions.removeClass("lms-sidebar-item-disabled");
-
-        var $addOptions = $(".sidebar").find("[data-sidebar-action=cancel]").parent();
-        $addOptions.addClass("lms-sidebar-item-disabled");
-
-        var $refreshOption = $(".sidebar").find("[data-sidebar-action=refresh]").parent();
-        $refreshOption.removeClass("lms-sidebar-item-disabled");
-
-        var $filterOption = $(".sidebar").find("[data-sidebar-action=filter]").parent();
-        $filterOption.removeClass("lms-sidebar-item-disabled");
-
-        var $refreshOption = $(".sidebar").find("[data-sidebar-action=delete]").parent();
-        $refreshOption.removeClass("lms-sidebar-item-disabled");
+    this.disableBorrow = function () {
+        var $borrowOption = $(".sidebar").find("[data-sidebar-action=loan]").parent();
+        $borrowOption.addClass("lms-sidebar-item-disabled");
     }
 }
 LMSBookCopiesSidebar.prototype = new LMSSidebar();
@@ -77,6 +36,12 @@ LMSBookCopiesSidebar.prototype.filter = function () {
     this.base.prototype.filter.call(this);
 };
 LMSBookCopiesSidebar.prototype.add = function () {
+    var path = new DialogTypeEnum().BOOK_COPY_COMPLEX;
+    var data = "";
+    var dialog = new DialogFactory().createDialog(path);
+    dialog.open(data);
+};
+LMSBookCopiesSidebar.prototype.loan = function () {
     if (!this.lmsGrid) {
         var $ = jQuery;
         var $lmsGridBooks = $("#BookCopyGrid");
@@ -84,8 +49,8 @@ LMSBookCopiesSidebar.prototype.add = function () {
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.lmsGrid.buildCheckboxes(false, "add");
-    this.changeLookForAddMode();
+    this.lmsGrid.changeLookByMode("loan");
+    this.changeLookForDelete();
 };
 LMSBookCopiesSidebar.prototype.delete = function () {
     if (!this.lmsGrid) {
@@ -95,7 +60,7 @@ LMSBookCopiesSidebar.prototype.delete = function () {
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.lmsGrid.buildCheckboxes(false, "delete");
+    this.lmsGrid.changeLookByMode("delete");
     this.changeLookForDelete();
 };
 LMSBookCopiesSidebar.prototype.cancel = function () {
@@ -106,7 +71,6 @@ LMSBookCopiesSidebar.prototype.cancel = function () {
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.lmsGrid.mode = null;
-    this.lmsGrid.filterTable();
+    this.lmsGrid.changeLookByMode(null);
     this.changeLookForRegularMode();
 };

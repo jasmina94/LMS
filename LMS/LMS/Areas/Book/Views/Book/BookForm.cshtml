@@ -26,12 +26,24 @@
             @Html.SimpleFormInput(model => model.NumOfAvailableCopies, "Number of copies:", 
                 inputType: FormInputType.NUMBER, specialInputClass: "SpecificInputType", 
                 inputValue: Model.NumOfAvailableCopies.ToString())
-            @Html.DropDownSelect(model => model.CategoryId, "Category:", selectValue: @Model.CategoryId, 
-                innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Category/Category/GetSelect", 
-                value: Model.CategoryId.ToString(), edit: editMode)
-            @Html.DropDownSelect(model => model.LanguageId, "Language:", selectValue: @Model.CategoryId,
-                innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Language/Language/GetSelect",
-                value: Model.LanguageId.ToString(), edit: editMode)
+            @if (editMode)
+            {
+                @Html.DropDownSelect(model => model.Category, "Category:", selectValue: @Model.CategoryId,
+                    innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Category/Category/GetSelect",
+                    value: Model.Category, edit: editMode)
+                @Html.DropDownSelect(model => model.Language, "Language:", selectValue: @Model.LanguageId,
+                    innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Language/Language/GetSelect",
+                    value: Model.Language, edit: editMode)
+            }
+            else
+            {
+                @Html.DropDownSelect(model => model.CategoryId, "Category:",
+                    innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Category/Category/GetSelect",
+                    edit: editMode)
+                @Html.DropDownSelect(model => model.LanguageId, "Language:",
+                    innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Language/Language/GetSelect",
+                    edit: editMode)
+            }            
 
             @Html.FormSubmit(newLine: true)
         </form>

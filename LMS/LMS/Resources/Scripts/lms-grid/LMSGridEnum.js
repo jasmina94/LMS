@@ -30,6 +30,7 @@
     this.ADD_ACTION = "addAction";
     this.EDIT_ACTION = "editAction";
     this.DELETE_ACTION = "deleteAction";
+    this.LOAN_ACTION = "loanAction";
 
     //Pager
     this.PAGING = "paging";

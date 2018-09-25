@@ -106,7 +106,7 @@ LMSBookCopiesSidebar.prototype.cancel = function () {
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.lmsGrid.mode = false;
+    this.lmsGrid.mode = null;
     this.lmsGrid.filterTable();
     this.changeLookForRegularMode();
 };

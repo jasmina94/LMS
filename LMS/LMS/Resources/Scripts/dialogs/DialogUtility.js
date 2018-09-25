@@ -47,8 +47,7 @@ function refreshRibbon() {
         var $lmsGrid = $($lmsGridList[i]);
         if ($lmsGrid.is(":visible")) {
             var lmsGridData = $lmsGrid.data("LMSGrid");
-            lmsGridData.mode = null;
-            lmsGridData.changeLookByMode();
+            lmsGridData.changeLookByMode(null);
         }
     }
 }

@@ -58,6 +58,12 @@
     height: 32px;
 }
 
+#EditSideBar {
+    background-image: url("../../Images/edit.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
 #DeleteSideBar {
     background-image: url("../../Images/delete.png") !important;
     background-repeat: no-repeat;

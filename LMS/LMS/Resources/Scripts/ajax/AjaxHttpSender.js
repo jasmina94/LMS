@@ -48,7 +48,7 @@ var AjaxHttpSender = function () {
                     }                    
                     $form.closest("div#Dialog").dialog("close");
 
-                    self.resetRibbonMode(true, false);                   
+                    self.resetRibbon(true, false, true);
                 }
                 else {
                     toastr.error(data.Message, "Error");
@@ -67,7 +67,7 @@ var AjaxHttpSender = function () {
         }
     }
 
-    this.resetRibbonMode = function (changeAddCounter, changeDeleteCounter) {
+    this.resetRibbon = function (changeAddCounter, changeDeleteCounter, changeEditCounter) {
         var self = this;    
         var $sidebar = $("ul.sidebar");
 
@@ -76,23 +76,46 @@ var AjaxHttpSender = function () {
         switch (id) {
             case self.ribbonEnum.BookCopySidebar:
                 var sidebar = new LMSBookCopiesSidebar();
-                sidebar.changeLookForRegularMode();
+                sidebar.disableCancel();
                 var $lmsGrid = $("#BookCopyGrid");
                 if ($lmsGrid != undefined) {
-                    var lmsGridData = $lmsGrid.data("LMSGrid");
-                    lmsGridData.mode = null;
-                    lmsGridData.changeLookByMode();
-                    if (changeDelete) {
-                        lmsGridData.deleteCounter = 0;
-                    }
-                    if (changeAddCounter) {
-                        lmsGridData.addCounter = 0;
-                    }
+                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter, "BookCopyGrid");
+                }
+                break;
+            case self.ribbonEnum.CategorySidebar:
+                var sidebar = new LMSCategoriesSidebar();
+                sidebar.disableCancel();
+                var $lmsGrid = $("#CategoryGrid");
+                if ($lmsGrid != undefined) {
+                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter, "CategoryGrid");
+                }
+                break;
+            case self.ribbonEnum.LanguageSidebar:
+                var sidebar = new LMSLanguagesSidebar();
+                sidebar.disableCancel();
+                var $lmsGrid = $("#LanguageGrid");
+                if ($lmsGrid != undefined) {
+                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter, "LanguageGrid");
                 }
                 break;
             default:
                 console.log(id);
         }            
+    }
+
+    this.resetGrid = function (add, del, edit, gridId) {
+        var $lmsGrid = $('#' + gridId);
+        var lmsGridData = $lmsGrid.data("LMSGrid");
+        lmsGridData.changeLookByMode(null);
+        if (del) {
+            lmsGridData.deleteCounter = 0;
+        }
+        if (add) {
+            lmsGridData.addCounter = 0;
+        }
+        if (edit) {
+            lmsGridData.editCounter = 0;
+        }
     }
 
     this.loginAjaxCall = function ($form) {
@@ -136,7 +159,7 @@ var AjaxHttpSender = function () {
             success: function (data) {
                 if (data.Success) {
                     toastr.success(data.Message, "Success");
-                    self.resetRibbonMode(false, true);
+                    self.resetRibbon(false, true, false);
                 } else {
                     toastr.error(data.Message, "Error");
                 }

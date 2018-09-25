@@ -64,5 +64,12 @@ namespace LMS.Areas.Language.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+
+        public ActionResult Delete(int id)
+        {
+            DeleteLanguageResult deleteResult = LanguageService.Delete(id);
+
+            return Json(deleteResult, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -21,7 +21,6 @@ table.table.table-hover tbody tr {
    display: table;
    width: calc(100% - 0.002em);
    table-layout: fixed;
-   cursor: pointer;
 }
 
 table.table.table-hover tbody tr:hover td {

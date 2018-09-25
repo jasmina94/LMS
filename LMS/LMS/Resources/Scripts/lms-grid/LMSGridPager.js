@@ -216,7 +216,6 @@
 
       $picker.addClass("lms-grid-pager-picker");
 
-      $picker.append("<option>10</option>");
       $picker.append("<option>20</option>");
       $picker.append("<option>50</option>");
       $picker.append("<option>100</option>");

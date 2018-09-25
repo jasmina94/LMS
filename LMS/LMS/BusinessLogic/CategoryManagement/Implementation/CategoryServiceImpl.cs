@@ -14,6 +14,8 @@ namespace LMS.BusinessLogic.CategoryManagement.Implementation
     {
         public ICategoryRepository CategoryRepository { get; set; }
 
+        public IBookRepository BookRepository { get; set; }
+
         public IModelConstructor Constructor { get; set; }
 
         public IBuilderResolverService BuilderResolverService { get; set; }
@@ -79,15 +81,34 @@ namespace LMS.BusinessLogic.CategoryManagement.Implementation
             var result = new DeleteCategoryResult();
             if (categoryId.HasValue)
             {
-                CategoryData domainModel = CategoryRepository.GetDataById(categoryId.Value);
-                if(domainModel != null)
+                if (!CheckReferencingBooks(categoryId.Value))
                 {
-                    CategoryRepository.DeleteById(categoryId.Value);
-                    result = new DeleteCategoryResult(categoryId.Value, domainModel.NameCategory);
+                    CategoryData domainModel = CategoryRepository.GetDataById(categoryId.Value);
+                    if (domainModel != null)
+                    {
+                        CategoryRepository.DeleteById(categoryId.Value);
+                        result = new DeleteCategoryResult(categoryId.Value, domainModel.NameCategory);
+                    }
+                }
+                else
+                {
+                    result.Message = "This category can't be deleted. There are books connected to this category.";
                 }
             }
 
             return result;
+        }
+
+        private bool CheckReferencingBooks(int categoryId)
+        {
+            bool exists = false;
+            List<BookData> books = BookRepository.GetBooksByCategory(categoryId);
+            if(books != null && books.Count != 0)
+            {
+                exists = true;
+            }
+
+            return exists;
         }
     }
 }

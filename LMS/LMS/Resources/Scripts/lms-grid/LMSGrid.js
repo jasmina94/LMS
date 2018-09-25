@@ -34,10 +34,9 @@ function lmsGrid($) {
         sorter: null,
         filter: null,
         sendDateFormat: "yyyy-MM-dd",
-        rowClickable: null,
-        rowAction: null,
         cellAction: null,
         addAction: null,
+        editAction: null,
         deleteAction: null,
         paging: false,
         showPrevNext: false,
@@ -46,6 +45,7 @@ function lmsGrid($) {
         selectAllBox: false,
         deleteCounter: 0,
         addCounter: 0,
+        editCounter: 0,
 
         initialize: function (configuration) {
             this.source = configuration[lmsGridEnum.SOURCE];
@@ -74,20 +74,16 @@ function lmsGrid($) {
                 this.selectAllBox = configuration[lmsGridEnum.SELECTION_ALL];
             }
 
-            if (lmsGridEnum.ROW_CLICK in configuration) {
-                this.rowClickable = configuration[lmsGridEnum.ROW_CLICK];
-            }
-
-            if (lmsGridEnum.ROW_ACTION in configuration) {
-                this.rowAction = configuration[lmsGridEnum.ROW_ACTION];
-            }
-
             if (lmsGridEnum.CELL_ACTION in configuration) {
                 this.cellAction = configuration[lmsGridEnum.CELL_ACTION];
             }
 
             if (lmsGridEnum.ADD_ACTION in configuration) {
                 this.addAction = configuration[lmsGridEnum.ADD_ACTION];
+            }
+
+            if (lmsGridEnum.EDIT_ACTION in configuration) {
+                this.editAction = configuration[lmsGridEnum.EDIT_ACTION];
             }
 
             if (lmsGridEnum.DELETE_ACTION in configuration) {
@@ -360,10 +356,6 @@ function lmsGrid($) {
                 var $bodyRow = $("<tr>");
                 var bodyRowData = this.data[i];
 
-                if (this.rowClickable) {
-                    self.onRowSelected($bodyRow, this.data[i].Id);
-                }
-
                 for (var j = 0; j < this.fields.length; j++) {
                     var $bodyRowCell = $("<td>");
                     var field = this.fields[j];
@@ -436,15 +428,6 @@ function lmsGrid($) {
             }
         },
 
-        onRowSelected: function (row, id) {
-            var self = this;
-
-            $(row).on("click", function (e) {
-                e.preventDefault();
-                self.rowAction(id);
-            });
-        },
-
         onCellSelected: function (cell, id, fieldDetails) {
             var self = this;
 
@@ -491,20 +474,22 @@ function lmsGrid($) {
                 var $bodyRow = $($bodyChildren[i]);
                 var data = self.data[i];
                 var id = data.Id;
+
                 var $bodyCheck = self.buildBodyCheckBox(id);
-                self.onCheckboxSelected($bodyCheck);
+
                 $bodyRow.prepend($bodyCheck);
             }
 
             self.mode = mode;
+            self.onCheckboxSelected();
         },
 
         removeCheckboxes: function(){
             var self = this;
             self.mode = null;
 
-            $("th.lms-grid-th-checkbox").remove();
-            $("td.lms-grid-td-checkbox").remove();
+            $(".lms-grid-th-checkbox").remove();
+            $(".lms-grid-td-checkbox").remove();
         },
 
         buildHeaderForCheckBox: function (withColor, withInput) {
@@ -542,7 +527,7 @@ function lmsGrid($) {
             return $bodyCheckbox;
         },
 
-        onCheckboxSelected: function(copyId){
+        onCheckboxSelected: function(){
             var self = this;
             
             $(".lms-grid-input-checkbox").change(function () {
@@ -554,20 +539,27 @@ function lmsGrid($) {
                             self.addCounter = self.addCounter + 1;
                             self.addAction(id);                            
                         }
-                        
+
                     } else if (self.mode == "delete") {
                         if (self.deleteCounter == 0) {
                             self.deleteCounter = self.deleteCounter + 1;
                             self.deleteAction(id);                            
                         }
                         
-                    }                   
+                    } else if (self.mode == "edit") {
+                        if (self.editCounter == 0) {
+                            self.editCounter = self.editCounter + 1;
+                            self.editAction(id);
+                        }
+                    }
                 }
             });
         },
 
-        changeLookByMode: function () {
+        changeLookByMode: function (mode) {
             var self = this;
+            self.mode = mode;
+
             if (self.mode == "add") {
                 self.buildCheckboxes(self.selectAllBox, "add");
             } else if (self.mode == "delete") {

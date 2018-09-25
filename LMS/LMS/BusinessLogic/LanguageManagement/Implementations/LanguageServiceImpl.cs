@@ -7,12 +7,15 @@ using LMS.Infrastructure.ModelConstructor.Interfaces;
 using LMS.Services.Interfaces;
 using LMS.DomainModel.DomainObject;
 using LMS.Infrastructure.ModelBuilders.Implementation.Language;
+using LMS.DomainModel.Repository.Book.Interfaces;
 
 namespace LMS.BusinessLogic.LanguageManagement.Implementations
 {
     public class LanguageServiceImpl : ILanguageService
     {
         public ILanguageRepository LanguageRepository { get; set; }
+
+        public IBookRepository BookRepository { get; set; }
 
         public IModelConstructor Constructor { get; set; }
 
@@ -79,15 +82,35 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             var result = new DeleteLanguageResult();
             if (languageId.HasValue)
             {
-                LanguageData domainModel = LanguageRepository.GetDataById(languageId.Value);
-                if (domainModel != null)
+                if (!CheckReferencingBooks(languageId.Value))
                 {
-                    LanguageRepository.DeleteById(languageId.Value);
-                    result = new DeleteLanguageResult(languageId.Value, domainModel.NameLanguage);
+                    LanguageData domainModel = LanguageRepository.GetDataById(languageId.Value);
+                    if (domainModel != null)
+                    {
+                        LanguageRepository.DeleteById(languageId.Value);
+                        result = new DeleteLanguageResult(languageId.Value, domainModel.NameLanguage);
+                    }
                 }
+                else
+                {
+                    result.Message = "This language can't be deleted. There are books connected to this language.";
+                }
+                
             }
 
             return result;
+        }
+
+        private bool CheckReferencingBooks(int languageId)
+        {
+            bool exists = false;
+            List<BookData> books = BookRepository.GetBooksByLanguage(languageId);
+            if (books != null && books.Count != 0)
+            {
+                exists = true;
+            }
+
+            return exists;
         }
     }
 }

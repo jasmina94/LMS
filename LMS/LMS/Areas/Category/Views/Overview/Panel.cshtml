@@ -8,35 +8,38 @@
 
 <script>
     $("#CategoryGrid").lmsGrid({
-      source: "@Url.Action("GetAllActive")",
-      visibleHead: true,
-      sorting: true,
-      filtering: true,
-      multipleFieldFilter: true,
-      paging: true,
-      showPrevNext: true,
-      showFirstLast: true,
-      rowClickable: true,
-      rowAction: function (rowId) {
-          var dialog = new DialogFactory().createDialog(new DialogTypeEnum().CATEGORY);
-          dialog.open(rowId);
-      },
-      cellAction: function (cell) {
-          console.log(cell);
-          if (cell.field.label === "Created by") {
-              var action = cell.field.link;
-              var id = cell.id;
-              var dialog = new DialogFactory().createDialog(action);
-              dialog.open(id);
-          }
-      },
-      fields: [
-         { label: "Id", name: "Id", type: "int", sorted: true, width: "40px" },
-         { label: "Name", name: "Name", type: "string" },
-         { label: "Code", name: "Code", type: "string" },
-         { label: "Id", name: "UserCreatedById", type: "int", style: "hidden" },
-         { label: "Created by", name: "UserCreatedBy", type: "string", link: "/User/User/About" },
-         { label: "Creation date", name: "DateTimeCreatedOn", type: "date" }
-      ]
-   });
+        source: "@Url.Action("GetAllActive")",
+        visibleHead: true,
+        sorting: true,
+        filtering: true,
+        multipleFieldFilter: true,
+        paging: true,
+        showPrevNext: true,
+        showFirstLast: true,
+        editAction: function (rowId) {
+            var dialog = new DialogFactory().createDialog(new DialogTypeEnum().CATEGORY);
+            dialog.open(rowId);
+        },        
+        deleteAction: function(rowId){
+            var url = "/Category/Category/Delete/" + rowId;
+            new AjaxHttpSender().delete(url);
+        },
+        cellAction: function (cell) {
+            console.log(cell);
+            if (cell.field.label === "Created by") {
+                var action = cell.field.link;
+                var id = cell.id;
+                var dialog = new DialogFactory().createDialog(action);
+                dialog.open(id);
+            }
+        },
+        fields: [
+           { label: "Id", name: "Id", type: "int", sorted: true, width: "40px" },
+           { label: "Name", name: "Name", type: "string" },
+           { label: "Code", name: "Code", type: "string" },
+           { label: "Id", name: "UserCreatedById", type: "int", style: "hidden" },
+           { label: "Created by", name: "UserCreatedBy", type: "string", link: "/User/User/About" },
+           { label: "Creation date", name: "DateTimeCreatedOn", type: "date" }
+        ]
+    });
 </script>

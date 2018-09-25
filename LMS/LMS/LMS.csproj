@@ -307,6 +307,7 @@
     <Content Include="Resources\Images\confirm.png" />
     <Content Include="Resources\Images\delete.png" />
     <Content Include="Resources\Images\ebook_photo.jpg" />
+    <Content Include="Resources\Images\edit.png" />
     <Content Include="Resources\Images\filter.png" />
     <Content Include="Resources\Images\language.png" />
     <Content Include="Resources\Images\lms.jpg" />

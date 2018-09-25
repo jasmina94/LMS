@@ -63,5 +63,12 @@ namespace LMS.Areas.Category.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+
+        public ActionResult Delete(int id)
+        {
+            DeleteCategoryResult deleteResult = CategoryService.Delete(id);
+
+            return Json(deleteResult, JsonRequestBehavior.AllowGet);
+        }
     }
 }

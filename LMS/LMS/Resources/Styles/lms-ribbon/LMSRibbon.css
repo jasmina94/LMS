@@ -70,6 +70,12 @@
     height: 32px;
 }
 
+#RestoreSideBar {
+    background-image: url("../../Images/return_loan.png") !important;
+    background-repeat: no-repeat;
+    height: 32px;
+}
+
 #ConfirmSideBar {
     background-image: url("../../Images/confirm.png") !important;
     background-repeat: no-repeat;

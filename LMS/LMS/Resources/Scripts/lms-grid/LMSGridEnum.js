@@ -31,6 +31,7 @@
     this.EDIT_ACTION = "editAction";
     this.DELETE_ACTION = "deleteAction";
     this.LOAN_ACTION = "loanAction";
+    this.RESTORE_ACTION = "restoreAction";
 
     //Pager
     this.PAGING = "paging";

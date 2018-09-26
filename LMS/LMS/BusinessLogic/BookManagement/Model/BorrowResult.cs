@@ -18,6 +18,13 @@
             Message = "Server side error while borrowing book.";
         }
 
+        public BorrowResult(int loanId, int bookCopyId)
+        {
+            Success = true;
+            Message = "Successfully retured loan: " + loanId + ". Book copy id: " + bookCopyId + " is available.";
+            LoanId = loanId;
+        }
+
         public BorrowResult(int loanId, int bookCopyId, string username)
         {
             Success = true;

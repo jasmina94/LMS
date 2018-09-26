@@ -31,9 +31,11 @@
                 @Html.DropDownSelect(model => model.Category, "Category:", selectValue: @Model.CategoryId,
                     innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Category/Category/GetSelect",
                     value: Model.Category, edit: editMode)
+                @Html.HiddenFor(model => model.CategoryId)
                 @Html.DropDownSelect(model => model.Language, "Language:", selectValue: @Model.LanguageId,
                     innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Language/Language/GetSelect",
                     value: Model.Language, edit: editMode)
+                @Html.HiddenFor(model => model.LanguageId)
             }
             else
             {

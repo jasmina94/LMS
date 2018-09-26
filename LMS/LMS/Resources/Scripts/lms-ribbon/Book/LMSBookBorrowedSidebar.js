@@ -28,9 +28,25 @@ LMSBookBorrowedSidebar.prototype.filter = function () {
 
     this.base.prototype.filter.call(this);
 };
-LMSBookBorrowedSidebar.prototype.add = function () {
-    //var path = new DialogTypeEnum().LOAN;
-    //var data = "";
-    //var dialog = new DialogFactory().createDialog(path);
-    //dialog.open(data);
+LMSBookBorrowedSidebar.prototype.restore = function () {
+    if (!this.lmsGrid) {
+        var $ = jQuery;
+        var $lmsGridBooks = $("#BookBorrowGrid");
+        var lmsGridBooks = $lmsGridBooks.data("LMSGrid");
+        this.lmsGrid = lmsGridBooks;
+    }
+
+    this.lmsGrid.changeLookByMode("restore");
+    this.enableCancel();
+};
+LMSBookBorrowedSidebar.prototype.cancel = function () {
+    if (!this.lmsGrid) {
+        var $ = jQuery;
+        var $lmsGridBooks = $("#BookBorrowGrid");
+        var lmsGridBooks = $lmsGridBooks.data("LMSGrid");
+        this.lmsGrid = lmsGridBooks;
+    }
+
+    this.lmsGrid.changeLookByMode(null);
+    this.disableCancel();
 };

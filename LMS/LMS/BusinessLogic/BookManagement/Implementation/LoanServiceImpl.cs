@@ -119,5 +119,48 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
 
             return viewModels;
         }
+
+        public BorrowResult ReturnBook(int loandId)
+        {
+            var result = new BorrowResult();
+
+            RelationUserBookCopyData loanData = RelationUserBookCopyRepository.GetDataById(loandId);
+            if(loanData != null)
+            {
+                loanData.DateReturned = DateTime.Now;
+                loanData.DateTimeDeletedOn = DateTime.Now;
+                loanData.IsActive = false;             
+                BookCopyData bookCopy = BookCopyRepository.GetDataById(loanData.BookCopyId);             
+                if(bookCopy != null)
+                {
+                    bookCopy.OnLoan = false;
+                    BookData book = BookRepository.GetDataById(bookCopy.BookId);
+                    if(book != null)
+                    {
+                        book.NumOfAvailableCopies = book.NumOfAvailableCopies + 1;
+
+                        int bookId = BookRepository.SaveData(book);
+                        int bookCopyId = BookCopyRepository.SaveData(bookCopy);
+                        int loanId = RelationUserBookCopyRepository.SaveData(loanData);
+
+                        result = new BorrowResult(loandId, bookCopyId);
+                    }
+                    else
+                    {
+                        result.Message = "Book not found.";
+                    }
+                }
+                else
+                {
+                    result.Message = "Book copy not found.";
+                }               
+            }
+            else
+            {
+                result.Message = "Loan with id " + loandId + "doesn't exist.";
+            }
+
+            return result;
+        }
     }
 }

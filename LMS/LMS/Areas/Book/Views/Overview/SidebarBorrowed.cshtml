@@ -7,4 +7,10 @@
     <li class="lms-sidebar-item">
         @Html.SidebarItem("filter", "Filter", "Filter content of the table", style: "FilterSideBar")
     </li>
+    <li class="lms-sidebar-item">
+        @Html.SidebarItem("restore", "Restore", "Return loan", style: "RestoreSideBar")
+    </li>
+    <li class="lms-sidebar-item lms-sidebar-item-disabled">
+        @Html.SidebarItem("cancel", "Cancel", "Cancel action", style: "CancelSideBar")
+    </li>
 </ul>

@@ -67,7 +67,8 @@ var AjaxHttpSender = function () {
         }
     }
 
-    this.resetRibbon = function (changeAddCounter, changeDeleteCounter, changeEditCounter, changeLoanCounter) {
+    this.resetRibbon = function (changeAddCounter, changeDeleteCounter,
+        changeEditCounter, changeLoanCounter, changeResetCounter) {
         var self = this;    
         var $sidebar = $("ul.sidebar");
 
@@ -80,7 +81,7 @@ var AjaxHttpSender = function () {
                 var $lmsGrid = $("#BookGrid");
                 if ($lmsGrid != undefined) {
                     self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter,
-                        changeLoanCounter, "BookGrid");
+                        changeLoanCounter, changeResetCounter, "BookGrid");
                 }
                 break;
             case self.ribbonEnum.BookCopySidebar:
@@ -89,7 +90,7 @@ var AjaxHttpSender = function () {
                 var $lmsGrid = $("#BookCopyGrid");
                 if ($lmsGrid != undefined) {
                     self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter,
-                        changeLoanCounter, "BookCopyGrid");
+                        changeLoanCounter, changeResetCounter, "BookCopyGrid");
                 }
                 break;
             case self.ribbonEnum.BookBorrowedSidebar:
@@ -98,7 +99,7 @@ var AjaxHttpSender = function () {
                 var $lmsGrid = $("#BookBorrowGrid");
                 if ($lmsGrid != undefined) {
                     self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter,
-                        changeLoanCounter, "BookBorrowGrid");
+                        changeLoanCounter, changeResetCounter, "BookBorrowGrid");
                 }
                 break;
             case self.ribbonEnum.CategorySidebar:
@@ -107,7 +108,7 @@ var AjaxHttpSender = function () {
                 var $lmsGrid = $("#CategoryGrid");
                 if ($lmsGrid != undefined) {
                     self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter,
-                        changeLoanCounter, "CategoryGrid");
+                        changeLoanCounter, changeResetCounter, "CategoryGrid");
                 }
                 break;
             case self.ribbonEnum.LanguageSidebar:
@@ -116,7 +117,7 @@ var AjaxHttpSender = function () {
                 var $lmsGrid = $("#LanguageGrid");
                 if ($lmsGrid != undefined) {
                     self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter,
-                        changeLoanCounter, "LanguageGrid");
+                        changeLoanCounter, changeResetCounter, "LanguageGrid");
                 }
                 break;
             default:
@@ -124,7 +125,7 @@ var AjaxHttpSender = function () {
         }            
     }
 
-    this.resetGrid = function (add, del, edit, loan, gridId) {
+    this.resetGrid = function (add, del, edit, loan, restore, gridId) {
         var $lmsGrid = $('#' + gridId);
         var lmsGridData = $lmsGrid.data("LMSGrid");
         lmsGridData.changeLookByMode(null);
@@ -139,6 +140,9 @@ var AjaxHttpSender = function () {
         }
         if (loan) {
             lmsGridData.loanCounter = 0;
+        }
+        if (restore) {
+            lmsGridData.restoreCounter = 0;
         }
     }
 
@@ -183,7 +187,7 @@ var AjaxHttpSender = function () {
             success: function (data) {
                 if (data.Success) {
                     toastr.success(data.Message, "Success");
-                    self.resetRibbon(false, true, false, false);
+                    self.resetRibbon(false, true, false, false, false);
                 } else {
                     toastr.error(data.Message, "Error");
                 }
@@ -192,7 +196,25 @@ var AjaxHttpSender = function () {
                 toastr.error("Error making AJAX call: " +
                     XMLHttpRequest.statusText + " (" + XMLHttpRequest.status + ")");
             }
-        }
+        };
+        self.sendGet(path, callback);
+    }
+
+    this.restore = function (path) {
+        var callback = {
+            success: function (data) {
+                if (data.Success) {
+                    toastr.success(data.Message, "Success");
+                    self.resetRibbon(false, false, false, false, true);
+                } else {
+                    toastr.error(data.Message, "Error");
+                }
+            },
+            failure: function (XMLHttpRequest, textStatus, errorThrown) {
+                toastr.error("Error making AJAX call: " +
+                    XMLHttpRequest.statusText + " (" + XMLHttpRequest.status + ")");
+            }
+        };
         self.sendGet(path, callback);
     }
 };

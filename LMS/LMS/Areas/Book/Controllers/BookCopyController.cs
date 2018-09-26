@@ -71,6 +71,13 @@ namespace LMS.Areas.Book.Controllers
             return response;
         }
 
+        public ActionResult Restore(int id)
+        {
+            var result = LoanService.ReturnBook(id);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Delete(int id)
         {
             DeleteBookResult result = BookService.DeleteCopy(id);

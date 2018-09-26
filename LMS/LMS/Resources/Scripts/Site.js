@@ -17,6 +17,21 @@ $(function () {
     var $container = $("#Dialog");
     var $loginForm = $("#LoginUserForm");
 
+    var setRegularSidebar = function () {
+        var $sidebar = $("ul.sidebar");
+        var $sidebarItems = $sidebar.children();
+        for (var i = 0; i < $sidebarItems.length; i++) {
+            var $item = $($sidebarItems[i]);
+            var $action = $item.children()[0];
+            var data = $($action).data("sidebar-action");
+            if (data == "cancel") {
+                $item.addClass("lms-sidebar-item-disabled");
+            } else {
+                $item.removeClass("lms-sidebar-item-disabled");
+            }
+        }
+    }
+
     $dialogOpener.on("click", function (e) {
         e.preventDefault();
         var dialogType = $(this).attr("href");
@@ -39,5 +54,20 @@ $(function () {
         e.preventDefault();
         var $form = $("div.panel-body > form");
         new AjaxHttpSender().login($form);
+    });
+
+    $container.on("dialogclose", function (event) {
+        var $sidebar = $("ul.sidebar");
+        if ($sidebar.length != 0) {
+            setRegularSidebar();
+            var $lmsGrid = $(".lms-grid-container");
+            var lmsGridData = $lmsGrid.data("LMSGrid");
+            lmsGridData.changeLookByMode(null);
+            lmsGrid.addCounter = 0;
+            lmsGrid.editCounter = 0;
+            lmsGrid.deleteCounter = 0;
+            lmsGrid.loanCounter = 0;
+            lmsGrid.restoreCounter = 0;
+        }
     });
 });

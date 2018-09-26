@@ -314,6 +314,7 @@
     <Content Include="Resources\Images\make_loan.png" />
     <Content Include="Resources\Images\plus.png" />
     <Content Include="Resources\Images\refresh.png" />
+    <Content Include="Resources\Images\return_loan.png" />
     <Content Include="Resources\Images\users.png" />
     <Content Include="Resources\Scripts\ajax\AjaxHttpSender.js" />
     <Content Include="Resources\Scripts\bootstrap-datetimepicker\bootstrap-datetimepicker.js" />

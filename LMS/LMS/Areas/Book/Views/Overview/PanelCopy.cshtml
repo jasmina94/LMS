@@ -24,7 +24,7 @@
       deleteAction: function(rowId){
           var url = "/Book/BookCopy/Delete/" + rowId;
           new AjaxHttpSender().delete(url);
-      },
+      },     
       cellAction: function (cell) {
           if (cell.field.label === "Created by") {
               var action = cell.field.link;

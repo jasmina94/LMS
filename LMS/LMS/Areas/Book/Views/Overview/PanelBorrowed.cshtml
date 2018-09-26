@@ -8,23 +8,27 @@
 
 <script>
     $("#BookBorrowGrid").lmsGrid({
-      source: "@Url.Action("GetAllActiveLoans")",
-      visibleHead: true,
-      sorting: true,
-      filtering: true,
-      multipleFieldFilter: true,
-      paging: true,
-      showPrevNext: true,
-      showFirstLast: true,
-      fields: [
-         { label: "Loan id", name: "Id", type: "int", sorted: true, width: "40px" },
-         { label: "Book copy id", name: "BookCopyId", type: "int" },
-         { label: "Book", name: "BookFullName", type: "string" },
-         { label: "User id", name: "UserId", type: "int" },
-         { label: "User", name: "UserFullName", type: "string" },
-         { label: "Issue date", name: "DateOfIssue", type: "date" },
-         { label: "Due for return", name: "DateDueForReturn", type: "date" },
-         { label: "Return date", name: "DateReturned", type: "date" }
-      ]
-   });
+        source: "@Url.Action("GetAllActiveLoans")",
+        visibleHead: true,
+        sorting: true,
+        filtering: true,
+        multipleFieldFilter: true,
+        paging: true,
+        showPrevNext: true,
+        showFirstLast: true,
+        restoreAction: function (rowId) {
+            var url = "/Book/BookCopy/Restore/" + rowId;
+            new AjaxHttpSender().restore(url);
+        },
+        fields: [
+           { label: "Loan id", name: "Id", type: "int", sorted: true, width: "40px" },
+           { label: "Book copy id", name: "BookCopyId", type: "int" },
+           { label: "Book", name: "BookFullName", type: "string" },
+           { label: "User id", name: "UserId", type: "int" },
+           { label: "User", name: "UserFullName", type: "string" },
+           { label: "Issue date", name: "DateOfIssue", type: "date" },
+           { label: "Due for return", name: "DateDueForReturn", type: "date" },
+           { label: "Return date", name: "DateReturned", type: "date" }
+        ]
+    });
 </script>

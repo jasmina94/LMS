@@ -39,6 +39,7 @@ function lmsGrid($) {
         editAction: null,
         deleteAction: null,
         loanAction: null,
+        restoreAction: null,
         paging: false,
         showPrevNext: false,
         showFirstLast: false,
@@ -48,6 +49,7 @@ function lmsGrid($) {
         addCounter: 0,
         editCounter: 0,
         loanCounter: 0,
+        restoreCounter: 0,
 
         initialize: function (configuration) {
             this.source = configuration[lmsGridEnum.SOURCE];
@@ -94,6 +96,10 @@ function lmsGrid($) {
 
             if (lmsGridEnum.LOAN_ACTION in configuration) {
                 this.loanAction = configuration[lmsGridEnum.LOAN_ACTION];
+            }
+
+            if (lmsGridEnum.RESTORE_ACTION in configuration) {
+                this.restoreAction = configuration[lmsGridEnum.RESTORE_ACTION];
             }
 
             if (lmsGridEnum.PAGING in configuration) {
@@ -562,6 +568,11 @@ function lmsGrid($) {
                             self.loanCounter = self.loanCounter + 1;
                             self.loanAction(id);
                         }
+                    } else if (self.mode == "restore") {
+                        if (self.restoreCounter == 0) {
+                            self.restoreCounter = self.restoreCounter + 1;
+                            self.restoreAction(id);
+                        }
                     }
                 }
             });
@@ -579,6 +590,8 @@ function lmsGrid($) {
                 self.buildCheckboxes(self.selectAllBox, "loan");
             } else if(self.mode == "edit"){
                 self.buildCheckboxes(self.selectAllBox, "edit");
+            } else if (self.mode == "restore") {
+                self.buildCheckboxes(self.selectAllBox, "restore");
             } else {
                 self.removeCheckboxes();
                 self.loadData();

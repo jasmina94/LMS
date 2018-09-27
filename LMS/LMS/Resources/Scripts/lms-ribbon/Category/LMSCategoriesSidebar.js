@@ -37,33 +37,30 @@ LMSCategoriesSidebar.prototype.add = function () {
 LMSCategoriesSidebar.prototype.edit = function () {
     if (!this.lmsGrid) {
         var $ = jQuery;
-        var $lmsGridBooks = $("#CategoryGrid");
-        var lmsGridBooks = $lmsGridBooks.data("LMSGrid");
-        this.lmsGrid = lmsGridBooks;
-    }
+        var $lmsGridCategories = $("#CategoryGrid");
+        var lmsGridCategories = $lmsGridCategories.data("LMSGrid");
 
-    this.lmsGrid.buildCheckboxes(false, "edit");
-    this.enableCancel();
+        this.lmsGrid = lmsGridCategories;
+    }
+    this.base.prototype.edit.call(this);
 };
 LMSCategoriesSidebar.prototype.delete = function () {
     if (!this.lmsGrid) {
         var $ = jQuery;
-        var $lmsGridBooks = $("#CategoryGrid");
-        var lmsGridBooks = $lmsGridBooks.data("LMSGrid");
-        this.lmsGrid = lmsGridBooks;
-    }
+        var $lmsGridCategories = $("#CategoryGrid");
+        var lmsGridCategories = $lmsGridCategories.data("LMSGrid");
 
-    this.lmsGrid.buildCheckboxes(false, "delete");
-    this.enableCancel();
+        this.lmsGrid = lmsGridCategories;
+    }
+    this.base.prototype.delete.call(this);
 };
 LMSCategoriesSidebar.prototype.cancel = function () {
     if (!this.lmsGrid) {
         var $ = jQuery;
-        var $lmsGridBooks = $("#CategoryGrid");
-        var lmsGridBooks = $lmsGridBooks.data("LMSGrid");
-        this.lmsGrid = lmsGridBooks;
-    }
+        var $lmsGridCategories = $("#CategoryGrid");
+        var lmsGridCategories = $lmsGridCategories.data("LMSGrid");
 
-    this.lmsGrid.changeLookByMode(null);
-    this.disableCancel();
+        this.lmsGrid = lmsGridCategories;
+    }
+    this.base.prototype.cancel.call(this);
 };

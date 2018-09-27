@@ -1,3 +1,4 @@
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\obj\Debug\LMS.csprojResolveAssemblyReference.cache
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\roslyn\csc.exe
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\roslyn\csc.exe.config
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\roslyn\csc.rsp
@@ -79,6 +80,5 @@ C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\Microsoft.AI.Depende
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\Microsoft.AI.Web.xml
-C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\obj\Debug\LMS.csprojResolveAssemblyReference.cache
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\obj\Debug\LMS.dll
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\obj\Debug\LMS.pdb

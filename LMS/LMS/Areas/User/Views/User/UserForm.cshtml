@@ -15,8 +15,7 @@
             @Html.HiddenFor(model => model.DateTimeCreatedOn)
             @Html.HiddenFor(model => model.UserDeletedById)
             @Html.HiddenFor(model => model.UserDeletedBy)
-            @Html.HiddenFor(model => model.DateTimeDeletedOn)
-            
+            @Html.HiddenFor(model => model.DateTimeDeletedOn)            
 
             @Html.SimpleFormInput(model => model.Firstname, "Firstname:", inputValue: Model.Firstname)
             @Html.SimpleFormInput(model => model.Lastname, "Lastname:", inputValue: Model.Lastname)
@@ -25,19 +24,34 @@
                 specialInputClass: "InputWithGlyphicon DatePicker", 
                 iconHtmlString: Html.Glyphicon("calendar", true))
             @Html.SimpleFormInput(model => model.Username, "Username:", inputValue: Model.Username)
-            
+            @Html.SimpleFormInput(model => model.Email, "Email:", inputType: FormInputType.EMAIL,
+                specialInputClass: "SpecificInputType", inputValue: Model.Email)
+
             @if (!editMode)
             {
+                @Html.DropDownSelect(model => model.CategoryId, "Category:",
+                    innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Category/Category/GetSelect")
+
+                @Html.DropDownSelect(model => model.RoleId, "Role:",
+                    innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Role/Role/GetSelect")
+
                 @Html.SimpleFormInput(model => model.UserPassword, "Password:", inputType: FormInputType.PASSWORD,
                      inputValue: "Welcome", readOnly: true)
             }
             else
             {
+                @Html.DropDownSelect(model => model.Category, "Category:", selectValue: @Model.CategoryId,
+                    innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Category/Category/GetSelect",
+                    value: Model.Category, edit: editMode)
+                @Html.HiddenFor(model => model.CategoryId)
+
+                @Html.DropDownSelect(model => model.Role, "Role:", selectValue: @Model.RoleId,
+                    innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Role/Role/GetSelect",
+                    value: Model.Role, edit: editMode)
+                @Html.HiddenFor(model => model.RoleId)
+
                 @Html.HiddenFor(model => model.UserPassword)
             }
-
-            @Html.SimpleFormInput(model => model.Email, "Email:", inputType: FormInputType.EMAIL, 
-                specialInputClass: "SpecificInputType", inputValue: Model.Email)
 
             @Html.FormSubmit(newLine: true)
         </form>

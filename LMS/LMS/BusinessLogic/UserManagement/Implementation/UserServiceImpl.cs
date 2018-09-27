@@ -7,12 +7,21 @@ using LMS.Models.ViewModels.User;
 using LMS.Infrastructure.ModelBuilders.Implementation.User;
 using LMS.BusinessLogic.UserManagement.Model;
 using LMS.BusinessLogic.UserManagement.Interfaces;
+using LMS.DomainModel.Repository.Relation.Interfaces;
+using LMS.DomainModel.DomainObject.Relation;
+using LMS.BusinessLogic.RoleManagement.Interfaces;
+using System;
+using LMS.Models.ViewModels.Relation;
 
 namespace LMS.BusinessLogic.LanguageManagement.Implementations
 {
     public class UserServiceImpl : IUserService
     {
         public IUserRepository UserRepository { get; set; }
+
+        public IRelationUserBookCopyRepository RelationUserBookCopyRepository { get; set; }
+
+        public IRoleService RoleService { get; set; }
 
         public IModelConstructor Constructor { get; set; }
 
@@ -68,10 +77,28 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             int id = UserRepository.SaveData(domainModel);
             if (id != 0)
             {
+                if(viewModel.RoleId != 0)
+                {
+                    //Save relation user - role
+                    var relationUserRoleViewModel = CreateUserRoleViewModel(id, viewModel.RoleId, 0);
+                    RoleService.SaveRelationUserRole(relationUserRoleViewModel);
+                }
                 result = new SaveUserResult(id, domainModel.FullFirstAndLastName);
             }
 
             return result;
+        }
+
+        private RelationUserRoleViewModel CreateUserRoleViewModel(int userId, int roleId, int userCreatedId)
+        {
+            var relation = new RelationUserRoleViewModel()
+            {
+                RoleId = roleId,
+                UserId = userId,
+                UserCreatedById = userCreatedId
+            };
+
+            return relation;
         }
 
         public DeleteUserResult Delete(int? userId)
@@ -82,8 +109,16 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
                 UserData domainModel = UserRepository.GetDataById(userId.Value);
                 if (domainModel != null)
                 {
-                    UserRepository.DeleteById(userId.Value);
-                    result = new DeleteUserResult(userId.Value, domainModel.FullFirstAndLastName);
+                    List<RelationUserBookCopyData> loans = RelationUserBookCopyRepository.GetLoansForUser(userId.Value);
+                    if(loans.Count == 0)
+                    {
+                        UserRepository.DeleteById(userId.Value);
+                        result = new DeleteUserResult(userId.Value, domainModel.FullFirstAndLastName);
+                    }
+                    else
+                    {
+                        result.Message = "Can't delete this user. There are some not returned loans.";
+                    }                    
                 }
             }
 

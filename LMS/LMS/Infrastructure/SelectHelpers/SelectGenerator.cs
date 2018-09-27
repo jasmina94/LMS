@@ -1,6 +1,7 @@
 ﻿using LMS.Models.ViewModels.Book;
 using LMS.Models.ViewModels.Category;
 using LMS.Models.ViewModels.Language;
+using LMS.Models.ViewModels.Role;
 using LMS.Models.ViewModels.User;
 using System.Collections.Generic;
 
@@ -96,6 +97,21 @@ namespace LMS.MVC.Infrastructure.SelectHelpers
             jsonUsers.Total = usersCount;
 
             return jsonUsers;
+        }
+
+        public static SelectPageResult RolesToSelectPageResult(List<RoleViewModel> rolesList, int rolesCount)
+        {
+            SelectPageResult jsonRoles = new SelectPageResult();
+            jsonRoles.Results = new List<SelectResult>();
+
+            foreach (var item in rolesList)
+            {
+                jsonRoles.Results.Add(new SelectResult { id = item.Id.ToString(), text = item.Name.ToString() });
+            }
+
+            jsonRoles.Total = rolesCount;
+
+            return jsonRoles;
         }
     }
 }

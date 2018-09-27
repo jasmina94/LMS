@@ -39,31 +39,31 @@ LMSBooksSidebar.prototype.edit = function () {
         var $ = jQuery;
         var $lmsGridBooks = $("#BookGrid");
         var lmsGridBooks = $lmsGridBooks.data("LMSGrid");
+
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.lmsGrid.changeLookByMode("edit");
-    this.enableCancel();
+    this.base.prototype.edit.call(this);
 };
 LMSBooksSidebar.prototype.delete = function () {
     if (!this.lmsGrid) {
         var $ = jQuery;
         var $lmsGridBooks = $("#BookGrid");
         var lmsGridBooks = $lmsGridBooks.data("LMSGrid");
+
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.lmsGrid.changeLookByMode("delete");
-    this.enableCancel();
+    this.base.prototype.delete.call(this);
 };
 LMSBooksSidebar.prototype.cancel = function () {
     if (!this.lmsGrid) {
         var $ = jQuery;
         var $lmsGridBooks = $("#BookGrid");
         var lmsGridBooks = $lmsGridBooks.data("LMSGrid");
+
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.lmsGrid.changeLookByMode(null);
-    this.disableCancel();
+    this.base.prototype.cancel.call(this);
 };

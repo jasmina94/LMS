@@ -32,6 +32,10 @@ namespace LMS.Models.ViewModels.User
 
         public string Category { get; set; }
 
+        public int RoleId { get; set; }
+
+        public string Role { get; set; }
+
         public override string Validate(ILMSValidator validator)
         {
             return validator.InvokeValidation(this);

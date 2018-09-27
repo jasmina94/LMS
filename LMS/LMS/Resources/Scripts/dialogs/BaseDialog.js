@@ -112,6 +112,9 @@ BaseDialog.prototype = {
             if (url.indexOf("Language") !== -1) {
                 placeholder = "Select language";
             }
+            if (url.indexOf("Role") !== -1) {
+                placeholder = "Select role";
+            }
         }
 
         return placeholder;

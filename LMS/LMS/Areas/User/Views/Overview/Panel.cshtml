@@ -8,38 +8,43 @@
 
 <script>
     $("#UserGrid").lmsGrid({
-      source: "@Url.Action("GetAllActive")",
-      visibleHead: true,
-      sorting: true,
-      filtering: true,
-      multipleFieldFilter: true,
-      paging: true,
-      showPrevNext: true,
-      showFirstLast: true,
-      rowClickable: true,
-      rowAction: function (rowId) {
-          var dialog = new DialogFactory().createDialog(new DialogTypeEnum().USER);
-          dialog.open(rowId);
-      },
-      cellAction: function (cell) {
-          console.log(cell);
-          if (cell.field.label === "Created by") {
-              var action = cell.field.link;
-              var id = cell.id;
-              var dialog = new DialogFactory().createDialog(action);
-              dialog.open(id);
-          }
-      },
-      fields: [
-         { label: "Id", name: "Id", type: "int", sorted: true, width: "40px" },
-         { label: "Firstname", name: "Firstname", type: "string" },
-         { label: "Lastname", name: "Lastname", type: "string" },
-         { label: "Username", name: "Username", type: "string" },
-         { label: "Email", name: "Email", type: "string" },
-         { label: "Birth date", name: "BirthDate", type: "date" },
-         { label: "Id", name: "UserCreatedById", type: "int", style: "hidden" },
-         { label: "Created by", name: "UserCreatedBy", type: "string", link: "/User/User/About" },
-         { label: "Creation date", name: "DateTimeCreatedOn", type: "date" }
-      ]
-   });
+        source: "@Url.Action("GetAllActive")",
+        visibleHead: true,
+        sorting: true,
+        filtering: true,
+        multipleFieldFilter: true,
+        paging: true,
+        showPrevNext: true,
+        showFirstLast: true,
+        editAction: function (rowId) {
+            var dialog = new DialogFactory().createDialog(new DialogTypeEnum().USER);
+            dialog.open(rowId);
+        },
+        deleteAction: function (rowId) {
+            var url = "/User/User/Delete/" + rowId;
+            new AjaxHttpSender().delete(url);
+        },
+        cellAction: function (cell) {
+            console.log(cell);
+            if (cell.field.label === "Created by") {
+                var action = cell.field.link;
+                var id = cell.id;
+                var dialog = new DialogFactory().createDialog(action);
+                dialog.open(id);
+            }
+        },
+        fields: [
+           { label: "Id", name: "Id", type: "int", sorted: true, width: "40px" },
+           { label: "Firstname", name: "Firstname", type: "string" },
+           { label: "Lastname", name: "Lastname", type: "string" },
+           { label: "Username", name: "Username", type: "string" },
+           { label: "Email", name: "Email", type: "string" },
+           { label: "Category", name: "Category", type: "string" },
+           { label: "Role", name: "Role", type: "string" },
+           { label: "Birth date", name: "BirthDate", type: "date" },
+           { label: "Id", name: "UserCreatedById", type: "int", style: "hidden" },
+           { label: "Created by", name: "UserCreatedBy", type: "string", link: "/User/User/About" },
+           { label: "Creation date", name: "DateTimeCreatedOn", type: "date" }
+        ]
+    });
 </script>

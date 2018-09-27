@@ -36,17 +36,19 @@ LMSBookBorrowedSidebar.prototype.restore = function () {
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.lmsGrid.changeLookByMode("restore");
-    this.enableCancel();
+    if (this.lmsGrid.changeLookByMode("restore")) {
+        this.enableCancel();
+    } else {
+        this.disableCancel();
+    }
 };
 LMSBookBorrowedSidebar.prototype.cancel = function () {
     if (!this.lmsGrid) {
         var $ = jQuery;
         var $lmsGridBooks = $("#BookBorrowGrid");
         var lmsGridBooks = $lmsGridBooks.data("LMSGrid");
+
         this.lmsGrid = lmsGridBooks;
     }
-
-    this.lmsGrid.changeLookByMode(null);
-    this.disableCancel();
+    this.base.prototype.cancel.call(this);
 };

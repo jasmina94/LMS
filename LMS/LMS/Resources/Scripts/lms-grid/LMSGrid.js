@@ -581,21 +581,39 @@ function lmsGrid($) {
         changeLookByMode: function (mode) {
             var self = this;
             self.mode = mode;
+            var modeChanged = false;
 
-            if (self.mode == "add") {
-                self.buildCheckboxes(self.selectAllBox, "add");
-            } else if (self.mode == "delete") {
-                self.buildCheckboxes(self.selectAllBox, "delete");
-            } else if(self.mode == "loan"){
-                self.buildCheckboxes(self.selectAllBox, "loan");
-            } else if(self.mode == "edit"){
-                self.buildCheckboxes(self.selectAllBox, "edit");
-            } else if (self.mode == "restore") {
-                self.buildCheckboxes(self.selectAllBox, "restore");
-            } else {
-                self.removeCheckboxes();
-                self.loadData();
+            if (self.canChangeMode()) {
+                modeChanged = true;
+                if (self.mode == "add") {
+                    self.buildCheckboxes(self.selectAllBox, "add");
+                } else if (self.mode == "delete") {
+                    self.buildCheckboxes(self.selectAllBox, "delete");
+                } else if (self.mode == "loan") {
+                    self.buildCheckboxes(self.selectAllBox, "loan");
+                } else if (self.mode == "edit") {
+                    self.buildCheckboxes(self.selectAllBox, "edit");
+                } else if (self.mode == "restore") {
+                    self.buildCheckboxes(self.selectAllBox, "restore");
+                } else {
+                    self.removeCheckboxes();
+                    self.loadData();
+                }
             }
+            return modeChanged;
+        },
+
+        canChangeMode: function () {
+            var self = this;
+            var $body = this.body;
+            var canChange = false;
+            var $tableRows = $body.children();
+
+            if ($tableRows.length != 0) {
+                canChange = true;
+            }
+
+            return canChange;
         },
     };
 

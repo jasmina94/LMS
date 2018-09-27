@@ -48,10 +48,11 @@ var AjaxHttpSender = function () {
                     }                    
                     $form.closest("div#Dialog").dialog("close");
 
-                    self.resetRibbon(true, false, true, true);
+                    self.resetRibbon(true, false, true, true, false);
                 }
                 else {
                     toastr.error(data.Message, "Error");
+                    self.resetRibbon(true, false, true, true, false);
                 }
             },
             failure: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -120,6 +121,15 @@ var AjaxHttpSender = function () {
                         changeLoanCounter, changeResetCounter, "LanguageGrid");
                 }
                 break;
+            case self.ribbonEnum.UserSidebar:
+                var sidebar = new LMSUsersSidebar();
+                sidebar.disableCancel();
+                var $lmsGrid = $("#UserGrid");
+                if ($lmsGrid != undefined) {
+                    self.resetGrid(changeAddCounter, changeDeleteCounter, changeEditCounter,
+                        changeLoanCounter, changeResetCounter, "UserGrid");
+                }
+                break;
             default:
                 console.log(id);
         }            
@@ -186,11 +196,11 @@ var AjaxHttpSender = function () {
         var callback = {
             success: function (data) {
                 if (data.Success) {
-                    toastr.success(data.Message, "Success");
-                    self.resetRibbon(false, true, false, false, false);
+                    toastr.success(data.Message, "Success");                   
                 } else {
                     toastr.error(data.Message, "Error");
                 }
+                self.resetRibbon(false, true, false, false, false);
             },
             failure: function (XMLHttpRequest, textStatus, errorThrown) {
                 toastr.error("Error making AJAX call: " +
@@ -204,11 +214,11 @@ var AjaxHttpSender = function () {
         var callback = {
             success: function (data) {
                 if (data.Success) {
-                    toastr.success(data.Message, "Success");
-                    self.resetRibbon(false, false, false, false, true);
+                    toastr.success(data.Message, "Success");                    
                 } else {
                     toastr.error(data.Message, "Error");
                 }
+                self.resetRibbon(false, false, false, false, true);
             },
             failure: function (XMLHttpRequest, textStatus, errorThrown) {
                 toastr.error("Error making AJAX call: " +

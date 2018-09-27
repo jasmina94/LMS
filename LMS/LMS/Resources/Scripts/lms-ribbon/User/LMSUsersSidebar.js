@@ -34,3 +34,25 @@ LMSUsersSidebar.prototype.add = function () {
     var dialog = new DialogFactory().createDialog(path);
     dialog.open(data);
 };
+LMSUsersSidebar.prototype.edit = function () {
+    if (!this.lmsGrid) {
+        var $ = jQuery;
+        var $lmsGridUsers = $("#UserGrid");
+        var lmsGridUsers = $lmsGridUsers.data("LMSGrid");
+
+        this.lmsGrid = lmsGridUsers;
+    }
+
+    this.base.prototype.edit.call(this);
+};
+LMSUsersSidebar.prototype.delete = function () {
+    if (!this.lmsGrid) {
+        var $ = jQuery;
+        var $lmsGridUsers = $("#UserGrid");
+        var lmsGridUsers = $lmsGridUsers.data("LMSGrid");
+
+        this.lmsGrid = lmsGridUsers;
+    }
+
+    this.base.prototype.delete.call(this);
+};

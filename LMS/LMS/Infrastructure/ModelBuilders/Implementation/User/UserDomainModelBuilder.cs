@@ -19,6 +19,7 @@ namespace LMS.Infrastructure.ModelBuilders.Implementation.User
             model.Password = viewModel.UserPassword;
             model.BirthDate = viewModel.BirthDate;
             model.Email = viewModel.Email;
+            model.CategoryId = viewModel.CategoryId;
         }
     }
 }

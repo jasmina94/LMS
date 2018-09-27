@@ -42,8 +42,7 @@ LMSLanguagesSidebar.prototype.edit = function () {
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.lmsGrid.buildCheckboxes(false, "edit");
-    this.enableCancel();
+    this.base.prototype.edit.call(this);
 };
 LMSLanguagesSidebar.prototype.delete = function () {
     if (!this.lmsGrid) {
@@ -53,8 +52,7 @@ LMSLanguagesSidebar.prototype.delete = function () {
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.lmsGrid.buildCheckboxes(false, "delete");
-    this.enableCancel();
+    this.base.prototype.delete.call(this);
 };
 LMSLanguagesSidebar.prototype.cancel = function () {
     if (!this.lmsGrid) {
@@ -64,6 +62,5 @@ LMSLanguagesSidebar.prototype.cancel = function () {
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.lmsGrid.changeLookByMode(null);
-    this.disableCancel();
+    this.base.prototype.cancel(this);
 };

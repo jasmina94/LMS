@@ -36,6 +36,13 @@ namespace LMS.Areas.User.Controllers
             return response;
         }
 
+        public ActionResult Delete(int id)
+        {
+            DeleteUserResult result = UserService.Delete(id);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult About(int id)
         {
             var viewModel = UserService.Get(id);

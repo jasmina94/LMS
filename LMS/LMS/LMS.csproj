@@ -176,6 +176,8 @@
     <Compile Include="Areas\Language\Controllers\LanguageController.cs" />
     <Compile Include="Areas\Language\Controllers\OverviewController.cs" />
     <Compile Include="Areas\Language\LanguageAreaRegistration.cs" />
+    <Compile Include="Areas\Role\Controllers\RoleController.cs" />
+    <Compile Include="Areas\Role\RoleAreaRegistration.cs" />
     <Compile Include="Areas\User\Controllers\OverviewController.cs" />
     <Compile Include="Areas\User\Controllers\UserController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
@@ -196,6 +198,8 @@
     <Compile Include="BusinessLogic\LanguageManagement\Interfaces\ILanguageService.cs" />
     <Compile Include="BusinessLogic\LanguageManagement\Model\DeleteLanguageResult.cs" />
     <Compile Include="BusinessLogic\LanguageManagement\Model\SaveLanguageResult.cs" />
+    <Compile Include="BusinessLogic\RoleManagement\Implementation\RoleServiceImpl.cs" />
+    <Compile Include="BusinessLogic\RoleManagement\Interfaces\IRoleService.cs" />
     <Compile Include="BusinessLogic\UserManagement\Implementation\UserServiceImpl.cs" />
     <Compile Include="BusinessLogic\UserManagement\Interfaces\IUserService.cs" />
     <Compile Include="BusinessLogic\UserManagement\Model\DeleteUserResult.cs" />
@@ -501,6 +505,8 @@
     <Content Include="Areas\Book\Views\Overview\SidebarBorrowed.cshtml" />
     <Content Include="Areas\Book\Views\Overview\PanelBorrowed.cshtml" />
     <Content Include="Areas\Book\Views\BookCopy\BookCopyFormComplex.cshtml" />
+    <Content Include="Areas\Role\Views\web.config" />
+    <Content Include="Areas\Role\Views\_ViewStart.cshtml" />
     <None Include="Resources\Scripts\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="Resources\Scripts\jquery\jquery-1.10.2.js" />
     <None Include="Resources\Scripts\jquery\jquery.validate-vsdoc.js" />
@@ -535,6 +541,8 @@
     <Folder Include="Areas\Book\Models\" />
     <Folder Include="Areas\Category\Models\" />
     <Folder Include="Areas\Language\Models\" />
+    <Folder Include="Areas\Role\Models\" />
+    <Folder Include="Areas\Role\Views\Role\" />
     <Folder Include="Areas\User\Models\" />
   </ItemGroup>
   <ItemGroup>

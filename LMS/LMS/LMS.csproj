@@ -313,6 +313,9 @@
     <Content Include="Resources\Images\ebook_photo.jpg" />
     <Content Include="Resources\Images\edit.png" />
     <Content Include="Resources\Images\filter.png" />
+    <Content Include="Resources\Images\info1.png" />
+    <Content Include="Resources\Images\info2.jpg" />
+    <Content Include="Resources\Images\info3.jpg" />
     <Content Include="Resources\Images\language.png" />
     <Content Include="Resources\Images\lms.jpg" />
     <Content Include="Resources\Images\make_loan.png" />
@@ -535,6 +538,9 @@
     <Content Include="Views\Account\_ViewStart.cshtml" />
     <Content Include="Resources\Styles\toastr\toastr.less" />
     <Content Include="Resources\Styles\toastr\toastr.scss" />
+    <Content Include="Views\Home\InfoOne.cshtml" />
+    <Content Include="Views\Home\InfoTwo.cshtml" />
+    <Content Include="Views\Home\InfoThree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

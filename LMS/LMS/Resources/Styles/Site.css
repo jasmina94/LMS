@@ -1,5 +1,5 @@
-﻿.lms-main-container{
-   margin: 1%;
+﻿.lms-main-container {
+    margin: 1%;
 }
 
 .lms-navbar-brand {
@@ -12,7 +12,7 @@
     background-image: url(../Images/ebook_photo.jpg);
 }
 
-.lms-grid-container{
+.lms-grid-container {
     height: 500px;
 }
 
@@ -42,14 +42,14 @@
     border-radius: 10px;
 }
 
-.lms-login-btn{
+.lms-login-btn {
     background-color: #fbda8a;
     width: 100px;
     margin-left: 30%;
     margin-top: 5%;
 }
 
-.lms-login-back-link{
+.lms-login-back-link {
     font-size: small;
     color: black;
     margin-left: 35%;
@@ -68,6 +68,22 @@
     .lms-jumbotron-small p {
         margin: 0 !important;
     }
+
+/*Info panels styles*/
+.InfoOneTextBox {
+    margin-top: 100px;
+    margin-left: 150px;
+    border: 1px solid #edcfcf;
+    background-color: antiquewhite;
+    border-radius: 5px;
+}
+
+.InfoTwoTextBox{
+    margin-top: 200px;
+    border: 1px solid #edcfcf;
+    background-color: antiquewhite;
+    border-radius: 5px;
+}
 
 .tooltip-ballon-dark {
     background-color: black;

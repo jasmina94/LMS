@@ -9,5 +9,20 @@ namespace LMS.Controllers
         {
             return View();
         }
+
+        public ActionResult InfoOne()
+        {
+            return View();
+        }
+
+        public ActionResult InfoTwo()
+        {
+            return View();
+        }
+
+        public ActionResult InfoThree()
+        {
+            return View();
+        }
     }
 }

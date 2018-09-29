@@ -176,6 +176,8 @@
     <Compile Include="Areas\Language\Controllers\LanguageController.cs" />
     <Compile Include="Areas\Language\Controllers\OverviewController.cs" />
     <Compile Include="Areas\Language\LanguageAreaRegistration.cs" />
+    <Compile Include="Areas\Profile\Controllers\ProfileController.cs" />
+    <Compile Include="Areas\Profile\ProfileAreaRegistration.cs" />
     <Compile Include="Areas\Role\Controllers\RoleController.cs" />
     <Compile Include="Areas\Role\RoleAreaRegistration.cs" />
     <Compile Include="Areas\User\Controllers\OverviewController.cs" />
@@ -229,6 +231,7 @@
     <Compile Include="Infrastructure\Authorization\Implementation\LMSMembershipProvider.cs" />
     <Compile Include="Infrastructure\Authorization\UserSessionObject.cs" />
     <Compile Include="Infrastructure\Extension\ListExtension.cs" />
+    <Compile Include="Infrastructure\Helpers\SessionHelper.cs" />
     <Compile Include="Infrastructure\HtmlHelpers\HtmlDialogHelper.cs" />
     <Compile Include="Infrastructure\HtmlHelpers\HtmlErrorLabelHelper.cs" />
     <Compile Include="Infrastructure\HtmlHelpers\HtmlFormInputHelper.cs" />
@@ -323,6 +326,7 @@
     <Content Include="Resources\Images\refresh.png" />
     <Content Include="Resources\Images\return_loan.png" />
     <Content Include="Resources\Images\users.png" />
+    <Content Include="Resources\Images\warning.png" />
     <Content Include="Resources\Scripts\ajax\AjaxHttpSender.js" />
     <Content Include="Resources\Scripts\bootstrap-datetimepicker\bootstrap-datetimepicker.js" />
     <Content Include="Resources\Scripts\bootstrap-datetimepicker\moment.js" />
@@ -510,6 +514,9 @@
     <Content Include="Areas\Book\Views\BookCopy\BookCopyFormComplex.cshtml" />
     <Content Include="Areas\Role\Views\web.config" />
     <Content Include="Areas\Role\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Profile\Views\web.config" />
+    <Content Include="Areas\Profile\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Profile\Views\Profile\Index.cshtml" />
     <None Include="Resources\Scripts\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="Resources\Scripts\jquery\jquery-1.10.2.js" />
     <None Include="Resources\Scripts\jquery\jquery.validate-vsdoc.js" />
@@ -541,12 +548,14 @@
     <Content Include="Views\Home\InfoOne.cshtml" />
     <Content Include="Views\Home\InfoTwo.cshtml" />
     <Content Include="Views\Home\InfoThree.cshtml" />
+    <Content Include="Views\Home\NotAllowed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Book\Models\" />
     <Folder Include="Areas\Category\Models\" />
     <Folder Include="Areas\Language\Models\" />
+    <Folder Include="Areas\Profile\Models\" />
     <Folder Include="Areas\Role\Models\" />
     <Folder Include="Areas\Role\Views\Role\" />
     <Folder Include="Areas\User\Models\" />

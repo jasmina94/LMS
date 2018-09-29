@@ -6,22 +6,22 @@ using System.Web.Routing;
 namespace LMS.Infrastructure.Authorization.Attributes
 {
     public class IsAuthenticatedAttribute : ActionFilterAttribute
-   {
-      public override void OnActionExecuting(ActionExecutingContext filterContext)
-      {
-         HttpSessionStateBase session = filterContext.HttpContext.Session;
-         UserSessionObject currentUser = (UserSessionObject)session[SessionConstant.USER];
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            HttpSessionStateBase session = filterContext.HttpContext.Session;
+            UserSessionObject currentUser = (UserSessionObject)session[SessionConstant.USER];
 
-         if (currentUser == null)
-         {
-            RouteValueDictionary redirectValueDictionary = new RouteValueDictionary();
-            redirectValueDictionary.Add("action", "ShowLoginPanel");
-            redirectValueDictionary.Add("controller", "Account");
-            redirectValueDictionary.Add("area", "");
-            filterContext.Result = new RedirectToRouteResult(redirectValueDictionary);
-         }
+            if (currentUser == null)
+            {
+                RouteValueDictionary redirectValueDictionary = new RouteValueDictionary();
+                redirectValueDictionary.Add("action", "ShowNotAllowed");
+                redirectValueDictionary.Add("controller", "Home");
+                redirectValueDictionary.Add("area", "");
+                filterContext.Result = new RedirectToRouteResult(redirectValueDictionary);
+            }
 
-         base.OnActionExecuting(filterContext);
-      }
-   }
+            base.OnActionExecuting(filterContext);
+        }
+    }
 }

@@ -33,16 +33,17 @@ namespace LMS.BusinessLogic.AccessControlManagement.Implementation
         #endregion
 
 
-        public string CheckCookie(HttpRequestBase request)
+        public int CheckCookie(HttpRequestBase request)
         {
-            String username = string.Empty;
+            int userId = 0;
 
-            if (request.Cookies[SessionConstant.USERNAME] != null)
+            if (request.Cookies[SessionConstant.USER] != null)
             {
-                username = request.Cookies[SessionConstant.USERNAME].Value;
+                var id = request.Cookies[SessionConstant.USER_ID].Value;
+                userId = int.Parse(id);
             }
 
-            return username;
+            return userId;
         }
 
         public List<string> FilterPermissions(List<string> userPermissions, List<string> rolePermissions)
@@ -169,9 +170,9 @@ namespace LMS.BusinessLogic.AccessControlManagement.Implementation
             return hasRole;
         }
 
-        public void SetCurrentUser(HttpSessionStateBase session, string username)
+        public void SetCurrentUser(HttpSessionStateBase session, int userId)
         {
-            UserSessionObject currentUser = GenerateSessionObjectFor(username);
+            UserSessionObject currentUser = GenerateSessionObjectFor(userId);
 
             session[SessionConstant.USER] = currentUser;
         }
@@ -191,6 +192,24 @@ namespace LMS.BusinessLogic.AccessControlManagement.Implementation
                     response.Cookies.Add(cookie);
                 }
             }
+        }
+
+        private UserSessionObject GenerateSessionObjectFor(int userId)
+        {
+            UserSessionObject currentUser = new UserSessionObject();
+
+            UserData user = UserRepository.GetDataById(userId);
+            List<string> roles = GetRolesFor(user.Username);
+            List<string> permissions = GetPermissionsFor(user.Username);
+
+            currentUser.Username = user.Username;
+            currentUser.UserId = user.Id;
+            currentUser.Roles = roles;
+            currentUser.Permissions = permissions;
+            currentUser.Firstname = user.Firstname;
+            currentUser.Lastname = user.Lastname;
+
+            return currentUser;
         }
 
         private UserSessionObject GenerateSessionObjectFor(string username)

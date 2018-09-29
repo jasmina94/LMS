@@ -1,6 +1,8 @@
 ﻿using LMS.BusinessLogic.BookManagement.Interfaces;
 using LMS.DomainModel.Infrastructure.FilterMapper;
 using LMS.DomainModel.Infrastructure.FilterMapper.Model;
+using LMS.Infrastructure.Authorization.Attributes;
+using LMS.Infrastructure.Authorization.Constants;
 using LMS.Models.ViewModels.Book;
 using LMS.Models.ViewModels.Relation;
 using System.Collections.Generic;

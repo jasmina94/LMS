@@ -62,5 +62,5 @@ LMSLanguagesSidebar.prototype.cancel = function () {
         this.lmsGrid = lmsGridBooks;
     }
 
-    this.base.prototype.cancel(this);
+    this.base.prototype.cancel.call(this);
 };

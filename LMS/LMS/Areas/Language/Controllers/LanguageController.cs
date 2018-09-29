@@ -1,6 +1,7 @@
 ﻿using LMS.BusinessLogic.LanguageManagement.Interfaces;
 using LMS.BusinessLogic.LanguageManagement.Model;
 using LMS.Infrastructure.ActionFilters;
+using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Infrastructure.Extension;
 using LMS.Models.ViewModels.Language;
 using LMS.MVC.Infrastructure.SelectHelpers;
@@ -14,6 +15,7 @@ namespace LMS.Areas.Language.Controllers
     {
         public ILanguageService LanguageService { get; set; }
 
+        [IsAuthenticated]
         public ActionResult Form(int? id)
         {
             var viewModel = LanguageService.Get(id);
@@ -23,6 +25,7 @@ namespace LMS.Areas.Language.Controllers
 
         [HttpPost]
         [ValidateModelFilter]
+        [IsAuthenticated]
         public ActionResult Save(LanguageViewModel viewModel)
         {
             JsonResult response = (JsonResult)RouteData.Values["validation"];
@@ -65,6 +68,7 @@ namespace LMS.Areas.Language.Controllers
             };
         }
 
+        [IsAuthenticated]
         public ActionResult Delete(int id)
         {
             DeleteLanguageResult deleteResult = LanguageService.Delete(id);

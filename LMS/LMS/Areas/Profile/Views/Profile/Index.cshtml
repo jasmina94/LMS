@@ -1,0 +1,60 @@
+﻿@using LMS.Infrastructure.Authorization
+@using LMS.Infrastructure.Helpers
+@using LMS.Infrastructure.HtmlHelpers
+@using LMS.Infrastructure.HtmlHelpers.Utility
+@model LMS.Models.ViewModels.User.UserViewModel
+
+@{ 
+    UserSessionObject currentUser = null;
+    if (Session.GetUser() != null)
+    {
+        currentUser = Session.GetUser();
+    }
+}
+
+<div class="ProfileSidenav">
+    <a href="#profileInfo">Profile info</a>
+    <a href="#currentlyLoan">Current books</a>
+    <a href="#historyLoan">History</a>
+    <a href="#chat">Chat</a>
+</div>
+
+<div class="ProfileMain">
+    <h4>Profile info</h4>
+    <div class="col-md-8">
+        <form class="form-horizontal" id="ProfileInfoForm" action="/User/User/Save" method="post">
+            <br />
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.IsActive)
+            @Html.HiddenFor(model => model.UserCreatedById)
+            @Html.HiddenFor(model => model.UserCreatedBy)
+            @Html.HiddenFor(model => model.DateTimeCreatedOn)
+            @Html.HiddenFor(model => model.UserDeletedById)
+            @Html.HiddenFor(model => model.UserDeletedBy)
+            @Html.HiddenFor(model => model.DateTimeDeletedOn)
+            @Html.HiddenFor(model => model.CategoryId)
+            @Html.HiddenFor(model => model.RoleId)
+            @Html.HiddenFor(model => model.UserPassword)
+
+            @Html.SimpleFormInput(model => model.Firstname, "Firstname:", inputValue: Model.Firstname, readOnly: true)
+            @Html.SimpleFormInput(model => model.Lastname, "Lastname:", inputValue: Model.Lastname, readOnly: true)
+            @Html.SimpleFormInput(model => model.Username, "Username:", inputValue: Model.Username, readOnly: true)
+            @Html.SimpleFormInput(model => model.Email, "Email:", inputType: FormInputType.EMAIL,
+                specialInputClass: "SpecificInputType", inputValue: Model.Email, readOnly: true)
+            @Html.IconFormInput(model => model.BirthDate, "Date of birth:",
+                inputValue: Model.BirthDate.Date.ToString("MM/dd/yyyy"),
+                specialInputClass: "InputWithGlyphicon DatePicker",
+                iconHtmlString: Html.Glyphicon("calendar", true), readOnly: true)
+            @Html.SimpleFormInput(model => model.Category, "Subscribed to category:", inputValue: Model.Category, readOnly: true)
+            @Html.SimpleFormInput(model => model.Role, "Role:", inputValue: Model.Role, readOnly: true)
+            
+            @Html.FormSubmit(value: "Save changes", specialBtnClass: "SaveProfileInfoForm", newLine: true)
+        
+        </form>
+
+            <a href="#" id="ChangeProfileData">Change personal data</a><br/>
+            <a href="#" id="CancelChangeProfileData">Cancel change</a><br />
+            <a href="#" id="ChangePassword">Change password</a>
+        
+    </div>
+</div>

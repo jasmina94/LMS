@@ -1,6 +1,7 @@
 ﻿using LMS.BusinessLogic.BookManagement.Interfaces;
 using LMS.BusinessLogic.BookManagement.Model;
 using LMS.Infrastructure.ActionFilters;
+using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Models.ViewModels.Book;
 using LMS.Models.ViewModels.Relation;
 using System.Web.Mvc;
@@ -13,6 +14,7 @@ namespace LMS.Areas.Book.Controllers
 
         public ILoanService LoanService { get; set; }
 
+        [IsAuthenticated]
         public ActionResult Form(int id)
         {
             var viewModel = new BookCopyViewModel();
@@ -24,6 +26,7 @@ namespace LMS.Areas.Book.Controllers
             return PartialView("BookCopyForm", viewModel);
         }
 
+        [IsAuthenticated]
         public ActionResult FormComplex()
         {
             var viewModel = new BookCopyViewModel();
@@ -33,6 +36,7 @@ namespace LMS.Areas.Book.Controllers
 
         [HttpPost]
         [ValidateModelFilter]
+        [IsAuthenticated]
         public ActionResult Save(BookCopyViewModel viewModel)
         {
             JsonResult response = (JsonResult)RouteData.Values["validation"];
@@ -48,6 +52,7 @@ namespace LMS.Areas.Book.Controllers
             return response;
         }
 
+        [IsAuthenticated]
         public ActionResult Loan(int id)
         {
             var viewModel = LoanService.CreateLoanModel(id);
@@ -57,6 +62,7 @@ namespace LMS.Areas.Book.Controllers
 
         [HttpPost]
         [ValidateModelFilter]
+        [IsAuthenticated]
         public ActionResult Borrow(RelationUserBookCopyViewModel viewModel)
         {
             JsonResult response = (JsonResult)RouteData.Values["validation"];
@@ -71,6 +77,7 @@ namespace LMS.Areas.Book.Controllers
             return response;
         }
 
+        [IsAuthenticated]
         public ActionResult Restore(int id)
         {
             var result = LoanService.ReturnBook(id);
@@ -78,6 +85,7 @@ namespace LMS.Areas.Book.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [IsAuthenticated]
         public ActionResult Delete(int id)
         {
             DeleteBookResult result = BookService.DeleteCopy(id);

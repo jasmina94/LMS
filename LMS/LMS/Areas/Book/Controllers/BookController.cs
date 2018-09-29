@@ -1,6 +1,7 @@
 ﻿using LMS.BusinessLogic.BookManagement.Interfaces;
 using LMS.BusinessLogic.BookManagement.Model;
 using LMS.Infrastructure.ActionFilters;
+using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Infrastructure.Extension;
 using LMS.Models.ViewModels.Book;
 using LMS.MVC.Infrastructure.SelectHelpers;
@@ -14,6 +15,7 @@ namespace LMS.Areas.Book.Controllers
     {
         public IBookService BookService { get; set; }
 
+        [IsAuthenticated]
         public ActionResult Form(int? id)
         {
             var viewModel = BookService.Get(id);
@@ -23,6 +25,7 @@ namespace LMS.Areas.Book.Controllers
 
         [HttpPost]
         [ValidateModelFilter]
+        [IsAuthenticated]
         public JsonResult Save(BookViewModel viewModel)
         {
             JsonResult response = (JsonResult)RouteData.Values["validation"];
@@ -64,6 +67,7 @@ namespace LMS.Areas.Book.Controllers
             };
         }
 
+        [IsAuthenticated]
         public ActionResult Delete(int id)
         {
             DeleteBookResult result = BookService.Delete(id);

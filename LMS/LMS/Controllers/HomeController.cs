@@ -24,5 +24,10 @@ namespace LMS.Controllers
         {
             return View();
         }
+
+        public ActionResult ShowNotAllowed()
+        {
+            return PartialView("NotAllowed");
+        }
     }
 }

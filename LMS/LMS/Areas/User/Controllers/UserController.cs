@@ -1,7 +1,10 @@
-﻿using LMS.BusinessLogic.UserManagement.Interfaces;
+﻿using LMS.BusinessLogic.AccessControlManagement.Interfaces;
+using LMS.BusinessLogic.UserManagement.Interfaces;
 using LMS.BusinessLogic.UserManagement.Model;
 using LMS.Infrastructure.ActionFilters;
+using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Infrastructure.Extension;
+using LMS.Infrastructure.Helpers;
 using LMS.Models.ViewModels.User;
 using LMS.MVC.Infrastructure.SelectHelpers;
 using System.Collections.Generic;
@@ -14,6 +17,9 @@ namespace LMS.Areas.User.Controllers
     {
         public IUserService UserService { get; set; }
 
+        public IAccessControlService AccessControlService { get; set; }
+
+        [IsAuthenticated]
         public ActionResult Form(int? id)
         {
             var viewModel = UserService.Get(id);
@@ -23,8 +29,11 @@ namespace LMS.Areas.User.Controllers
 
         [HttpPost]
         [ValidateModelFilter]
+        [IsAuthenticated]
         public JsonResult Save(UserViewModel viewModel)
         {
+            var currentUser = Session.GetUser();
+
             JsonResult response = (JsonResult)RouteData.Values["validation"];
             ValidationResponse validation = (ValidationResponse)response.Data;
             if (validation.Success)
@@ -33,9 +42,15 @@ namespace LMS.Areas.User.Controllers
                 response.Data = result;
             }
 
+            if(currentUser.UserId == viewModel.Id)
+            {
+                AccessControlService.SetCurrentUser(Session, currentUser.UserId);
+            }
+
             return response;
         }
 
+        [IsAuthenticated]
         public ActionResult Delete(int id)
         {
             DeleteUserResult result = UserService.Delete(id);

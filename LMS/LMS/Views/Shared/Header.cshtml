@@ -47,17 +47,15 @@
             <ul class="nav navbar-nav navbar-right">
                 @if (Session[SessionConstant.USER] != null)
                 {
-                    UserSessionObject currentUser = (UserSessionObject)Session[SessionConstant.USER];
-                    <li class="dropdown">
-                        <a href="@Url.Action("Index", "Home", new { Area = "Chat"})"><span class="glyphicon glyphicon-envelope"><span class="lms-msg-counter">100</span></span></a>
-                    </li>
+                    UserSessionObject currentUser = (UserSessionObject)Session[SessionConstant.USER];              
                     <li class="dropdown">
                         <a class="dropdown-toggle lms-disable-on-open-dialog" data-toggle="dropdown" href="#">
                             @currentUser.Username
                             <span class="glyphicon glyphicon-user"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, "")</li>
+                            <li>@Html.ActionLink("Profile", "Index", "Profile", new { area = "Profile" }, "")</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, "")</li>                            
                         </ul>
                     </li>
                 }

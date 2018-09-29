@@ -2,6 +2,33 @@
 {
     public enum PermissionEnum
     {
-
+        ViewOverviewBook,
+        DenyViewOverviewBook,
+        ViewOverviewCategory,
+        DenyViewOverviewCategory,
+        ViewOverviewLanguage,
+        DenyViewOverviewLanguage,
+        ViewOverviewUsers,
+        DenyViewOverviewUsers,
+        ViewOverviewLibrarians,
+        DenyViewOverviewLibrarians,
+        ViewOverviewSubscribers,
+        DenyViewOverviewSubscribers,
+        ViewOverviewEBook,
+        DenyViewOverviewEBook,
+        ViewAddBook,
+        DenyViewAddBook,
+        ViewAddCategory,
+        DenyViewAddCategory,
+        ViewAddLanguage,
+        DenyViewAddLanguage,
+        ViewAddUsers,
+        DenyViewAddUsers,
+        ViewAddEBooks,
+        DenyViewAddEBook,
+        ViewAddSubscriber,
+        DenyViewAddSubscriber,
+        ViewAddLibrarian,
+        DenyViewAddLibrarian
     }
 }

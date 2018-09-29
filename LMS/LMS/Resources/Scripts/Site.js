@@ -16,6 +16,11 @@ $(function () {
     var $dialogOpener = $(".lms-open-dialog");
     var $container = $("#Dialog");
     var $loginForm = $("#LoginUserForm");
+    var $profileInfoForm = $("#ProfileInfoForm");
+    var $changeProfileDataLink = $("a#ChangeProfileData");
+    var $cancelChangeProfileDataLink = $("a#CancelChangeProfileData");
+    var $changePasswordLink = $("a#ChangePassword");
+    var $saveProfileInfo = $(".SaveProfileInfoForm");
 
     var setRegularSidebar = function () {
         var $sidebar = $("ul.sidebar");
@@ -69,5 +74,47 @@ $(function () {
             lmsGrid.loanCounter = 0;
             lmsGrid.restoreCounter = 0;
         }
+    });
+
+    $changeProfileDataLink.on("click", function () {
+        var $submitButton = $(".SaveProfileInfoForm");
+        $submitButton.show();
+
+        $cancelChangeProfileDataLink.show();
+
+        var $inputs = $profileInfoForm.find("input");
+        for (var i = 0; i < $inputs.length; i++) {
+            var $input = $($inputs[i]);
+            var id = $input.attr("id");
+            if (id != "role" && id != "category") {
+                $input.attr("readonly", false);
+            }
+        }
+
+        $(this).hide();
+    });
+
+    $cancelChangeProfileDataLink.on("click", function () {
+        var $submitButton = $(".SaveProfileInfoForm");
+        $submitButton.hide();
+
+        $changeProfileDataLink.show();
+
+        var $inputs = $profileInfoForm.find("input");
+        for (var i = 0; i < $inputs.length; i++) {
+            var $input = $($inputs[i]);
+            var id = $input.attr("id");
+            if (id != "role" && id != "category") {
+                $input.attr("readonly", true);
+            }
+        }
+
+        $(this).hide();
+    });
+
+    $saveProfileInfo.on("click", function (e) {
+        e.preventDefault();
+        var $form = $("#ProfileInfoForm");
+        new AjaxHttpSender().saveProfileData($form);
     });
 });

@@ -18,15 +18,15 @@ namespace LMS.Controllers
         public ActionResult Index()
         {
             ActionResult result = null;
-            string loggedUser = AccessControlService.CheckCookie(Request);
+            int loggedUserId = AccessControlService.CheckCookie(Request);
 
             if (Session[SessionConstant.USER] != null)
             {
                 result = RedirectToAction("Index", "Home");
             }
-            else if (!string.IsNullOrEmpty(loggedUser))
+            else if (loggedUserId != 0)
             {
-                AccessControlService.SetCurrentUser(Session, loggedUser);
+                AccessControlService.SetCurrentUser(Session, loggedUserId);
                 result = RedirectToAction("Index", "Home");
             }
             else

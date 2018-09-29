@@ -6,11 +6,11 @@ namespace LMS.BusinessLogic.AccessControlManagement.Interfaces
 {
     public interface IAccessControlService
     {
-        string CheckCookie(HttpRequestBase request);
+        int CheckCookie(HttpRequestBase request);
 
         void SetCurrentUser(HttpSessionStateBase session, HttpResponseBase response, LoginViewModel loginViewModel);
 
-        void SetCurrentUser(HttpSessionStateBase session, string username);
+        void SetCurrentUser(HttpSessionStateBase session, int userId);
 
         bool HasRole(string username, string roleCode);
 

@@ -198,7 +198,12 @@ var AjaxHttpSender = function () {
                 if (data.Success) {
                     toastr.success(data.Message, "Success");                   
                 } else {
-                    toastr.error(data.Message, "Error");
+                    if (data.Message == undefined) {
+                        toastr.error("Action is not allowed!", "Error");
+                    } else {
+                        toastr.error(data.Message, "Error");
+                    }
+                    
                 }
                 self.resetRibbon(false, true, false, false, false);
             },
@@ -216,7 +221,11 @@ var AjaxHttpSender = function () {
                 if (data.Success) {
                     toastr.success(data.Message, "Success");                    
                 } else {
-                    toastr.error(data.Message, "Error");
+                    if (data.Message == undefined) {
+                        toastr.error("Action is not allowed!", "Error");
+                    } else {
+                        toastr.error(data.Message, "Error");
+                    }
                 }
                 self.resetRibbon(false, false, false, false, true);
             },
@@ -226,6 +235,26 @@ var AjaxHttpSender = function () {
             }
         };
         self.sendGet(path, callback);
+    }
+
+    this.saveProfileData = function ($form) {
+        var url = $form.attr("action");
+        var data = $form.serialize();
+        var callback = {
+            success: function (data) {
+                if (data.Success) {
+                    toastr.success(data.Message, "Success");
+                    setTimeout(location.reload.bind(location), 2200);
+                }
+                else {
+                    toastr.error(data.Message, "Error");                    
+                }
+            },
+            failure: function (XMLHttpRequest, textStatus, errorThrown) {
+                toastr.error("Error making AJAX call: " + XMLHttpRequest.statusText + " (" + XMLHttpRequest.status + ")");
+            }
+        }
+        self.sendPost(url, data, callback);
     }
 };
 

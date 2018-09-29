@@ -1,6 +1,7 @@
 ﻿using LMS.BusinessLogic.CategoryManagement.Interfaces;
 using LMS.BusinessLogic.CategoryManagement.Model;
 using LMS.Infrastructure.ActionFilters;
+using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Infrastructure.Extension;
 using LMS.Models.ViewModels.Category;
 using LMS.MVC.Infrastructure.SelectHelpers;
@@ -14,6 +15,7 @@ namespace LMS.Areas.Category.Controllers
     {
         public ICategoryService CategoryService { get; set; }
 
+        [IsAuthenticated]
         public ActionResult Form(int? id)
         {
             var viewModel = CategoryService.Get(id);
@@ -23,6 +25,7 @@ namespace LMS.Areas.Category.Controllers
 
         [HttpPost]
         [ValidateModelFilter]
+        [IsAuthenticated]
         public JsonResult Save(CategoryViewModel viewModel)
         {
             JsonResult response = (JsonResult)RouteData.Values["validation"];
@@ -64,6 +67,7 @@ namespace LMS.Areas.Category.Controllers
             };
         }
 
+        [IsAuthenticated]
         public ActionResult Delete(int id)
         {
             DeleteCategoryResult deleteResult = CategoryService.Delete(id);

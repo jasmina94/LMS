@@ -244,7 +244,7 @@ var AjaxHttpSender = function () {
             success: function (data) {
                 if (data.Success) {
                     toastr.success(data.Message, "Success");
-                    setTimeout(location.reload.bind(location), 2200);
+                    setTimeout(location.reload.bind(location), 2800);
                 }
                 else {
                     toastr.error(data.Message, "Error");                    

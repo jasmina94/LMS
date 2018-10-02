@@ -219,3 +219,8 @@ input.SpecificInputType {
 #ChangePassword {
     margin-left: 60px;
 }
+
+.ChangePasswordBtn{
+    margin-left: 200px;
+    min-width: 100px;
+}

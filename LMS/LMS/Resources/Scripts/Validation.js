@@ -14,6 +14,14 @@ Validator.prototype = {
                 error.appendTo($("div#error" + element.attr("id")));
             }
         });
+
+        $.validator.addMethod("equalPassword", function (value, element) {
+            return $("#newpassword").val() == $("#repeatpassword").val()
+        }, "* New password and repeated should match!");
+
+        $.validator.addMethod("newPassword", function (value, element) {
+            return $("#newpassword").val() != $("#oldpassword").val()
+        }, "* New password and old password should nor match!");
     }
 }
 

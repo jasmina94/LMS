@@ -2,6 +2,7 @@
     this.USER = "/User/User/Form";
     this.USER_ABOUT = "/User/User/About";
     this.USER_EDIT = "/User/User/ViewEditPanel";
+    this.CHANGE_PASS = "/Profile/Profile/ViewChangePassword";
 
     this.BOOK = "/Book/Book/Form";
     this.BOOK_COPY = "/Book/BookCopy/Form";

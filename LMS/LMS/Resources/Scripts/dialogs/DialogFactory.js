@@ -1,6 +1,7 @@
 ﻿/// <reference path="~/Resources/Scripts/dialogs/DialogTypeEnum.js"/>
 /// <reference path="~/Resources/Scripts/dialogs/User/User.js"/>
 /// <reference path="~/Resources/Scripts/dialogs/User/EditUser.js"/>
+/// <reference path="~/Resources/Scripts/dialogs/User/ChangePassword.js"/>
 
 /// <reference path="~/Resources/Scripts/dialogs/Category/Category.js"/>
 
@@ -23,6 +24,7 @@ var DialogFactory = function () {
     dialogDictionary[dialogTypeEnum.USER] = new UserDialog();
     dialogDictionary[dialogTypeEnum.USER_EDIT] = new EditUserDialog();
     dialogDictionary[dialogTypeEnum.USER_ABOUT] = new UserAboutDialog();
+    dialogDictionary[dialogTypeEnum.CHANGE_PASS] = new ChangePasswordDialog();
 
     dialogDictionary[dialogTypeEnum.CATEGORY] = new CategoryDialog();
 

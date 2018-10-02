@@ -2,6 +2,7 @@
 using LMS.Infrastructure.ActionFilters;
 using LMS.Infrastructure.Authorization.Constants;
 using LMS.Models.ViewModels.Account;
+using System;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -59,6 +60,18 @@ namespace LMS.Controllers
             }
 
             return result;
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Remove(SessionConstant.USER);
+            Session.Remove(SessionConstant.USERNAME);
+            if (Request.Cookies[SessionConstant.USER_ID] != null)
+            {
+                Response.Cookies[SessionConstant.USER_ID].Expires = DateTime.Now.AddDays(-1);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

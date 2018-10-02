@@ -21,6 +21,7 @@ $(function () {
     var $cancelChangeProfileDataLink = $("a#CancelChangeProfileData");
     var $changePasswordLink = $("a#ChangePassword");
     var $saveProfileInfo = $(".SaveProfileInfoForm");
+    var $changePasswordLink = $("a#ChangePassword");
 
     var setRegularSidebar = function () {
         var $sidebar = $("ul.sidebar");
@@ -117,4 +118,11 @@ $(function () {
         var $form = $("#ProfileInfoForm");
         new AjaxHttpSender().saveProfileData($form);
     });
+
+    $changePasswordLink.on("click", function () {
+        var path = new DialogTypeEnum().CHANGE_PASS;
+        var data = "";
+        var dialog = new DialogFactory().createDialog(path);
+        dialog.open(data);
+    })
 });

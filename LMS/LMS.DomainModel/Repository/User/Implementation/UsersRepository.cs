@@ -29,6 +29,21 @@ namespace LMS.DomainModel.Repository.User.Implementation
             return user;
         }
 
+        public UserData GetUserByEmail(string email)
+        {
+            UserData user = null;
+            SqlCommand sqlCommand = CreateSqlCommandGetUserByEmail(email);
+            DataRow dataRow = DataSource.GetDataRow(sqlCommand);
+
+            if (dataRow != null)
+            {
+                var mapping = (MappingModel<UserData>)mappingModel;
+                user = mapping.ExecuteConversion(dataRow);
+            }
+
+            return user;
+        }
+
         private SqlCommand CreateSqlCommandGetUserByUsername(string username)
         {
             string query = @"
@@ -36,12 +51,29 @@ namespace LMS.DomainModel.Repository.User.Implementation
                FROM     {0}
                WHERE    IsActive = @IsActive
                AND      Username LIKE @Username
-         ";
+            ";
 
             SqlCommand sqlCommand = new SqlCommand(string.Format(query, tableName));
 
             sqlCommand.Parameters.AddWithValue("@IsActive", true.ToDBFromBool());
             sqlCommand.Parameters.AddWithValue("@Username", username);
+
+            return sqlCommand;
+        }
+
+        private SqlCommand CreateSqlCommandGetUserByEmail(string email)
+        {
+            string query = @"
+               SELECT   * 
+               FROM     {0}
+               WHERE    IsActive = @IsActive
+               AND      Email LIKE @Email
+            ";
+
+            SqlCommand sqlCommand = new SqlCommand(string.Format(query, tableName));
+
+            sqlCommand.Parameters.AddWithValue("@IsActive", true.ToDBFromBool());
+            sqlCommand.Parameters.AddWithValue("@Email", email);
 
             return sqlCommand;
         }

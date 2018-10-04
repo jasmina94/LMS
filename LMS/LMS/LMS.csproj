@@ -370,6 +370,7 @@
     <Content Include="Resources\Scripts\lms-ribbon\LMSSidebar.js" />
     <Content Include="Resources\Scripts\lms-ribbon\User\LMSUsersRibbon.js" />
     <Content Include="Resources\Scripts\lms-ribbon\User\LMSUsersSidebar.js" />
+    <Content Include="Resources\Scripts\ProfileInfo.js" />
     <Content Include="Resources\Scripts\select\i18n\ar.js" />
     <Content Include="Resources\Scripts\select\i18n\az.js" />
     <Content Include="Resources\Scripts\select\i18n\bg.js" />

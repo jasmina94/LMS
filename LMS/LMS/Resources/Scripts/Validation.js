@@ -22,6 +22,45 @@ Validator.prototype = {
         $.validator.addMethod("newPassword", function (value, element) {
             return $("#newpassword").val() != $("#oldpassword").val()
         }, "* New password and old password should nor match!");
+
+        $.validator.addMethod("uniqueUsername", function (value, element) {
+            var response;
+            var data = {};
+            data["username"] = value;
+            data = JSON.stringify(data);
+            var url = "/User/User/CheckUsername";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "JSON",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    response = data;
+                }
+            });
+            return response;
+        }, "* Username is not unique!");
+
+        $.validator.addMethod("uniqueEmail", function (value, element) {
+            var response;
+            var data = {};
+            data["email"] = value;
+            data = JSON.stringify(data);
+            var url = "/User/User/CheckEmail"
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "JSON",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    response = data;
+                }
+            });
+            return response;
+        }, "* Email is not unique!");
     }
 }
 

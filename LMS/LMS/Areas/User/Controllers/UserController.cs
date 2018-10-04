@@ -39,12 +39,18 @@ namespace LMS.Areas.User.Controllers
             if (validation.Success)
             {
                 SaveUserResult result = UserService.Save(viewModel);
-                response.Data = result;
-            }
-
-            if(currentUser.UserId == viewModel.Id)
-            {
-                AccessControlService.SetCurrentUser(Session, currentUser.UserId);
+                if (result.Success)
+                {
+                    response.Data = result;
+                    if (currentUser.UserId == viewModel.Id)
+                    {
+                        AccessControlService.SetCurrentUser(Session, currentUser.UserId);
+                    }
+                }
+                else
+                {
+                    response = Json(result);
+                }
             }
 
             return response;
@@ -63,6 +69,22 @@ namespace LMS.Areas.User.Controllers
             var viewModel = UserService.Get(id);
 
             return PartialView("About", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult CheckUsername(string username)
+        {
+            bool result = UserService.CheckUniqueUsername(username);
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        public ActionResult CheckEmail(string email)
+        {
+            bool result = UserService.CheckUniqueEmail(email);
+
+            return Json(result);
         }
 
         [HttpGet]

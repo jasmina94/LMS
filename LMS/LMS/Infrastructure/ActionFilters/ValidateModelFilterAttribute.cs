@@ -23,7 +23,7 @@ namespace LMS.Infrastructure.ActionFilters
 
             ILMSValidator validator = ComponetContext.Resolve<ILMSValidator>();
             message = modelToValidate.Validate(validator);
-            if (!String.IsNullOrEmpty(message))
+            if (!string.IsNullOrEmpty(message))
             {
                 response.Success = false;
                 response.Message = "Save operation failed! " + message;

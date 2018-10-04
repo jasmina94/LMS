@@ -24,7 +24,7 @@ namespace LMS.Infrastructure.Validation.Model.Implementation
 
         public void SetMessage(string message)
         {
-            throw new NotImplementedException();
+            this.message = message;
         }
 
         public void SetFunction(PropertyModel propertyModel, IPropertyAttribute attribute, MethodInfo validationMethod)
@@ -64,12 +64,13 @@ namespace LMS.Infrastructure.Validation.Model.Implementation
 
         public string GetMessage()
         {
-            throw new NotImplementedException();
+            return message;
         }
 
         public bool Execute()
         {
-            throw new NotImplementedException();
+            bool isValid = function(Model);
+            return isValid;
         }
     }
 }

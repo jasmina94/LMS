@@ -53,6 +53,7 @@ namespace LMS
                     "~/Resources/Scripts/Site.js",
                     "~/Resources/Scripts/Validation.js",
                     "~/Resources/Scripts/ajax/AjaxHttpSender.js",
+                    "~/Resources/Scripts/ProfileInfo.js",
                     "~/Resources/Scripts/css-element-queries/ElementQueries.js",
                     "~/Resources/Scripts/css-element-queries/ResizeSensor.js"));
 

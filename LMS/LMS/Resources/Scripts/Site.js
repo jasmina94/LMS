@@ -16,12 +16,12 @@ $(function () {
     var $dialogOpener = $(".lms-open-dialog");
     var $container = $("#Dialog");
     var $loginForm = $("#LoginUserForm");
-    var $profileInfoForm = $("#ProfileInfoForm");
     var $changeProfileDataLink = $("a#ChangeProfileData");
     var $cancelChangeProfileDataLink = $("a#CancelChangeProfileData");
     var $changePasswordLink = $("a#ChangePassword");
     var $saveProfileInfo = $(".SaveProfileInfoForm");
     var $changePasswordLink = $("a#ChangePassword");
+    var $profileInfoForm = $("#ProfileInfoForm");
 
     var setRegularSidebar = function () {
         var $sidebar = $("ul.sidebar");
@@ -36,7 +36,7 @@ $(function () {
                 $item.removeClass("lms-sidebar-item-disabled");
             }
         }
-    }
+    };
 
     $dialogOpener.on("click", function (e) {
         e.preventDefault();
@@ -116,7 +116,8 @@ $(function () {
     $saveProfileInfo.on("click", function (e) {
         e.preventDefault();
         var $form = $("#ProfileInfoForm");
-        new AjaxHttpSender().saveProfileData($form);
+        if ($form.valid())
+            new AjaxHttpSender().saveProfileData($form);
     });
 
     $changePasswordLink.on("click", function () {

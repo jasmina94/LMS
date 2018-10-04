@@ -11,6 +11,7 @@ using LMS.DomainModel.Repository.Relation.Interfaces;
 using LMS.DomainModel.DomainObject.Relation;
 using LMS.BusinessLogic.RoleManagement.Interfaces;
 using LMS.Models.ViewModels.Relation;
+using System;
 
 namespace LMS.BusinessLogic.LanguageManagement.Implementations
 {
@@ -73,17 +74,17 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             Constructor.ConstructDomainModelData(builder);
             UserData domainModel = builder.GetDataModel();
 
-            int id = UserRepository.SaveData(domainModel);
-            if (id != 0)
-            {
-                if(viewModel.RoleId != 0)
+                int id = UserRepository.SaveData(domainModel);
+                if (id != 0)
                 {
-                    //Save relation user - role
-                    var relationUserRoleViewModel = CreateUserRoleViewModel(id, viewModel.RoleId, 0);
-                    RoleService.SaveRelationUserRole(relationUserRoleViewModel);
+                    if (viewModel.RoleId != 0)
+                    {
+                        //Save relation user - role
+                        var relationUserRoleViewModel = CreateUserRoleViewModel(id, viewModel.RoleId, 0);
+                        RoleService.SaveRelationUserRole(relationUserRoleViewModel);
+                    }
+                    result = new SaveUserResult(id, domainModel.FullFirstAndLastName);
                 }
-                result = new SaveUserResult(id, domainModel.FullFirstAndLastName);
-            }
 
             return result;
         }
@@ -122,6 +123,26 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             }
 
             return result;
+        }
+
+        public bool CheckUniqueUsername(string username)
+        {
+            bool unique = true;
+            UserData user = UserRepository.GetUserByUsername(username);
+            if (user != null)
+                unique = false;
+
+            return unique;
+        }
+
+        public bool CheckUniqueEmail(string email)
+        {
+            bool unique = true;
+            UserData user = UserRepository.GetUserByEmail(email);
+            if (user != null)
+                unique = false;
+
+            return unique;
         }
     }
 }

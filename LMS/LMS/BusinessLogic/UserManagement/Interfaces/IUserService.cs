@@ -13,5 +13,9 @@ namespace LMS.BusinessLogic.UserManagement.Interfaces
         SaveUserResult Save(UserViewModel viewModel);
 
         DeleteUserResult Delete(int? userId);
+
+        bool CheckUniqueUsername(string username);
+
+        bool CheckUniqueEmail(string email);
     }
 }

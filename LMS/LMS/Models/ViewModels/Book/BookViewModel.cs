@@ -5,7 +5,6 @@ namespace LMS.Models.ViewModels.Book
 {
     public class BookViewModel : ViewModel
     {
-        [RequiredProperty("Book must be either electronic or not!")]
         public bool IsElectronic { get; set; }
 
         public string IsElectronicLabel { get; set; }

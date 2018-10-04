@@ -56,8 +56,8 @@ namespace LMS.Infrastructure.Validation
         private void FindPropertiesToValidate()
         {
             Func<Type, bool> query = t => t.IsClass
-            && t.Name.Contains("ViewModel") && !t.Name.Equals("ViewModel")
-            && t.Namespace.Contains("LMS.MVC.Models.ViewModels");
+                && t.Name.Contains("ViewModel") && !t.Name.Equals("ViewModel")
+                && t.Namespace.Contains("LMS.Models.ViewModels");
 
             List<Type> models = Assembly.GetExecutingAssembly().GetTypes().Where(query).ToList();
 

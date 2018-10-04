@@ -4,7 +4,7 @@
 @using LMS.Infrastructure.HtmlHelpers.Utility
 @model LMS.Models.ViewModels.User.UserViewModel
 
-@{ 
+@{
     UserSessionObject currentUser = null;
     if (Session.GetUser() != null)
     {
@@ -47,14 +47,65 @@
                 iconHtmlString: Html.Glyphicon("calendar", true), readOnly: true)
             @Html.SimpleFormInput(model => model.Category, "Subscribed to category:", inputValue: Model.Category, readOnly: true)
             @Html.SimpleFormInput(model => model.Role, "Role:", inputValue: Model.Role, readOnly: true)
-            
+
             @Html.FormSubmit(value: "Save changes", specialBtnClass: "SaveProfileInfoForm", newLine: true)
-        
+
         </form>
 
-            <a href="#" id="ChangeProfileData">Change personal data</a><br/>
-            <a href="#" id="CancelChangeProfileData">Cancel change</a><br />
-            <a href="#" id="ChangePassword">Change password</a>
-        
+        <a href="#" id="ChangeProfileData">Change personal data</a><br />
+        <a href="#" id="CancelChangeProfileData">Cancel change</a><br />
+        <a href="#" id="ChangePassword">Change password</a>
+
     </div>
 </div>
+
+<script type="text/javascript">
+    jQuery(function ($) {
+
+        var $form = $("#ProfileInfoForm");
+        console.log($form);
+
+        $form.removeData("validator");
+        $form.removeData("unobtrusiveValidation");
+        //$form.unobtrusive.parse("form");
+
+        $form.validate({
+            rules: {
+                Firstname: "required",
+                Lastname: "required",
+                Username: {
+                    required: true,
+                    uniqueUsername: true
+                },
+                UserPassword: "required",
+                BirthDate: {
+                    required: true,
+                    date: true,
+                },
+                Email: {
+                    required: true,
+                    email: true,
+                    uniqueEmail: true
+                }
+            },
+            messages: {
+                Firstname: "Firstname is required!",
+                Lastname: "Lastname is required!",
+                Username: {
+                    required: "Username is required!",
+                    uniqueUsername: "Username is not unique!"
+                },
+                UserPassword: "Password is required!",
+                BirthDate: {
+                    required: "Date of birth is required!",
+                    date: "Date of birth must be in date format."
+                },
+                Email: {
+                    required: "Email is required!",
+                    email: "Email is not valid!",
+                    uniqueEmail: "Email is not unique!"
+                }
+            }
+        });
+    });
+</script>

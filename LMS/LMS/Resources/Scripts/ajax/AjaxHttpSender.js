@@ -156,15 +156,30 @@ var AjaxHttpSender = function () {
         }
     }
 
+    this.getCurrentUser = function () {
+        $.ajax({
+            url: "/Account/GetCurrentUser",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                localStorage.setItem("current-user-email", data.Email);
+                localStorage.setItem("current-user-username", data.Username);
+            }
+        });
+    }
+
     this.loginAjaxCall = function ($form) {
+        var self = this;
         var url = $form.attr("action");
         var method = $form.attr("method");
         var data = $form.serialize();
         var callback = {
             success: function (data) {
                 if (data.Success) {
+                    self.getCurrentUser();
                     var location = data.RedirectionUrl;
-                    window.location = location;
+                    window.location = location;                    
                 } else {
                     toastr.error(data.Message, "Error");
                 }

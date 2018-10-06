@@ -32,7 +32,6 @@ namespace LMS.BusinessLogic.AccessControlManagement.Implementation
 
         #endregion
 
-
         public int CheckCookie(HttpRequestBase request)
         {
             int userId = 0;
@@ -203,6 +202,7 @@ namespace LMS.BusinessLogic.AccessControlManagement.Implementation
             List<string> permissions = GetPermissionsFor(user.Username);
 
             currentUser.Username = user.Username;
+            currentUser.Email = user.Email;
             currentUser.UserId = user.Id;
             currentUser.Roles = roles;
             currentUser.Permissions = permissions;
@@ -221,6 +221,7 @@ namespace LMS.BusinessLogic.AccessControlManagement.Implementation
             List<string> permissions = GetPermissionsFor(username);
 
             currentUser.Username = username;
+            currentUser.Email = user.Email;
             currentUser.UserId = user.Id;
             currentUser.Roles = roles;
             currentUser.Permissions = permissions;

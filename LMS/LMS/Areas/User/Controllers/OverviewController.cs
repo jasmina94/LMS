@@ -1,6 +1,8 @@
 ﻿using LMS.BusinessLogic.UserManagement.Interfaces;
 using LMS.DomainModel.Infrastructure.FilterMapper;
 using LMS.DomainModel.Infrastructure.FilterMapper.Model;
+using LMS.Infrastructure.Authorization;
+using LMS.Infrastructure.Helpers;
 using LMS.Models.ViewModels.User;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +36,10 @@ namespace LMS.Areas.User.Controllers
 
         public JsonResult GetAllActive(FilterSorterModel filterSorterModel)
         {
+            UserSessionObject currentUser = Session.GetUser();
+            List<UserViewModel> userViewModels = UserService.GetAll(true);
+            userViewModels.Remove(userViewModels.Single(x => x.Id == currentUser.UserId));
 
-            var userViewModels = UserService.GetAll(true);
             var filterSorter = new DataCollectionFilterSorter<UserViewModel>();          
 
             IEnumerable<UserViewModel> enumUserValuesViewModel = userViewModels.AsEnumerable();

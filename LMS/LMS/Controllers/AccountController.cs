@@ -1,6 +1,8 @@
 ﻿using LMS.BusinessLogic.AccessControlManagement.Interfaces;
 using LMS.Infrastructure.ActionFilters;
+using LMS.Infrastructure.Authorization;
 using LMS.Infrastructure.Authorization.Constants;
+using LMS.Infrastructure.Helpers;
 using LMS.Models.ViewModels.Account;
 using System;
 using System.Web.Mvc;
@@ -60,6 +62,13 @@ namespace LMS.Controllers
             }
 
             return result;
+        }
+
+
+        public ActionResult GetCurrentUser()
+        {
+            UserSessionObject currentUser = Session.GetUser();
+            return Json(currentUser, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Logout()

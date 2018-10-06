@@ -67,7 +67,6 @@
 
         $form.removeData("validator");
         $form.removeData("unobtrusiveValidation");
-        //$form.unobtrusive.parse("form");
 
         $form.validate({
             rules: {
@@ -75,7 +74,7 @@
                 Lastname: "required",
                 Username: {
                     required: true,
-                    uniqueUsername: true
+                    uniqueUsernameProfile: true
                 },
                 UserPassword: "required",
                 BirthDate: {
@@ -85,7 +84,7 @@
                 Email: {
                     required: true,
                     email: true,
-                    uniqueEmail: true
+                    uniqueEmailProfile: true
                 }
             },
             messages: {

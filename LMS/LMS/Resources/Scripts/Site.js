@@ -22,6 +22,7 @@ $(function () {
     var $saveProfileInfo = $(".SaveProfileInfoForm");
     var $changePasswordLink = $("a#ChangePassword");
     var $profileInfoForm = $("#ProfileInfoForm");
+    var $logoutLink = $(".lms-logout-link");
 
     var setRegularSidebar = function () {
         var $sidebar = $("ul.sidebar");
@@ -126,4 +127,10 @@ $(function () {
         var dialog = new DialogFactory().createDialog(path);
         dialog.open(data);
     })
+
+    $logoutLink.on("click", function (e) {
+        localStorage.removeItem("current-user-username");
+        localStorage.removeItem("current-user-email");
+    });
 });
+

@@ -55,7 +55,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Profile", "Index", "Profile", new { area = "Profile" }, "")</li>
-                            <li>@Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, "")</li>                            
+                            <li>@Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "lms-logout-link" })</li>                            
                         </ul>
                     </li>
                 }

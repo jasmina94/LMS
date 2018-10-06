@@ -1,4 +1,5 @@
-﻿using LMS.Models.ViewModels.Account;
+﻿using LMS.Infrastructure.Authorization;
+using LMS.Models.ViewModels.Account;
 using System.Collections.Generic;
 using System.Web;
 

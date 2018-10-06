@@ -61,6 +61,70 @@ Validator.prototype = {
             });
             return response;
         }, "* Email is not unique!");
+
+        $.validator.addMethod("uniqueUsernameProfile", function (value, element) {
+            var response;
+            var currentUsername = localStorage.getItem("current-user-username");
+            if (currentUsername == null) {
+                new AjaxHttpSender().getCurrentUser();
+                currentUsername = localStorage.getItem("current-user-username");
+            }
+            if (currentUsername === value) {
+                response = true;
+            }
+
+            if (!response) {
+                var data = {};
+                data["username"] = value;
+                data = JSON.stringify(data);
+                var url = "/User/User/CheckUsername";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    success: function (data) {
+                        response = data;
+                    }
+                });
+            }
+            
+            return response;
+        }, "* Username is not unique!");
+
+        $.validator.addMethod("uniqueEmailProfile", function (value, element) {
+            var response;
+            var currentUserEmail = localStorage.getItem("current-user-email");
+            if (currentUserEmail == null) {
+                new AjaxHttpSender().getCurrentUser();
+                currentUserEmail = localStorage.getItem("current-user-email");
+            }
+            if (currentUserEmail == value) {
+                response = true;
+            }
+
+            if (!response) {
+                var data = {};
+                data["email"] = value;
+                data = JSON.stringify(data);
+                var url = "/User/User/CheckEmail"
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    success: function (data) {
+                        response = data;
+                    }
+                });
+            }
+            
+            return response;
+        }, "* Email is not unique!");
     }
 }
 

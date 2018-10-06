@@ -1,11 +1,15 @@
-﻿using LMS.BusinessLogic.UserManagement.Interfaces;
+﻿using LMS.BusinessLogic.BookManagement.Interfaces;
+using LMS.BusinessLogic.UserManagement.Interfaces;
 using LMS.BusinessLogic.UserManagement.Model;
+using LMS.Infrastructure.Authorization;
 using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Infrastructure.Authorization.Constants;
 using LMS.Infrastructure.Helpers;
 using LMS.Models.ViewModels.Account;
+using LMS.Models.ViewModels.Relation;
 using LMS.Models.ViewModels.User;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace LMS.Areas.Profile.Controllers
@@ -13,6 +17,8 @@ namespace LMS.Areas.Profile.Controllers
     public class ProfileController : Controller
     {
         public IUserService UserService { get; set; }
+
+        public ILoanService LoanService { get; set; }
 
         [IsAuthenticated]
         public ActionResult Index()
@@ -65,6 +71,22 @@ namespace LMS.Areas.Profile.Controllers
             }
 
             return result;
+        }
+
+        public ActionResult ViewCurrentLoans()
+        {
+            UserSessionObject currentUser = Session.GetUser();
+            List<RelationUserBookCopyViewModel> activeLoans = LoanService.GetLoansForUser(true, currentUser.UserId);
+
+            return PartialView("Loans", activeLoans);
+        }
+
+        public ActionResult ViewHistoryLoans()
+        {
+            UserSessionObject currentUser = Session.GetUser();
+            List<RelationUserBookCopyViewModel> activeLoans = LoanService.GetLoansForUser(false, currentUser.UserId);
+
+            return PartialView("Loans", activeLoans);
         }
     }
 }

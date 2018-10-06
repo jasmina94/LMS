@@ -36,7 +36,7 @@ namespace LMS.Infrastructure.HtmlHelpers
 
             TypeResolver.ResolveInputTypeForTag(inputType, inputTag);
 
-            if (!String.IsNullOrEmpty(specialInputClass))
+            if (!string.IsNullOrEmpty(specialInputClass))
             {
                 inputClass = inputClass + " " + specialInputClass;
             }

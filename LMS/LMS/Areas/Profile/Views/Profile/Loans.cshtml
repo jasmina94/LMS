@@ -1,0 +1,71 @@
+﻿@model IEnumerable<RelationUserBookCopyViewModel>
+@using LMS.Models.ViewModels.Relation
+@using LMS.Infrastructure.HtmlHelpers
+
+@{ 
+    var title = "Book loans";
+    var subtitle = "";
+    var active = false;
+    var size = Model.Count();
+    if(size != 0)
+    {
+        RelationUserBookCopyViewModel item = Model.ElementAt(0);
+
+        active = item.IsActive;
+        if (active)
+        {
+            title = "Active book loans";
+            subtitle = "Books you're currently borrowing";
+        }
+        else
+        {
+            title = "History of book loans";
+            subtitle = "Books you've borrowed";
+        }
+    }
+
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>@title</h3>
+        <h5>@subtitle</h5>
+    </div>
+    <div class="panel-body">
+        @if (size != 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        @Html.TableField("Id")
+                        @Html.TableField("Book")
+                        @Html.TableField("Issue date")
+                        @Html.TableField("Date due for return")
+                        @if (!active)
+                        {
+                            @Html.TableField("Date of return")
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var loan in Model)
+                {
+                        <tr>
+                            @Html.TableField(loan.Id, loan.Id)
+                            @Html.TableField(loan.BookFullName, loan.BookFullName)
+                            @Html.TableField(loan.DateOfIssue, loan.DateOfIssue)
+                            @Html.TableField(loan.DateDueForReturn, loan.DateDueForReturn)
+                            @if (!active)
+                            {
+                                @Html.TableField(loan.DateReturned, loan.DateReturned)
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h5>No loans to show.</h5>
+        }
+    </div>
+</div>

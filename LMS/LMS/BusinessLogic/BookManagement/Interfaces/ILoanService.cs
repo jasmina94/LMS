@@ -10,7 +10,9 @@ namespace LMS.BusinessLogic.BookManagement.Interfaces
 
         BorrowResult BorrowBook(RelationUserBookCopyViewModel viewModel);
 
-        List<RelationUserBookCopyViewModel> GetActiveLoans();
+        List<RelationUserBookCopyViewModel> GetLoans(bool active);
+
+        List<RelationUserBookCopyViewModel> GetLoansForUser(bool active, int userId);
 
         BorrowResult ReturnBook(int loanId);
     }

@@ -189,14 +189,29 @@ input.SpecificInputType {
         font-size: 16px;
         color: #818181;
         display: block;
+        cursor: pointer;
     }
 
-        .ProfileSidenav a:hover {
+        .ProfileSidenav a:not(.ActiveSidebarItem):hover {
             color: #f1f1f1;
         }
 
-.ProfileMain {
+a.ActiveSidebarItem {
+    color: yellow;
+}
+
+.ProfileMainContainer {
     margin-left: 160px; /* Same as the width of the sidenav */
+    padding: 0px 10px;
+}
+
+.ProfileCurrentlyLoanContainer{
+    margin-left: 160px;
+    padding: 0px 10px;
+}
+
+.ProfileHistoryLoanContainer{
+    margin-left: 160px;
     padding: 0px 10px;
 }
 
@@ -208,16 +223,16 @@ input.SpecificInputType {
 }
 
 #ChangeProfileData {
-    margin-left: 60px;
+    margin-left: 10px;
 }
 
 #CancelChangeProfileData {
     display: none;
-    margin-left: 60px;
+    margin-left: 10px;
 }
 
 #ChangePassword {
-    margin-left: 60px;
+    margin-left: 10px;
 }
 
 .ChangePasswordBtn{

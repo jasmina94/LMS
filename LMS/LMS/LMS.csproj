@@ -173,6 +173,8 @@
     <Compile Include="Areas\Category\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Category\Controllers\OverviewController.cs" />
     <Compile Include="Areas\Book\BookAreaRegistration.cs" />
+    <Compile Include="Areas\Chat\ChatAreaRegistration.cs" />
+    <Compile Include="Areas\Chat\Controllers\ChatController.cs" />
     <Compile Include="Areas\Language\Controllers\LanguageController.cs" />
     <Compile Include="Areas\Language\Controllers\OverviewController.cs" />
     <Compile Include="Areas\Language\LanguageAreaRegistration.cs" />
@@ -370,6 +372,7 @@
     <Content Include="Resources\Scripts\lms-ribbon\LMSSidebar.js" />
     <Content Include="Resources\Scripts\lms-ribbon\User\LMSUsersRibbon.js" />
     <Content Include="Resources\Scripts\lms-ribbon\User\LMSUsersSidebar.js" />
+    <Content Include="Resources\Scripts\Profile.js" />
     <Content Include="Resources\Scripts\select\i18n\ar.js" />
     <Content Include="Resources\Scripts\select\i18n\az.js" />
     <Content Include="Resources\Scripts\select\i18n\bg.js" />
@@ -517,9 +520,14 @@
     <Content Include="Areas\Role\Views\web.config" />
     <Content Include="Areas\Role\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Profile\Views\web.config" />
-    <Content Include="Areas\Profile\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Chat\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Profile\Views\Profile\Index.cshtml" />
     <Content Include="Areas\Profile\Views\Profile\PasswordChangeForm.cshtml" />
+    <Content Include="Areas\Profile\Views\Profile\ProfileInfo.cshtml" />
+    <Content Include="Areas\Profile\Views\Profile\Loans.cshtml" />
+    <Content Include="Areas\Chat\Views\web.config" />
+    <Content Include="Areas\Chat\Views\Chat\Index.cshtml" />
+    <Content Include="Areas\Profile\Views\_ViewStart.cshtml" />
     <None Include="Resources\Scripts\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="Resources\Scripts\jquery\jquery-1.10.2.js" />
     <None Include="Resources\Scripts\jquery\jquery.validate-vsdoc.js" />
@@ -557,6 +565,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Book\Models\" />
     <Folder Include="Areas\Category\Models\" />
+    <Folder Include="Areas\Chat\Models\" />
     <Folder Include="Areas\Language\Models\" />
     <Folder Include="Areas\Profile\Models\" />
     <Folder Include="Areas\Role\Models\" />

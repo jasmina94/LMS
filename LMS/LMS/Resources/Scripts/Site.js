@@ -2,6 +2,7 @@
 /// <reference path="~/Resources/Scripts/lms-ribbon/CMSRibbonInitializer.js" />
 /// <reference path="~/Resources/Scripts/ajax/AjaxHttpSender.js" />
 /// <reference path="~/Resources/Scripts/dialogs/DialogFactory.js"/>
+/// <reference path="~/Resources/Scripts/dialogs/DialogTypeEnum.js"/>
 /// <reference path="~/Resources/Scripts/Validator.js"/>
 
 (function ($) {
@@ -23,6 +24,7 @@ $(function () {
     var $changePasswordLink = $("a#ChangePassword");
     var $profileInfoForm = $("#ProfileInfoForm");
     var $logoutLink = $(".lms-logout-link");
+    var $profileSidebarItems = $(".ProfileSidebarItem");
 
     var setRegularSidebar = function () {
         var $sidebar = $("ul.sidebar");
@@ -39,14 +41,23 @@ $(function () {
         }
     };
 
+    var changeSidebarItemsStyle = function (idToActivate) {
+        var $sidebarItems = $(".ProfileSidebarItem");
+        for (var i = 0; i < $sidebarItems.length; i++) {
+            var $item = $($sidebarItems[i]);
+            var id = $item.attr("id");
+            if (id === idToActivate) {
+                $item.addClass("ActiveSidebarItem");
+            } else {
+                $item.removeClass("ActiveSidebarItem");
+            }
+        }
+    };
+
     $dialogOpener.on("click", function (e) {
         e.preventDefault();
         var dialogType = $(this).attr("href");
         var data = "";
-        if (dialogType.indexOf("Value") >= 0) {
-            data = $(this).attr("id");
-            dialogType = dialogType.slice(0, dialogType.lastIndexOf("/"));
-        }
         var dialog = new DialogFactory().createDialog(dialogType);
         dialog.open(data);
     });
@@ -131,6 +142,32 @@ $(function () {
     $logoutLink.on("click", function (e) {
         localStorage.removeItem("current-user-username");
         localStorage.removeItem("current-user-email");
+    });
+
+    $profileSidebarItems.on("click", function (e) {
+        e.preventDefault();
+        var id = $(this).attr("id");
+        changeSidebarItemsStyle(id);
+        switch (id) {
+            case "profileInfo":                
+                $(".ProfileMainContainer").show();
+                $(".ProfileCurrentlyLoanContainer").hide();
+                $(".ProfileHistoryLoanContainer").hide();
+                break;
+            case "currentlyLoan":
+                $(".ProfileMainContainer").hide();
+                $(".ProfileCurrentlyLoanContainer").show();
+                $(".ProfileHistoryLoanContainer").hide();
+                break;
+            case "historyLoan":
+                $(".ProfileMainContainer").hide();
+                $(".ProfileCurrentlyLoanContainer").hide();
+                $(".ProfileHistoryLoanContainer").show();
+                break;
+            case "chat":
+                var newLocation = location.origin + "/Chat/Chat";
+                location.href = newLocation;
+        }
     });
 });
 

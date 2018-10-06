@@ -20,8 +20,6 @@ namespace LMS.Models.ViewModels.User
         public string UserPassword { get; set; }
 
         [RequiredProperty("Date of birth is required!")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
 
         [RequiredProperty("Email is required")]

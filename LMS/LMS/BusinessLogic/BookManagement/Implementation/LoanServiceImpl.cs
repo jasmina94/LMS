@@ -12,6 +12,7 @@ using LMS.Models.ViewModels.Book;
 using LMS.BusinessLogic.UserManagement.Interfaces;
 using System.Collections.Generic;
 using LMS.DomainModel.DomainObject;
+using System.Linq;
 
 namespace LMS.BusinessLogic.BookManagement.Implementation
 {
@@ -94,15 +95,33 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
             return result;
         }
 
-        public List<RelationUserBookCopyViewModel> GetActiveLoans()
+        public List<RelationUserBookCopyViewModel> GetLoans(bool active)
         {
             var viewModels = new List<RelationUserBookCopyViewModel>();
             var domainModels = new List<RelationUserBookCopyData>();
 
-            domainModels = RelationUserBookCopyRepository.GetAllActiveData();
+            if (active)
+            {
+                domainModels = RelationUserBookCopyRepository.GetAllActiveData();
+            }
+            else
+            {
+                domainModels = RelationUserBookCopyRepository.GetAllData();
+            }
+           
             viewModels = ConvertToViewModels(domainModels);
 
             return viewModels;
+        }
+
+        public List<RelationUserBookCopyViewModel> GetLoansForUser(bool active, int userId)
+        {
+            List<RelationUserBookCopyViewModel> userLoans = new List<RelationUserBookCopyViewModel>();
+            List<RelationUserBookCopyViewModel> all = GetLoans(active);
+
+            userLoans = all.Where(x => x.UserId == userId).ToList();
+
+            return userLoans;
         }
 
         private List<RelationUserBookCopyViewModel> ConvertToViewModels(List<RelationUserBookCopyData> domainModels)
@@ -162,5 +181,6 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
 
             return result;
         }
+
     }
 }

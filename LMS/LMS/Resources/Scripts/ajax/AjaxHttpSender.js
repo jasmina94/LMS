@@ -130,8 +130,6 @@ var AjaxHttpSender = function () {
                         changeLoanCounter, changeResetCounter, "UserGrid");
                 }
                 break;
-            default:
-                console.log(id);
         }            
     }
 

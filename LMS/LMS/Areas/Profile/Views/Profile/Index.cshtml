@@ -1,69 +1,28 @@
-﻿@using LMS.Infrastructure.Authorization
-@using LMS.Infrastructure.Helpers
-@using LMS.Infrastructure.HtmlHelpers
-@using LMS.Infrastructure.HtmlHelpers.Utility
-@model LMS.Models.ViewModels.User.UserViewModel
-
-@{
-    UserSessionObject currentUser = null;
-    if (Session.GetUser() != null)
-    {
-        currentUser = Session.GetUser();
-    }
-}
+﻿@model LMS.Models.ViewModels.User.UserViewModel
 
 <div class="ProfileSidenav">
-    <a href="#profileInfo">Profile info</a>
-    <a href="#currentlyLoan">Current books</a>
-    <a href="#historyLoan">History</a>
-    <a href="#chat">Chat</a>
+    <a id="profileInfo" class="ProfileSidebarItem ActiveSidebarItem">Profile info</a>
+    <a id="currentlyLoan" class="ProfileSidebarItem">Current books</a>
+    <a id="historyLoan" class="ProfileSidebarItem">History</a>
+    <a id="chat" class="ProfileSidebarItem">Chat</a>
 </div>
 
-<div class="ProfileMain">
-    <h4>Profile info</h4>
-    <div class="col-md-8">
-        <form class="form-horizontal" id="ProfileInfoForm" action="/User/User/Save" method="post">
-            <br />
-            @Html.HiddenFor(model => model.Id)
-            @Html.HiddenFor(model => model.IsActive)
-            @Html.HiddenFor(model => model.UserCreatedById)
-            @Html.HiddenFor(model => model.UserCreatedBy)
-            @Html.HiddenFor(model => model.DateTimeCreatedOn)
-            @Html.HiddenFor(model => model.UserDeletedById)
-            @Html.HiddenFor(model => model.UserDeletedBy)
-            @Html.HiddenFor(model => model.DateTimeDeletedOn)
-            @Html.HiddenFor(model => model.CategoryId)
-            @Html.HiddenFor(model => model.RoleId)
-            @Html.HiddenFor(model => model.UserPassword)
-
-            @Html.SimpleFormInput(model => model.Firstname, "Firstname:", inputValue: Model.Firstname, readOnly: true)
-            @Html.SimpleFormInput(model => model.Lastname, "Lastname:", inputValue: Model.Lastname, readOnly: true)
-            @Html.SimpleFormInput(model => model.Username, "Username:", inputValue: Model.Username, readOnly: true)
-            @Html.SimpleFormInput(model => model.Email, "Email:", inputType: FormInputType.EMAIL,
-                specialInputClass: "SpecificInputType", inputValue: Model.Email, readOnly: true)
-            @Html.IconFormInput(model => model.BirthDate, "Date of birth:",
-                inputValue: Model.BirthDate.Date.ToString("MM/dd/yyyy"),
-                specialInputClass: "InputWithGlyphicon DatePicker",
-                iconHtmlString: Html.Glyphicon("calendar", true), readOnly: true)
-            @Html.SimpleFormInput(model => model.Category, "Subscribed to category:", inputValue: Model.Category, readOnly: true)
-            @Html.SimpleFormInput(model => model.Role, "Role:", inputValue: Model.Role, readOnly: true)
-
-            @Html.FormSubmit(value: "Save changes", specialBtnClass: "SaveProfileInfoForm", newLine: true)
-
-        </form>
-
-        <a href="#" id="ChangeProfileData">Change personal data</a><br />
-        <a href="#" id="CancelChangeProfileData">Cancel change</a><br />
-        <a href="#" id="ChangePassword">Change password</a>
-
-    </div>
+<div class="ProfileMainContainer">    
+    @Html.Partial("ProfileInfo", Model)
 </div>
+
+<div class="ProfileCurrentlyLoanContainer" style="display:none">
+    @{Html.RenderAction("ViewCurrentLoans", "Profile");}
+</div>
+
+<div class="ProfileHistoryLoanContainer" style="display:none">
+    @{Html.RenderAction("ViewHistoryLoans", "Profile");}
+</div>
+
 
 <script type="text/javascript">
     jQuery(function ($) {
-
         var $form = $("#ProfileInfoForm");
-        console.log($form);
 
         $form.removeData("validator");
         $form.removeData("unobtrusiveValidation");
@@ -105,6 +64,23 @@
                     uniqueEmail: "Email is not unique!"
                 }
             }
+        });
+
+        var datepickers = $form.find(".DatePicker");
+        $(datepickers).each(function () {
+            $(this).datepicker({
+                dateFormat: "mm/dd/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+            });
+        });
+
+        $("form#ProfileInfoForm :input").each(function () {
+            var $input = $(this);
+            var id = $input.attr("id");
+            id = id + "Profile";
+            $input.attr("id", id);
         });
     });
 </script>

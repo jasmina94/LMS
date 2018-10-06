@@ -1,8 +1,6 @@
 ﻿using LMS.BusinessLogic.BookManagement.Interfaces;
 using LMS.DomainModel.Infrastructure.FilterMapper;
 using LMS.DomainModel.Infrastructure.FilterMapper.Model;
-using LMS.Infrastructure.Authorization.Attributes;
-using LMS.Infrastructure.Authorization.Constants;
 using LMS.Models.ViewModels.Book;
 using LMS.Models.ViewModels.Relation;
 using System.Collections.Generic;
@@ -81,7 +79,7 @@ namespace LMS.Areas.Book.Controllers
 
         public JsonResult GetAllActiveLoans(FilterSorterModel filterSorterModel)
         {
-            var bookLoanViewModels = LoanService.GetActiveLoans();
+            var bookLoanViewModels = LoanService.GetLoans(true);
             var filterSorter = new DataCollectionFilterSorter<RelationUserBookCopyViewModel>();
             IEnumerable<RelationUserBookCopyViewModel> enumBookCopyValuesViewModel = bookLoanViewModels.AsEnumerable();
             enumBookCopyValuesViewModel = filterSorter.FilterAndSort(enumBookCopyValuesViewModel, filterSorterModel);

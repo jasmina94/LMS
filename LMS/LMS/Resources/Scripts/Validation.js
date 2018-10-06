@@ -55,6 +55,7 @@ Validator.prototype = {
                 data: data,
                 dataType: "JSON",
                 contentType: "application/json; charset=utf-8",
+                async: false,
                 success: function (data) {
                     response = data;
                 }

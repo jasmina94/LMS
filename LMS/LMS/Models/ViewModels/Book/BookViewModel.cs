@@ -48,6 +48,8 @@ namespace LMS.Models.ViewModels.Book
             }
         }
 
+        public bool UploadSuccess { get; set; }
+
         public override string Validate(ILMSValidator validator)
         {
             return validator.InvokeValidation(this);

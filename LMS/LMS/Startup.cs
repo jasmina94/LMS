@@ -1,5 +1,6 @@
-﻿using Autofac.Integration.Mvc;
+﻿using Autofac;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.Owin;
 using Owin;
 
@@ -12,14 +13,21 @@ namespace LMS
         public void Configuration(IAppBuilder app)
         {
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
-            //var resolver = new AutofacDependencyResolver(container);
+            var autofacHubActivator = new MvcHubActivator();
 
-            //app.MapSignalR(new HubConfiguration
-            //{
-            //    Resolver = resolver
-            //});
+            GlobalHost.DependencyResolver.Register(
+                typeof(IHubActivator),
+                () => autofacHubActivator);
 
             app.MapSignalR();
+        }
+
+        public class MvcHubActivator : IHubActivator
+        {
+            public IHub Create(HubDescriptor descriptor)
+            {
+                return (IHub)MvcApplication.Container.Resolve(descriptor.HubType);
+            }
         }
     }
 }

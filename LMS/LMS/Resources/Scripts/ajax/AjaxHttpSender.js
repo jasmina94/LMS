@@ -163,6 +163,7 @@ var AjaxHttpSender = function () {
             success: function (data) {
                 localStorage.setItem("current-user-email", data.Email);
                 localStorage.setItem("current-user-username", data.Username);
+                sessionStorage.setItem("current-user", JSON.stringify(data));
             }
         });
     }

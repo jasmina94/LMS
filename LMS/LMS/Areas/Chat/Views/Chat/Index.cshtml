@@ -1,1 +1,55 @@
-﻿<h2>Chat</h2>
+﻿<div style="display:inline-block">
+    <p style="font-size:24px;"><img src="~/Resources/Images/chat.png" />LMS chat</p>   
+</div>
+
+<div class="lms-chat-box">
+
+    <div class="lms-chat-left-box">
+
+        <div class="lms-chat-left-nav">
+            <div>
+                <div style="float:left"><span><i class="glyphicon glyphicon-user"></i></span></div>
+                <div class="lms-chat-create-group"><input type="button" value="Create group" class="lms-chat-group-create-btn" /></div>
+            </div>
+        </div>
+
+        <div class="lms-chat-box-users">
+            <div class="input-group lms-chat-search-user-wrapper">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                <select class="form-control lms-chat-search-user" id="/Chat/Chat/GetUsers&Search for users to chat:" style="width:100%"></select>
+            </div>
+            <div class="lms-chat-box-list">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="lms-chat-right-box">
+        <div class="lms-chat-right-nav">
+            <div>
+                <div style="font-size:small" class="lms-chat-receiver-name"></div>
+                <div style="font-size:x-small" class="lms-chat-receiver-status"></div>
+                <div style="font-size:small" class="lms-chat-group-manage-members"></div>
+            </div>
+        </div>
+
+        <div class="lms-chat-msg-list">
+        </div>
+
+        <div class="lms-chat-msg-area-box">
+            <div class="input-group">
+                <textarea class="form-control" placeholder="Write message..." id="lms-chat-txt-area" style="resize:none"></textarea>
+                <span class="input-group-addon" id="lms-chat-send"><i class="glyphicon glyphicon-send"></i></span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section chatScripts{
+    <script src="~/Resources/Scripts/signalR/jquery.signalR-2.3.0.js"></script>
+    <script src="~/signalr/js"></script>
+    <script src="~/Resources/Scripts/signalR/ChatEnum.js"></script>
+    <script src="~/Resources/Scripts/signalR/Chat.js"></script>
+}

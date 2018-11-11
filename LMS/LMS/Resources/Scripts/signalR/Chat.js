@@ -17,10 +17,10 @@ var CMSChat = function () {
     var $manageGroupMembers = $(".lms-chat-group-manage-members");
 
     this.initChat = function () {
-        self.lmsChatHub = $.connection.cMSChatHub;
+        self.lmsChatHub = $.connection.lMSChatHub;
         chatHub = self.lmsChatHub;
 
-        self.loggedInUser = JSON.parse(sessionStorage.getItem(CmsSecurityEnum.CURRENT_USER));
+        self.loggedInUser = JSON.parse(sessionStorage.getItem("current-user"));
         $messageAreaBox.hide();
 
         self.buildSearchOptions();
@@ -109,6 +109,7 @@ var CMSChat = function () {
         var $msgBubble = $("<div>");
         var $msgSenderUsername = $("<p>");
         var $newMessage = $("<div>");
+        var $msgList = $(".lms-chat-msg-list");
 
         $msgSenderUsername.text(senderUsername);
         $msgSenderUsername.addClass("lms-chat-msg-sender");
@@ -125,7 +126,9 @@ var CMSChat = function () {
         $msgBubble.append($msgSenderUsername);
         $msgBubble.append($newMessage);
 
-        $(".lms-chat-msg-list").append($msgBubble);
+        $msgList.append($msgBubble);
+        $msgList.scrollTop($msgList[0].scrollHeight);
+
         $("#lms-chat-txt-area").val("");
     }
 
@@ -696,6 +699,7 @@ chatHub.client.removedFromGroup = function (data) {
         chat.removeGroupCard(group.GroupName);
         chat.updateActiveChat(group.GroupName);
     }
+    alert("You are removed from group: " + data.group.GroupName);
 }
 
 $(document).on("click", ".lms-chat-submit-group", function () {

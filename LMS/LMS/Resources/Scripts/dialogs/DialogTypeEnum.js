@@ -17,7 +17,7 @@
     this.PERMISSION = "/PermissionAll/Create";
     this.ROLE = "/RoleAll/Create";
 
-    this.CHAT_GROUP = "/Chat/Home/Group";
-    this.CHAT_ADD_MEMBERS = "/Chat/Home/AddMembers";
-    this.CHAT_REMOVE_MEMBER = "/Chat/Home/RemoveMember";
+    this.CHAT_GROUP = "/Chat/Chat/Group";
+    this.CHAT_ADD_MEMBERS = "/Chat/Chat/AddMembers";
+    this.CHAT_REMOVE_MEMBER = "/Chat/Chat/RemoveMember";
 };

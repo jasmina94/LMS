@@ -32,7 +32,7 @@ namespace LMS.Models.ViewModels
         {
             get
             {
-                return Id != 0 ? false : true;
+                return Id == 0 ? true : false;
             }
         }
 

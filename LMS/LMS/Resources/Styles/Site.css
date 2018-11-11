@@ -25,6 +25,10 @@
     font-size: x-small;
 }
 
+.lms-navbar-chat-item{
+   background: url(../Images/chat.png) no-repeat;
+}
+
 .lms-login-panel {
     padding-left: 0px;
     padding-right: 0px;
@@ -107,6 +111,10 @@ input.InputWithGlyphicon {
 
 input.SpecificInputType {
     max-width: 280px;
+}
+
+input#sfsFieldValue{
+    max-width: 100%;
 }
 
 .lms-save-button {
@@ -238,4 +246,10 @@ a.ActiveSidebarItem {
 .ChangePasswordBtn{
     margin-left: 200px;
     min-width: 100px;
+}
+
+/*Error tooltip*/
+div#errorfile{
+    margin-top: -30px;
+    margin-left: 390px;
 }

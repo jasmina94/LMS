@@ -17,7 +17,7 @@ using LMS.Services.Interfaces;
 using System.Configuration;
 using System.Reflection;
 using System.Web.Mvc;
-using System;
+using LMS.Chat;
 
 namespace LMS.App_Start
 {
@@ -37,9 +37,15 @@ namespace LMS.App_Start
             RegisterMembershipProvider();
             RegisterAccessControlService();
             RegisterBusinessLogicLayer();
+            RegisterChatHub();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+        }
+
+        public static IContainer GetContainer()
+        {
+            return builder.Build();
         }
 
         private static void RegisterControllers()
@@ -153,6 +159,11 @@ namespace LMS.App_Start
             .AsImplementedInterfaces()
             .SingleInstance()
             .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+        }
+
+        private static void RegisterChatHub()
+        {
+            builder.RegisterType<LMSChatHub>().ExternallyOwned();
         }
     }
 }

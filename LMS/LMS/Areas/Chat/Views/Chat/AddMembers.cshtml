@@ -1,0 +1,11 @@
+﻿@using LMS.Infrastructure.HtmlHelpers
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @Html.DialogTitle(value: "Add members to group:")
+        <form id="lms-chat-add-members-form" class="form-horizontal lms-chat-dialog-form">
+            @Html.DropDownSelect(labelValue: "Members:", innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Chat/Chat/GetUsers", selectId: "lms-chat-group-members-select")
+            @Html.FormSubmit(value: "Add members", divClass: "form-group", newLine: true, specialBtnClass: "lms-chat-add-members-submit", type: "button")
+        </form>
+    </div>
+</div>

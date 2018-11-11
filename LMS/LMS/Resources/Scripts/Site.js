@@ -99,7 +99,7 @@ $(function () {
         for (var i = 0; i < $inputs.length; i++) {
             var $input = $($inputs[i]);
             var id = $input.attr("id");
-            if (id != "role" && id != "category") {
+            if (id != "roleProfile" && id != "categoryProfile") {
                 $input.attr("readonly", false);
             }
         }
@@ -140,8 +140,14 @@ $(function () {
     })
 
     $logoutLink.on("click", function (e) {
+        var lmsChatHub = $.connection.lMSChatHub;
+        var currentUsername = localStorage.getItem("current-user-username");
+        lmsChatHub.server.disconnect(currentUsername);
+
         localStorage.removeItem("current-user-username");
         localStorage.removeItem("current-user-email");
+        sessionStorage.removeItem("current-user");
+        
     });
 
     $profileSidebarItems.on("click", function (e) {

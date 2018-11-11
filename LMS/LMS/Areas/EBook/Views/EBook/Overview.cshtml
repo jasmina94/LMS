@@ -1,0 +1,64 @@
+﻿@model IEnumerable<LMS.Models.ViewModels.Book.BookViewModel>
+
+@{
+    bool hasPermissionToAdd = true;
+    bool hasPermissionToSearch = true;
+}
+
+<div class="col-md-8 col-md-offset-2" style="height:500px;">
+
+    <div style="display:inline-block; padding:10px;">
+        @if (hasPermissionToAdd)
+        {
+            <a class="btn btn-success lms-add-new-ebook-btn" href="/EBook/EBook/ViewForm">Add new e-book</a> 
+        }
+
+        @if (hasPermissionToSearch)
+        {
+            <a class="btn btn-danger lms-search-ebook-btn" href="/EBook/EBook/ViewSearch">Search for specific</a>
+        }
+            
+    </div>
+
+    <div>
+        @if (Model.Count() != 0)
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Publication year</th>
+                        <th>Language</th>
+                        <th>Category</th>
+                        <th>Keywords</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ebook in Model)
+                {
+                        <tr>
+                            <td>@ebook.Title</td>
+                            <td>@ebook.Author</td>
+                            <td>@ebook.PublicationYear</td>
+                            <td>@ebook.Language</td>
+                            <td>@ebook.Category</td>
+                            <td>@ebook.Keywords</td>
+                            <td id="@ebook.Id" class="lms-ebook-delete-btn">
+                                <img src="~/Resources/Images/delete_trash.png" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p style="padding:10px;font-size:18px;">Currently there are no active e-books.</p>
+            <p style="padding:5px;font-size:12px;">You can check if book you want to read is available for borrowing.</p>
+            <img src="~/Resources/Images/info3.jpg"/>
+        }
+    </div>
+</div>
+

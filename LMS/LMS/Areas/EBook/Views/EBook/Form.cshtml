@@ -1,0 +1,60 @@
+﻿@model LMS.Models.ViewModels.Book.BookViewModel
+@using LMS.Infrastructure.HtmlHelpers
+@using LMS.Infrastructure.HtmlHelpers.Utility
+
+@{ 
+    bool showAll = Model.UploadSuccess;
+    bool editMode = false;
+}
+
+<div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Add new e-book</h4>
+        </div>
+        <div class="panel-body">
+            @if (!Model.UploadSuccess)
+            {
+                <form action="/EBook/EBook/Upload" method="post" id="UploadEBookForm"
+                      class="form-horizontal" enctype="multipart/form-data">
+                    <div class="form-group" style="padding-left:15px;padding-right:15px;">
+                        <label>Select a file for e-book (only pdf-s allowed):</label>
+                        <input name="File" id="file" class="form-control" type="file" accept=".pdf" />
+                    </div>
+                    <input type="submit" name="Submit" id="Submit" value="Upload"
+                           class="form-control lms-upload-ebook-btn" style="background-color:#e9e9e9" />
+                </form>
+            }
+            else
+            {
+                <form action="/EBook/EBook/Save" method="post" id="SaveEBookForm" class="form-horizontal">
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.IsActive)
+                    @Html.HiddenFor(model => model.UserCreatedById)
+                    @Html.HiddenFor(model => model.UserCreatedBy)
+                    @Html.HiddenFor(model => model.DateTimeCreatedOn)
+                    @Html.HiddenFor(model => model.UserDeletedById)
+                    @Html.HiddenFor(model => model.UserDeletedBy)
+                    @Html.HiddenFor(model => model.DateTimeDeletedOn)
+                    @Html.HiddenFor(model => model.NumOfAvailableCopies)
+
+                    @Html.SimpleFormInput(model => model.Filename, "Filename:", 
+                        inputValue: Model.Filename, readOnly: true)
+                    @Html.SimpleFormInput(model => model.Title, "Title:", inputValue: Model.Title)
+                    @Html.SimpleFormInput(model => model.Author, "Author:", inputValue: Model.Author)
+                    @Html.SimpleFormInput(model => model.PublicationYear, "Publication year:",
+                        inputType: FormInputType.NUMBER, specialInputClass: "SpecificInputType",
+                        inputValue: Model.PublicationYear.ToString())
+                    @Html.DropDownSelect(model => model.CategoryId, "Category:",
+                        innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Category/Category/GetSelect",
+                        edit: editMode)
+                    @Html.DropDownSelect(model => model.LanguageId, "Language:",
+                        innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Language/Language/GetSelect",
+                        edit: editMode)
+
+                    @Html.FormSubmit(newLine: true)
+                </form>
+            }
+        </div>
+    </div>
+</div>

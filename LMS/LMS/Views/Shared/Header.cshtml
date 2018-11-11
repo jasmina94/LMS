@@ -42,12 +42,23 @@
                         <li>@Html.ActionLink("User", "Form", "User", new { area = "User" }, new { @class = "lms-open-dialog" })</li>
                     </ul>
                 </li>
-                <li class="dropdown">@Html.ActionLink("e-books", "Index", "Category", new { area = "EBook" }, "")</li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle lms-disable-on-open-dialog" data-toggle="dropdown" href="#">
+                        e-books
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Overview", "ViewOverview", "EBook", new { area = "EBook" }, "")</li>
+                        <li>@Html.ActionLink("Add", "ViewForm", "EBook", new { area = "EBook" }, "")</li>
+                        <li>@Html.ActionLink("Search", "ViewSearch", "EBook", new { area = "EBook" }, "")</li>
+                    </ul>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if (Session[SessionConstant.USER] != null)
                 {
-                    UserSessionObject currentUser = (UserSessionObject)Session[SessionConstant.USER];              
+                    UserSessionObject currentUser = (UserSessionObject)Session[SessionConstant.USER];
+                    <li>@Html.ActionLink("Chat", "Index", "Chat", new { area = "Chat" }, "")</li>
                     <li class="dropdown">
                         <a class="dropdown-toggle lms-disable-on-open-dialog" data-toggle="dropdown" href="#">
                             @currentUser.Username
@@ -55,7 +66,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Profile", "Index", "Profile", new { area = "Profile" }, "")</li>
-                            <li>@Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "lms-logout-link" })</li>                            
+                            <li>@Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "lms-logout-link" })</li>
                         </ul>
                     </li>
                 }

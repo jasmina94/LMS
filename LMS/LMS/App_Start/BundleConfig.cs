@@ -101,6 +101,7 @@ namespace LMS
 
             bundles.Add(new StyleBundle("~/custom/css").Include(
                       "~/Resources/Styles/Site.css",
+                      "~/Resources/Styles/chat/Chat.css",
                       "~/Resources/Styles/lms-grid/LMSGrid.css",
                       "~/Resources/Styles/lms-ribbon/LMSRibbon.css"));
         }

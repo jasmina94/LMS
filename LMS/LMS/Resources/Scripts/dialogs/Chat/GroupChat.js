@@ -12,7 +12,7 @@ GroupChatDialog.prototype.initSpecific = function () {
 
     var $selectMembers = $(this.container).find("#lms-chat-group-members-select");    
     var placeHolder = "Add members...";
-    var url = "/Chat/Home/GetUsers";
+    var url = "/Chat/Chat/GetUsers";
     var pageSize = 20;
 
     $selectMembers.select2({

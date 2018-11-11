@@ -51,6 +51,58 @@
     <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Analyzers, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Analyzers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Core, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.FastVectorHighlighter, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.FastVectorHighlighter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Highlighter, Version=2.3.2.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Highlighter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Memory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Memory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Queries, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Queries.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Regex, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Regex.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.SimpleFacetedSearch, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.SimpleFacetedSearch.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Snowball, Version=2.0.0.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Snowball.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.SpellChecker, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.SpellChecker.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.3.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -175,6 +227,8 @@
     <Compile Include="Areas\Book\BookAreaRegistration.cs" />
     <Compile Include="Areas\Chat\ChatAreaRegistration.cs" />
     <Compile Include="Areas\Chat\Controllers\ChatController.cs" />
+    <Compile Include="Areas\EBook\Controllers\EBookController.cs" />
+    <Compile Include="Areas\EBook\EBookAreaRegistration.cs" />
     <Compile Include="Areas\Language\Controllers\LanguageController.cs" />
     <Compile Include="Areas\Language\Controllers\OverviewController.cs" />
     <Compile Include="Areas\Language\LanguageAreaRegistration.cs" />
@@ -198,6 +252,8 @@
     <Compile Include="BusinessLogic\CategoryManagement\Interfaces\ICategoryService.cs" />
     <Compile Include="BusinessLogic\CategoryManagement\Model\DeleteCategoryResult.cs" />
     <Compile Include="BusinessLogic\CategoryManagement\Model\SaveCategoryResult.cs" />
+    <Compile Include="BusinessLogic\BookManagement\Implementation\ElectronicBookServiceImpl.cs" />
+    <Compile Include="BusinessLogic\BookManagement\Interfaces\IElectronicBookService.cs" />
     <Compile Include="BusinessLogic\LanguageManagement\Implementations\LanguageServiceImpl.cs" />
     <Compile Include="BusinessLogic\LanguageManagement\Interfaces\ILanguageService.cs" />
     <Compile Include="BusinessLogic\LanguageManagement\Model\DeleteLanguageResult.cs" />
@@ -208,7 +264,11 @@
     <Compile Include="BusinessLogic\UserManagement\Interfaces\IUserService.cs" />
     <Compile Include="BusinessLogic\UserManagement\Model\DeleteUserResult.cs" />
     <Compile Include="BusinessLogic\UserManagement\Model\SaveUserResult.cs" />
+    <Compile Include="Chat\LMSChatHelper.cs" />
     <Compile Include="Chat\LMSChatHub.cs" />
+    <Compile Include="Chat\Model\ChatGroup.cs" />
+    <Compile Include="Chat\Model\ChatUser.cs" />
+    <Compile Include="Chat\Model\MessageDetails.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -288,6 +348,21 @@
     <Compile Include="Infrastructure\Validation\Validators\IntegerValidator.cs" />
     <Compile Include="Infrastructure\Validation\Validators\StringValidator.cs" />
     <Compile Include="Infrastructure\Validation\Validators\TimeSpanValidator.cs" />
+    <Compile Include="IR\Analyzer\SerbianAnalyzer.cs" />
+    <Compile Include="IR\Indexer\EBookIndexer.cs" />
+    <Compile Include="IR\Filter\CyrillicLatinConverter.cs" />
+    <Compile Include="IR\Filter\CyrillicToLatinFilter.cs" />
+    <Compile Include="IR\Filter\LowerCaseFilter.cs" />
+    <Compile Include="IR\Handler\DocumentHandler.cs" />
+    <Compile Include="IR\Handler\PDFHandler.cs" />
+    <Compile Include="IR\Indexer\IEBookIndexer.cs" />
+    <Compile Include="IR\Model\IndexUnit.cs" />
+    <Compile Include="IR\Model\ResultData.cs" />
+    <Compile Include="IR\QueryLogic\QueryBuilder.cs" />
+    <Compile Include="IR\QueryLogic\QueryOperator.cs" />
+    <Compile Include="IR\QueryLogic\QueryType.cs" />
+    <Compile Include="IR\Retriever\DocumentRetriever.cs" />
+    <Compile Include="IR\Retriever\InformationRetreiver.cs" />
     <Compile Include="Models\ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\PasswordChangeViewModel.cs" />
     <Compile Include="Models\ViewModels\Book\BookCopyViewModel.cs" />
@@ -314,8 +389,10 @@
     <Content Include="Resources\Images\borrowed_books.png" />
     <Content Include="Resources\Images\cancel.png" />
     <Content Include="Resources\Images\category.png" />
+    <Content Include="Resources\Images\chat.png" />
     <Content Include="Resources\Images\confirm.png" />
     <Content Include="Resources\Images\delete.png" />
+    <Content Include="Resources\Images\delete_trash.png" />
     <Content Include="Resources\Images\ebook_photo.jpg" />
     <Content Include="Resources\Images\edit.png" />
     <Content Include="Resources\Images\filter.png" />
@@ -372,7 +449,6 @@
     <Content Include="Resources\Scripts\lms-ribbon\LMSSidebar.js" />
     <Content Include="Resources\Scripts\lms-ribbon\User\LMSUsersRibbon.js" />
     <Content Include="Resources\Scripts\lms-ribbon\User\LMSUsersSidebar.js" />
-    <Content Include="Resources\Scripts\Profile.js" />
     <Content Include="Resources\Scripts\select\i18n\ar.js" />
     <Content Include="Resources\Scripts\select\i18n\az.js" />
     <Content Include="Resources\Scripts\select\i18n\bg.js" />
@@ -430,6 +506,7 @@
     <Content Include="Resources\Styles\bootstrap\bootstrap.css" />
     <Content Include="Resources\Styles\bootstrap\bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Resources\Styles\chat\Chat.css" />
     <Content Include="Resources\Styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Resources\Styles\jqueryUI\base\accordion.css" />
@@ -528,6 +605,14 @@
     <Content Include="Areas\Chat\Views\web.config" />
     <Content Include="Areas\Chat\Views\Chat\Index.cshtml" />
     <Content Include="Areas\Profile\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Chat\Views\Chat\Group.cshtml" />
+    <Content Include="Areas\Chat\Views\Chat\AddMembers.cshtml" />
+    <Content Include="Areas\Chat\Views\Chat\RemoveMember.cshtml" />
+    <Content Include="Areas\EBook\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\EBook\Views\web.config" />
+    <Content Include="Areas\EBook\Views\EBook\Overview.cshtml" />
+    <Content Include="Areas\EBook\Views\EBook\Form.cshtml" />
+    <Content Include="Areas\EBook\Views\EBook\Search.cshtml" />
     <None Include="Resources\Scripts\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="Resources\Scripts\jquery\jquery-1.10.2.js" />
     <None Include="Resources\Scripts\jquery\jquery.validate-vsdoc.js" />
@@ -566,11 +651,15 @@
     <Folder Include="Areas\Book\Models\" />
     <Folder Include="Areas\Category\Models\" />
     <Folder Include="Areas\Chat\Models\" />
+    <Folder Include="Areas\EBook\Models\" />
     <Folder Include="Areas\Language\Models\" />
     <Folder Include="Areas\Profile\Models\" />
     <Folder Include="Areas\Role\Models\" />
     <Folder Include="Areas\Role\Views\Role\" />
     <Folder Include="Areas\User\Models\" />
+    <Folder Include="BusinessLogic\EBookManagement\Implementation\" />
+    <Folder Include="BusinessLogic\EBookManagement\Interfaces\" />
+    <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Styles\fonts\glyphicons-halflings-regular.woff" />

@@ -1,0 +1,11 @@
+﻿@using LMS.Infrastructure.HtmlHelpers
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @Html.DialogTitle(value: "Remove members from group by username:")
+        <form id="lms-chat-remove-member-form" class="form-horizontal lms-chat-dialog-form">
+            @Html.SimpleFormInput(labelValue: "Username:", inputId: "lms-chat-group-member-username")
+            @Html.FormSubmit(value: "Remove member", divClass: "form-group", newLine: true, specialBtnClass: "lms-chat-remove-member-submit", type: "button")
+        </form>
+    </div>
+</div>

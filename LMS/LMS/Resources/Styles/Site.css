@@ -117,6 +117,10 @@ input#sfsFieldValue{
     max-width: 100%;
 }
 
+div.KeywordsFormGroup{
+    margin-bottom: 2px;
+}
+
 .lms-save-button {
     margin-left: 40%;
     width: 80px;

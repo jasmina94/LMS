@@ -8,5 +8,7 @@ namespace LMS.BusinessLogic.BookManagement.Interfaces
         BookViewModel Get(int? bookId);
 
         List<BookViewModel> GetAll(bool isActive);
+
+        BookViewModel LoadBaseFromFile(string filePath, string fileName);
     }
 }

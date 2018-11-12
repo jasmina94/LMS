@@ -102,8 +102,8 @@ BaseDialog.prototype = {
         var placeholder = "";
         var parts = null;
         var url = id;
-        if (id.indexOf("&") !== -1) {
-            parts = id.split("&");
+        if (url.indexOf("&") !== -1) {
+            parts = url.split("&");
             placeholder = parts[1];
         } else {
             if (url.indexOf("Category") !== -1) {

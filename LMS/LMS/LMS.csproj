@@ -429,6 +429,7 @@
     <Content Include="Resources\Scripts\dialogs\User\ChangePassword.js" />
     <Content Include="Resources\Scripts\dialogs\User\EditUser.js" />
     <Content Include="Resources\Scripts\dialogs\User\User.js" />
+    <Content Include="Resources\Scripts\ebook\FormHandler.js" />
     <Content Include="Resources\Scripts\jquery\jquery-ui-1.12.1.js" />
     <Content Include="Resources\Scripts\lms-grid\LMSGrid.js" />
     <Content Include="Resources\Scripts\lms-grid\LMSGridEnum.js" />

@@ -36,8 +36,8 @@ namespace LMS.Areas.EBook.Controllers
         public ActionResult Upload(HttpPostedFileBase file)
         {
             ActionResult result;
-            string filename = string.Empty;
-            var viewModel = new BookViewModel();
+            BookViewModel viewModel = null;
+            string filename = string.Empty;            
             
             try
             {
@@ -46,18 +46,23 @@ namespace LMS.Areas.EBook.Controllers
                     filename = string.Format(@"{0}.pdf", Guid.NewGuid());
                     string path = Path.Combine(Server.MapPath("~/UploadedFiles"), filename);
                     file.SaveAs(path);
+                    viewModel = EBookService.LoadBaseFromFile(path, filename);
                 }
-                viewModel.Filename = filename;
-                viewModel.UploadSuccess = true;
             }
             catch
             {
-                viewModel.UploadSuccess = false;
+                viewModel = new BookViewModel { UploadSuccess = false };
             }
 
             result = View("Form", viewModel);
 
             return result;
+        }
+
+        [HttpPost]
+        public ActionResult Save(BookViewModel viewModel)
+        {
+            return RedirectToAction("Index");
         }
     }
 }

@@ -77,6 +77,9 @@ namespace LMS
             bundles.Add(new ScriptBundle("~/bundles/dialogs/book")
                .IncludeDirectory("~/Resources/Scripts/dialogs/Book", "*.js", true));
 
+            bundles.Add(new ScriptBundle("~/bundles/ebook")
+               .IncludeDirectory("~/Resources/Scripts/EBook", "*.js", true));
+
             bundles.Add(new ScriptBundle("~/bundles/grid")
                 .IncludeDirectory("~/Resources/Scripts/lms-grid", "*.js", true));
 

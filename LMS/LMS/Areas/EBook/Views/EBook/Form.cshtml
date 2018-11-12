@@ -37,6 +37,7 @@
                     @Html.HiddenFor(model => model.UserDeletedBy)
                     @Html.HiddenFor(model => model.DateTimeDeletedOn)
                     @Html.HiddenFor(model => model.NumOfAvailableCopies)
+                    @Html.HiddenFor(model => model.MIME)
 
                     @Html.SimpleFormInput(model => model.Filename, "Filename:", 
                         inputValue: Model.Filename, readOnly: true)
@@ -45,16 +46,29 @@
                     @Html.SimpleFormInput(model => model.PublicationYear, "Publication year:",
                         inputType: FormInputType.NUMBER, specialInputClass: "SpecificInputType",
                         inputValue: Model.PublicationYear.ToString())
+                    @Html.SimpleFormInput(model => model.Keywords, "Keywords:", 
+                        divClass: "form-group KeywordsFormGroup", inputValue: Model.Keywords)
+                    <p style="margin-left:165px;font-size:12px;"><i>Separate keywords with comma!</i></p>
+
                     @Html.DropDownSelect(model => model.CategoryId, "Category:",
                         innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Category/Category/GetSelect",
                         edit: editMode)
                     @Html.DropDownSelect(model => model.LanguageId, "Language:",
                         innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Language/Language/GetSelect",
-                        edit: editMode)
+                        edit: editMode, divClass: "form-group KeywordsFormGroup")
+                    <p style="margin-left:165px;font-size:12px;"><i>Only Serbian language is allowed for e-books!</i></p>
 
-                    @Html.FormSubmit(newLine: true)
+                    @Html.FormSubmit(specialBtnClass: "lms-save-button SubmitEBookSave", newLine: true)
                 </form>
             }
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var handler = new FormHandler();
+        handler.initView();
+        handler.initSelectpickers();
+    });
+</script>

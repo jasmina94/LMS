@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using LMS.Infrastructure.ModelBuilders.Implementation.Language;
 using LMS.BusinessLogic.LanguageManagement.Interfaces;
-using LMS.BusinessLogic.LanguageManagement.Model;
-using LMS.Models.ViewModels.Language;
 using LMS.DomainModel.Repository.Language.Interfaces;
 using LMS.Infrastructure.ModelConstructor.Interfaces;
-using LMS.Services.Interfaces;
-using LMS.DomainModel.DomainObject;
-using LMS.Infrastructure.ModelBuilders.Implementation.Language;
+using LMS.BusinessLogic.LanguageManagement.Model;
 using LMS.DomainModel.Repository.Book.Interfaces;
+using LMS.Infrastructure.Authorization;
+using LMS.Models.ViewModels.Language;
+using LMS.DomainModel.DomainObject;
+using System.Collections.Generic;
+using LMS.Services.Interfaces;
+
 
 namespace LMS.BusinessLogic.LanguageManagement.Implementations
 {
@@ -60,7 +62,7 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             return viewModels;
         }
 
-        public SaveLanguageResult Save(LanguageViewModel viewModel)
+        public SaveLanguageResult Save(LanguageViewModel viewModel, UserSessionObject user)
         {
             var result = new SaveLanguageResult();
 
@@ -68,16 +70,17 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             Constructor.ConstructDomainModelData(builder);
             LanguageData domainModel = builder.GetDataModel();
 
+            if (viewModel.Id == 0)            
+                domainModel.RefUserCreatedBy = user.UserId;
+
             int id = LanguageRepository.SaveData(domainModel);
             if (id != 0)
-            {
                 result = new SaveLanguageResult(id, domainModel.NameLanguage);
-            }
 
             return result;
         }
 
-        public DeleteLanguageResult Delete(int? languageId)
+        public DeleteLanguageResult Delete(int? languageId, UserSessionObject user)
         {
             var result = new DeleteLanguageResult();
             if (languageId.HasValue)
@@ -87,7 +90,7 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
                     LanguageData domainModel = LanguageRepository.GetDataById(languageId.Value);
                     if (domainModel != null)
                     {
-                        LanguageRepository.DeleteById(languageId.Value);
+                        LanguageRepository.DeleteById(languageId.Value, user.UserId);
                         result = new DeleteLanguageResult(languageId.Value, domainModel.NameLanguage);
                     }
                 }

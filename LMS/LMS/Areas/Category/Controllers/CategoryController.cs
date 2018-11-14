@@ -1,8 +1,10 @@
 ﻿using LMS.BusinessLogic.CategoryManagement.Interfaces;
 using LMS.BusinessLogic.CategoryManagement.Model;
 using LMS.Infrastructure.ActionFilters;
+using LMS.Infrastructure.Authorization;
 using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Infrastructure.Extension;
+using LMS.Infrastructure.Helpers;
 using LMS.Models.ViewModels.Category;
 using LMS.MVC.Infrastructure.SelectHelpers;
 using System.Collections.Generic;
@@ -28,11 +30,12 @@ namespace LMS.Areas.Category.Controllers
         [IsAuthenticated]
         public JsonResult Save(CategoryViewModel viewModel)
         {
+            UserSessionObject user = Session.GetUser();
             JsonResult response = (JsonResult)RouteData.Values["validation"];
             ValidationResponse validation = (ValidationResponse)response.Data;
             if (validation.Success)
             {
-                SaveCategoryResult result = CategoryService.Save(viewModel);
+                SaveCategoryResult result = CategoryService.Save(viewModel, user);
                 response.Data = result;
             }
 
@@ -70,7 +73,8 @@ namespace LMS.Areas.Category.Controllers
         [IsAuthenticated]
         public ActionResult Delete(int id)
         {
-            DeleteCategoryResult deleteResult = CategoryService.Delete(id);
+            UserSessionObject user = Session.GetUser();
+            DeleteCategoryResult deleteResult = CategoryService.Delete(id, user);
 
             return Json(deleteResult, JsonRequestBehavior.AllowGet);
         }

@@ -16,6 +16,6 @@ namespace LMS.DomainModel.Repository.Base.Interfaces
 
         SqlCommand CreateSqlCommandDeleteAllData();
 
-        SqlCommand CreateSqlCommandDeleteById(int id);
+        SqlCommand CreateSqlCommandDeleteById(int id, int userId);
     }
 }

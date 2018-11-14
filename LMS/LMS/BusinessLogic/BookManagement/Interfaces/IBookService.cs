@@ -1,4 +1,5 @@
 ﻿using LMS.BusinessLogic.BookManagement.Model;
+using LMS.Infrastructure.Authorization;
 using LMS.Models.ViewModels.Book;
 using System.Collections.Generic;
 
@@ -16,14 +17,14 @@ namespace LMS.BusinessLogic.BookManagement.Interfaces
 
         List<BookCopyViewModel> GetAvailableCopies();
 
-        SaveBookResult Save(BookViewModel viewModel);
+        SaveBookResult Save(BookViewModel viewModel, UserSessionObject user);
 
-        SaveBookResult Save(BookCopyViewModel viewModel);
+        SaveBookResult Save(BookCopyViewModel viewModel, UserSessionObject user);
 
-        SaveBookResult SaveOnly(BookCopyViewModel viewModel);
+        SaveBookResult SaveOnly(BookCopyViewModel viewModel, UserSessionObject user);
 
-        DeleteBookResult Delete(int? bookId);
+        DeleteBookResult Delete(int? bookId, UserSessionObject user);
 
-        DeleteBookResult DeleteCopy(int bookCopyId);
+        DeleteBookResult DeleteCopy(int bookCopyId, UserSessionObject user);
     }
 }

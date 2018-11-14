@@ -48,7 +48,7 @@ namespace LMS.Areas.Profile.Controllers
                 viewModel.OldPassword == userViewModel.UserPassword)
             {
                 userViewModel.UserPassword = viewModel.NewPassword;
-                saveResult = UserService.Save(userViewModel);
+                saveResult = UserService.Save(userViewModel, currentUser);
 
                 if (saveResult.Success)
                 {

@@ -1,4 +1,5 @@
 ﻿using LMS.BusinessLogic.UserManagement.Model;
+using LMS.Infrastructure.Authorization;
 using LMS.Models.ViewModels.User;
 using System.Collections.Generic;
 
@@ -10,9 +11,9 @@ namespace LMS.BusinessLogic.UserManagement.Interfaces
 
         List<UserViewModel> GetAll(bool active);
 
-        SaveUserResult Save(UserViewModel viewModel);
+        SaveUserResult Save(UserViewModel viewModel, UserSessionObject currentUser);
 
-        DeleteUserResult Delete(int? userId);
+        DeleteUserResult Delete(int? userId, UserSessionObject currentUser);
 
         bool CheckUniqueUsername(string username);
 

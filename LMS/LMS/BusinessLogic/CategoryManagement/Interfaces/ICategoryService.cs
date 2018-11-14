@@ -1,4 +1,5 @@
 ﻿using LMS.BusinessLogic.CategoryManagement.Model;
+using LMS.Infrastructure.Authorization;
 using LMS.Models.ViewModels.Category;
 using System.Collections.Generic;
 
@@ -10,8 +11,8 @@ namespace LMS.BusinessLogic.CategoryManagement.Interfaces
 
         List<CategoryViewModel> GetAll(bool active);
 
-        SaveCategoryResult Save(CategoryViewModel viewModel);
+        SaveCategoryResult Save(CategoryViewModel viewModel, UserSessionObject user);
 
-        DeleteCategoryResult Delete(int? categoryId);
+        DeleteCategoryResult Delete(int? categoryId, UserSessionObject user);
     }
 }

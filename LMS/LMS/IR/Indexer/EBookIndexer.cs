@@ -3,13 +3,15 @@ using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.Store;
 using Lucene.Net.Util;
+using System;
 using System.IO;
+using System.Web.Hosting;
 
 namespace LMS.IR.Indexer
 {
     public class EBookIndexer : IEBookIndexer
     {
-        private readonly Version version;
+        private readonly Lucene.Net.Util.Version version;
 
         private StandardAnalyzer analyzer;
 
@@ -17,23 +19,16 @@ namespace LMS.IR.Indexer
 
         private Lucene.Net.Store.Directory indexDirectory;
 
-        public EBookIndexer(string path) : this(path, false)
-        {
-                        
-        }
+        private readonly string INDEX_PATH = HostingEnvironment.MapPath(@"~/Index");
 
-        public EBookIndexer(string path, bool restart)
+        public EBookIndexer()
         {
             try
             {
-                indexDirectory = FSDirectory.Open(new DirectoryInfo(path)); 
-                if (restart)
-                {
-                    indexWriter = new IndexWriter(indexDirectory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED);
-                    indexWriter.Commit();
-                    indexWriter.Dispose();
-                }
-
+                indexDirectory = FSDirectory.Open(new DirectoryInfo(INDEX_PATH));               
+                indexWriter = new IndexWriter(indexDirectory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED);
+                indexWriter.Commit();
+                indexWriter.Dispose();
             }
             catch (IOException e)
             {
@@ -70,13 +65,15 @@ namespace LMS.IR.Indexer
             try
             {
                 OpenIndexWriter();
+                indexWriter.Optimize();
                 indexWriter.AddDocument(document);
                 indexWriter.Commit();
                 indexWriter.Dispose();
                 success = true;
             }
-            catch (IOException e)
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message + " " + e.StackTrace);
                 success = false;
             }
 

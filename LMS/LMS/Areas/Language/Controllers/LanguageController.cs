@@ -1,8 +1,10 @@
 ﻿using LMS.BusinessLogic.LanguageManagement.Interfaces;
 using LMS.BusinessLogic.LanguageManagement.Model;
 using LMS.Infrastructure.ActionFilters;
+using LMS.Infrastructure.Authorization;
 using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Infrastructure.Extension;
+using LMS.Infrastructure.Helpers;
 using LMS.Models.ViewModels.Language;
 using LMS.MVC.Infrastructure.SelectHelpers;
 using System.Collections.Generic;
@@ -28,12 +30,13 @@ namespace LMS.Areas.Language.Controllers
         [IsAuthenticated]
         public ActionResult Save(LanguageViewModel viewModel)
         {
+            UserSessionObject user = Session.GetUser();
             JsonResult response = (JsonResult)RouteData.Values["validation"];
             ValidationResponse validation = (ValidationResponse)response.Data;
 
             if (validation.Success)
             {
-                SaveLanguageResult result = LanguageService.Save(viewModel);
+                SaveLanguageResult result = LanguageService.Save(viewModel, user);
                 response.Data = result;
             }
 
@@ -71,7 +74,8 @@ namespace LMS.Areas.Language.Controllers
         [IsAuthenticated]
         public ActionResult Delete(int id)
         {
-            DeleteLanguageResult deleteResult = LanguageService.Delete(id);
+            UserSessionObject user = Session.GetUser();
+            DeleteLanguageResult deleteResult = LanguageService.Delete(id, user);
 
             return Json(deleteResult, JsonRequestBehavior.AllowGet);
         }

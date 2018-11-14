@@ -1,8 +1,10 @@
 ﻿using LMS.BusinessLogic.BookManagement.Interfaces;
 using LMS.BusinessLogic.BookManagement.Model;
 using LMS.Infrastructure.ActionFilters;
+using LMS.Infrastructure.Authorization;
 using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Infrastructure.Extension;
+using LMS.Infrastructure.Helpers;
 using LMS.Models.ViewModels.Book;
 using LMS.MVC.Infrastructure.SelectHelpers;
 using System.Collections.Generic;
@@ -28,11 +30,13 @@ namespace LMS.Areas.Book.Controllers
         [IsAuthenticated]
         public JsonResult Save(BookViewModel viewModel)
         {
+            UserSessionObject user = Session.GetUser();
             JsonResult response = (JsonResult)RouteData.Values["validation"];
             ValidationResponse validation = (ValidationResponse)response.Data;
+
             if (validation.Success)
-            {
-                SaveBookResult result = BookService.Save(viewModel);
+            {                
+                SaveBookResult result = BookService.Save(viewModel, user);
                 response.Data = result;
             }
 
@@ -70,7 +74,8 @@ namespace LMS.Areas.Book.Controllers
         [IsAuthenticated]
         public ActionResult Delete(int id)
         {
-            DeleteBookResult result = BookService.Delete(id);
+            UserSessionObject user = Session.GetUser();
+            DeleteBookResult result = BookService.Delete(id, user);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

@@ -1,17 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using LMS.Infrastructure.ModelBuilders.Implementation.Book;
 using LMS.Infrastructure.ModelConstructor.Interfaces;
-using LMS.Services.Interfaces;
-using LMS.DomainModel.DomainObject;
-using LMS.DomainModel.Repository.Book.Interfaces;
-using LMS.Models.ViewModels.Book;
-using LMS.Infrastructure.ModelBuilders.Implementation.Book;
 using LMS.BusinessLogic.BookManagement.Interfaces;
+using LMS.DomainModel.Repository.Book.Interfaces;
 using LMS.BusinessLogic.BookManagement.Model;
+using LMS.Infrastructure.Authorization;
+using LMS.DomainModel.DomainObject;
+using LMS.Models.ViewModels.Book;
+using System.Collections.Generic;
+using LMS.Services.Interfaces;
 
 namespace LMS.BusinessLogic.BookManagement.Implementations
 {
     public class BookServiceImpl : IBookService
     {
+        #region Injected properties
         public IBookRepository BookRepository { get; set; }
 
         public IBookCopyRepository BookCopyRepository { get; set; }
@@ -19,6 +21,8 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
         public IModelConstructor Constructor { get; set; }
 
         public IBuilderResolverService BuilderResolverService { get; set; }
+        
+        #endregion
 
         public BookViewModel Get(int? bookId)
         {
@@ -109,13 +113,16 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             return viewModels;
         }
 
-        public SaveBookResult Save(BookViewModel viewModel)
+        public SaveBookResult Save(BookViewModel viewModel, UserSessionObject user)
         {
             var result = new SaveBookResult();
 
             BookDomainModelBuilder builder = BuilderResolverService.Get<BookDomainModelBuilder, BookViewModel>(viewModel);
             Constructor.ConstructDomainModelData(builder);
             BookData domainModel = builder.GetDataModel();
+
+            if (viewModel.Id == 0)
+                domainModel.RefUserCreatedBy = user.UserId;
 
             int id = BookRepository.SaveData(domainModel);
             if (id != 0)
@@ -126,7 +133,7 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             return result;
         }
 
-        public SaveBookResult Save(BookCopyViewModel viewModel)
+        public SaveBookResult Save(BookCopyViewModel viewModel, UserSessionObject user)
         {
             var result = new SaveBookResult();
 
@@ -134,12 +141,15 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             Constructor.ConstructDomainModelData(builder);
             BookCopyData domainModel = builder.GetDataModel();
 
+            if (viewModel.Id == 0)
+                domainModel.RefUserCreatedBy = user.UserId;
+
             int id = BookCopyRepository.SaveData(domainModel);
             if (id != 0)
             {
                 BookViewModel bookViewModel = Get(viewModel.BookId);
                 bookViewModel.NumOfAvailableCopies = bookViewModel.NumOfAvailableCopies + 1;
-                SaveBookResult updateResult = Save(bookViewModel);
+                SaveBookResult updateResult = Save(bookViewModel, user);
 
                 if (updateResult.Success)
                 {
@@ -151,12 +161,16 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             return result;
         }
 
-        public SaveBookResult SaveOnly(BookCopyViewModel viewModel)
+        public SaveBookResult SaveOnly(BookCopyViewModel viewModel, UserSessionObject user)
         {
             var result = new SaveBookResult();
+
             BookCopyDomainModelBuilder builder = BuilderResolverService.Get<BookCopyDomainModelBuilder, BookCopyViewModel>(viewModel);
             Constructor.ConstructDomainModelData(builder);
             BookCopyData domainModel = builder.GetDataModel();
+
+            if (viewModel.Id == 0)
+                domainModel.RefUserCreatedBy = user.UserId;
 
             int id = BookCopyRepository.SaveData(domainModel);
             if (id != 0)
@@ -167,18 +181,18 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             return result;
         }
 
-        public DeleteBookResult Delete(int? bookId)
+        public DeleteBookResult Delete(int? bookId, UserSessionObject user)
         {
             var result = new DeleteBookResult();
             if (bookId.HasValue)
             {
-                DeleteBookResult deletingCopies = DeleteCopiesByBook(bookId.Value);
+                DeleteBookResult deletingCopies = DeleteCopiesByBook(bookId.Value, user);
                 if (deletingCopies.Success)
                 {
                     BookData domainModel = BookRepository.GetDataById(bookId.Value);
                     if (domainModel != null)
                     {
-                        BookRepository.DeleteById(bookId.Value);
+                        BookRepository.DeleteById(bookId.Value, user.UserId);
                         result = new DeleteBookResult(bookId.Value, domainModel.BookAuthorAndTitle);
                     }
                 }                
@@ -187,7 +201,7 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             return result;
         }
 
-        public DeleteBookResult DeleteCopy(int bookCopyId)
+        public DeleteBookResult DeleteCopy(int bookCopyId, UserSessionObject user)
         {
             var result = new DeleteBookResult();
             BookCopyData bookCopyData = BookCopyRepository.GetDataById(bookCopyId);
@@ -200,7 +214,7 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
                 }
                 else
                 {
-                    BookCopyRepository.DeleteById(bookCopyData.Id);
+                    BookCopyRepository.DeleteById(bookCopyData.Id, user.UserId);
 
                     BookData book = BookRepository.GetDataById(bookCopyData.BookId);
                     book.NumOfAvailableCopies = book.NumOfAvailableCopies - 1;
@@ -217,7 +231,7 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             return result;
         }
 
-        public DeleteBookResult DeleteCopiesByBook(int refBookId)
+        public DeleteBookResult DeleteCopiesByBook(int refBookId, UserSessionObject user)
         {
             var result = new DeleteBookResult();
             List<BookCopyData> bookCopies = BookCopyRepository.GetCopiesForBook(refBookId);
@@ -229,7 +243,7 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
                 }
                 else
                 {
-                    DeleteEachBookCopy(bookCopies);
+                    DeleteEachBookCopy(bookCopies, user);
                     result.Success = true;
                 }
             }
@@ -256,11 +270,11 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             return hasBorrowedCopy;
         }
 
-        private void DeleteEachBookCopy(List<BookCopyData> bookCopies)
+        private void DeleteEachBookCopy(List<BookCopyData> bookCopies, UserSessionObject user)
         {
             foreach (var item in bookCopies)
             {
-                BookCopyRepository.DeleteById(item.Id);
+                BookCopyRepository.DeleteById(item.Id, user.UserId);
             }
         }
     }

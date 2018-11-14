@@ -85,17 +85,20 @@ namespace LMS.DomainModel.Repository.Base.Implementation
             return sqlCommand;
         }
 
-        public SqlCommand CreateSqlCommandDeleteById(int id)
+        public SqlCommand CreateSqlCommandDeleteById(int id, int userId)
         {
             string query = @"
                UPDATE   {0}
-               SET      IsActive = @IsActive, DateTimeDeletedOn = @DateTimeDeletedOn
+               SET      IsActive = @IsActive, 
+                        DateTimeDeletedOn = @DateTimeDeletedOn, 
+                        RefUserDeletedBy = @RefUserDeletedBy
                WHERE    {1} = @Id 
          ";
             SqlCommand sqlCommand = new SqlCommand(string.Format(query, tableName, idName));
 
             sqlCommand.Parameters.AddWithValue("@IsActive", false.ToDBFromBool());
             sqlCommand.Parameters.AddWithValue("@DateTimeDeletedOn", DateTime.Now);
+            sqlCommand.Parameters.AddWithValue("@DateTimeDeletedOn", userId);
             sqlCommand.Parameters.AddWithValue("@Id", id);
 
             return sqlCommand;

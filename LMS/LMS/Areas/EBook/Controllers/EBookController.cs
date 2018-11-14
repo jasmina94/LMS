@@ -1,4 +1,8 @@
 ﻿using LMS.BusinessLogic.BookManagement.Interfaces;
+using LMS.BusinessLogic.BookManagement.Model;
+using LMS.Infrastructure.Authorization;
+using LMS.Infrastructure.Authorization.Attributes;
+using LMS.Infrastructure.Helpers;
 using LMS.Models.ViewModels.Book;
 using System;
 using System.Collections.Generic;
@@ -10,7 +14,7 @@ namespace LMS.Areas.EBook.Controllers
 {
     public class EBookController : Controller
     {
-        public IElectronicBookService EBookService { get; set; }
+        public IEBookService EBookService { get; set; }
 
         public ActionResult ViewOverview()
         {
@@ -37,8 +41,8 @@ namespace LMS.Areas.EBook.Controllers
         {
             ActionResult result;
             BookViewModel viewModel = null;
-            string filename = string.Empty;            
-            
+            string filename = string.Empty;
+
             try
             {
                 if (file.ContentLength > 0)
@@ -59,10 +63,29 @@ namespace LMS.Areas.EBook.Controllers
             return result;
         }
 
-        [HttpPost]
-        public ActionResult Save(BookViewModel viewModel)
+        [IsAuthenticated]
+        public ActionResult Create(EBookCreateViewModel viewModel)
         {
-            return RedirectToAction("Index");
+            var relativePath = "~/UploadedFiles/" + viewModel.Filename;
+            var absolutePath = HttpContext.Server.MapPath(relativePath);
+
+            SaveEBookResult result = null;
+            UserSessionObject user = Session.GetUser();            
+
+            if (System.IO.File.Exists(absolutePath))
+            {
+                result = EBookService.SaveAndIndex(viewModel, absolutePath, user);
+            }
+            else
+            {
+                result = new SaveEBookResult()
+                {
+                    Success = false,
+                    Message = "There is no file with given name. Please repeat upload!"
+                };
+            }
+
+            return Json(new { data = result });
         }
     }
 }

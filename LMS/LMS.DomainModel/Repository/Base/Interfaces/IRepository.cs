@@ -25,9 +25,9 @@ namespace LMS.DomainModel.Repository.Base.Interfaces
 
         void DeleteAllDataInTransaction(SqlTransaction sqlTransaction);
 
-        void DeleteById(int id);
+        void DeleteById(int id, int userId);
 
-        void DeleteByIdInTransaction(int id, SqlTransaction sqlTransaction);
+        void DeleteByIdInTransaction(int id, int userId, SqlTransaction sqlTransaction);
 
         int SaveData(BaseData data);
 

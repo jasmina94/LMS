@@ -2,6 +2,7 @@
 using LMS.BusinessLogic.UserManagement.Interfaces;
 using LMS.BusinessLogic.UserManagement.Model;
 using LMS.Infrastructure.ActionFilters;
+using LMS.Infrastructure.Authorization;
 using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Infrastructure.Extension;
 using LMS.Infrastructure.Helpers;
@@ -38,7 +39,7 @@ namespace LMS.Areas.User.Controllers
             ValidationResponse validation = (ValidationResponse)response.Data;
             if (validation.Success)
             {
-                SaveUserResult result = UserService.Save(viewModel);
+                SaveUserResult result = UserService.Save(viewModel, currentUser);
                 if (result.Success)
                 {
                     response.Data = result;
@@ -59,7 +60,8 @@ namespace LMS.Areas.User.Controllers
         [IsAuthenticated]
         public ActionResult Delete(int id)
         {
-            DeleteUserResult result = UserService.Delete(id);
+            UserSessionObject user = Session.GetUser();
+            DeleteUserResult result = UserService.Delete(id, user);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

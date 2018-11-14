@@ -126,6 +126,29 @@ Validator.prototype = {
             
             return response;
         }, "* Email is not unique!");
+
+        $.validator.addMethod("yearIsValid", function (value, element) {
+            var response;
+            var currentYear = new Date().getFullYear();
+            var minYear = 1500;
+            var value = $("#publicationyear").val();
+            var isNumber = /^\d{4}$/.test(value)
+            if (isNumber) {
+                if (value >= 1500 && value <= currentYear) {
+                    response = true;
+                } else {
+                    response = false;
+                }
+            } else {
+                response = false;
+            }
+            
+            return response;
+        }, "* Publication year is not valid!");
+
+        $.validator.addMethod("serbianIsChosen", function (value, element) {
+            return $("select#languageid").find("option:selected").val() === "3";
+        }, "* Currently is only available adding e-books on Serbian lanugage!");
     }
 }
 

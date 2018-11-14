@@ -12,6 +12,7 @@ using LMS.DomainModel.DomainObject.Relation;
 using LMS.BusinessLogic.RoleManagement.Interfaces;
 using LMS.Models.ViewModels.Relation;
 using System;
+using LMS.Infrastructure.Authorization;
 
 namespace LMS.BusinessLogic.LanguageManagement.Implementations
 {
@@ -66,7 +67,7 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             return viewModels;
         }
 
-        public SaveUserResult Save(UserViewModel viewModel)
+        public SaveUserResult Save(UserViewModel viewModel, UserSessionObject currentUser)
         {
             var result = new SaveUserResult();
 
@@ -74,17 +75,20 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             Constructor.ConstructDomainModelData(builder);
             UserData domainModel = builder.GetDataModel();
 
-                int id = UserRepository.SaveData(domainModel);
-                if (id != 0)
+            if (viewModel.Id == 0)
+                domainModel.RefUserCreatedBy = currentUser.UserId;
+
+            int id = UserRepository.SaveData(domainModel);
+            if (id != 0)
+            {
+                if (viewModel.RoleId != 0)
                 {
-                    if (viewModel.RoleId != 0)
-                    {
-                        //Save relation user - role
-                        var relationUserRoleViewModel = CreateUserRoleViewModel(id, viewModel.RoleId, 0);
-                        RoleService.SaveRelationUserRole(relationUserRoleViewModel);
-                    }
-                    result = new SaveUserResult(id, domainModel.FullFirstAndLastName);
+                    //Save relation user - role
+                    var relationUserRoleViewModel = CreateUserRoleViewModel(id, viewModel.RoleId, 0);
+                    RoleService.SaveRelationUserRole(relationUserRoleViewModel, currentUser);
                 }
+                result = new SaveUserResult(id, domainModel.FullFirstAndLastName);
+            }
 
             return result;
         }
@@ -101,7 +105,7 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             return relation;
         }
 
-        public DeleteUserResult Delete(int? userId)
+        public DeleteUserResult Delete(int? userId, UserSessionObject currentUser)
         {
             var result = new DeleteUserResult();
             if (userId.HasValue)
@@ -112,7 +116,7 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
                     List<RelationUserBookCopyData> loans = RelationUserBookCopyRepository.GetLoansForUser(userId.Value);
                     if(loans.Count == 0)
                     {
-                        UserRepository.DeleteById(userId.Value);
+                        UserRepository.DeleteById(userId.Value, currentUser.UserId);
                         result = new DeleteUserResult(userId.Value, domainModel.FullFirstAndLastName);
                     }
                     else

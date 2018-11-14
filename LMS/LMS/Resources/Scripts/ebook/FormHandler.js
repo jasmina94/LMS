@@ -1,20 +1,10 @@
 ﻿var FormHandler = function () {
 
     this.init = function () {
-        initView();
         initValidators();
         initSelectpickerHandler();
         initSubmitSaveHandler();
     }
-
-    var initView = function () {
-        var $inputYear = $("#publicationyear");
-        var currentYear = new Date().getFullYear();
-
-        $inputYear.attr("max", currentYear);
-        $inputYear.attr("min", 0);
-    }
-
     var initSelectpickerHandler = function () {
         var selectpickers = $(".lms-selectpicker");
 
@@ -75,43 +65,109 @@
         return url;
     }
 
-    var initValidators = function () {
+    var initBaseFormValidator = function () {
+        var $formUpload = $("#UploadEBookForm");
+        if ($formUpload.length != 0) {
 
-        var $formUpload = $("form#UploadEBookForm");
-
-        $formUpload.validate({
-            rules: {
-                File: "required"
-            },
-            messages: {
-                File: "Chosing file is required!"
-            }
-        });
-
-
-        var $formSave = $("form#SaveEBookForm");
-
-        $formUpload.validate({
-            rules: {
-                Title: "required",
-                Author: "required",
-                PublicationYear: "required",
-                Keywords: "required",
-                CategoryId: "required",
-                LanguageId: "required"
-            },
-            messages: {
-                Title: "Title is required!",
-                Author: "Author is required!",
-                PublicationYear: "Year is required!",
-                Keywords: "At least one keyword is required!",
-                CategoryId: "Category is required!",
-                LanguageId: "Language is required!"
-            }
-        });
+            $formUpload.validate({
+                rules: {
+                    File: "required"
+                },
+                messages: {
+                    File: "Chosing file is required!"
+                }
+            });
+        }
     }
 
-    var initSubmitSaveHandler = function () {
-        
+    var initMainFormValidator = function () {
+        var $formSave = $("#SaveEBookForm1");
+        if ($formSave.length != 0) {
+            
+            $formSave.validate({
+                rules: {
+                    Title: "required",
+                    Author: "required",
+                    PublicationYear: {
+                        required: true,
+                        yearIsValid: true
+                    },
+                    Keywords: {
+                        required: true,
+                        regex: "^[0-9a-zA-Z]+(,[0-9a-zA-Z]+)*$"
+                    },
+                    CategoryId: "required",
+                    LanguageId: {
+                        required: true,
+                        serbianIsChosen: true
+                    }
+                },
+                messages: {
+                    Title: "Title is required!",
+                    Author: "Author is required!",
+                    PublicationYear: {
+                        required: "Year is required!",
+                        yearIsValid: "Publication year is not valid!"
+                    },
+                    Keywords: {
+                        required: "At least one keyword is required!",
+                        regex: "Wrong format for keywords"
+                    },
+                    CategoryId: "Category is required!",
+                    LanguageId: {
+                        required: "Language is required!",
+                        serbianIsChosen: "Currently is only available adding e-books on Serbian lanugage!"
+                    }
+                }
+            });
+        }
+    }
+
+    var initValidators = function () {
+        initBaseFormValidator();
+        initMainFormValidator();
+    }
+
+    var getFormData = function () {
+        var $form = $("#SaveEBookForm1");
+        var ebook = new Object();
+
+        ebook["Filename"] = $form.find("input#filename").val();
+        ebook["Title"] = $form.find("input#title").val();
+        ebook["Author"] = $form.find("input#author").val();
+        ebook["PublicationYear"] = $form.find("input#publicationyear").val();
+        ebook["Keywords"] = $form.find("input#keywords").val();
+        ebook["CategoryId"] = $form.find("select#categoryid").val();
+        ebook["LanguageId"] = $form.find("select#languageid").val();
+
+        return ebook;
+    }
+
+    var initSubmitSaveHandler = function () {        
+        var $saveBtn = $(".SubmitEBookSave");
+        var $form = $("form#SaveEBookForm1");
+
+        $saveBtn.on("click", function (e) {
+            e.preventDefault();
+
+            if ($form.valid()) {
+                var formData = getFormData();
+                var url = $form.attr("action");
+                console.log(formData);
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: JSON.stringify(formData),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",                    
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        toastr.error('Error authenitication user!  Status = ' + xhr.status);
+                    }
+                });
+            }
+        });
     }
 }

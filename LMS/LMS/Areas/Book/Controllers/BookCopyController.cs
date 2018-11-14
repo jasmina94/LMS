@@ -1,7 +1,9 @@
 ﻿using LMS.BusinessLogic.BookManagement.Interfaces;
 using LMS.BusinessLogic.BookManagement.Model;
 using LMS.Infrastructure.ActionFilters;
+using LMS.Infrastructure.Authorization;
 using LMS.Infrastructure.Authorization.Attributes;
+using LMS.Infrastructure.Helpers;
 using LMS.Models.ViewModels.Book;
 using LMS.Models.ViewModels.Relation;
 using System.Web.Mvc;
@@ -39,13 +41,16 @@ namespace LMS.Areas.Book.Controllers
         [IsAuthenticated]
         public ActionResult Save(BookCopyViewModel viewModel)
         {
+            UserSessionObject user = Session.GetUser();
             JsonResult response = (JsonResult)RouteData.Values["validation"];
             ValidationResponse validation = (ValidationResponse)response.Data;
+
             if (validation.Success)
             {
                 viewModel.Id = 0;
                 viewModel.Available = true;
-                SaveBookResult result = BookService.Save(viewModel);
+
+                SaveBookResult result = BookService.Save(viewModel, user);
                 response.Data = result;
             }
 
@@ -65,12 +70,13 @@ namespace LMS.Areas.Book.Controllers
         [IsAuthenticated]
         public ActionResult Borrow(RelationUserBookCopyViewModel viewModel)
         {
+            UserSessionObject user = Session.GetUser();
             JsonResult response = (JsonResult)RouteData.Values["validation"];
             ValidationResponse validation = (ValidationResponse)response.Data;
             if (validation.Success)
             {
                 viewModel.Id = 0;
-                BorrowResult result = LoanService.BorrowBook(viewModel);
+                BorrowResult result = LoanService.BorrowBook(viewModel, user);
                 response.Data = result;
             }
 
@@ -80,7 +86,7 @@ namespace LMS.Areas.Book.Controllers
         [IsAuthenticated]
         public ActionResult Restore(int id)
         {
-            var result = LoanService.ReturnBook(id);
+            var result = LoanService.ReturnBook(id, Session.GetUser());
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -88,7 +94,8 @@ namespace LMS.Areas.Book.Controllers
         [IsAuthenticated]
         public ActionResult Delete(int id)
         {
-            DeleteBookResult result = BookService.DeleteCopy(id);
+            UserSessionObject user = Session.GetUser();
+            DeleteBookResult result = BookService.DeleteCopy(id, user);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

@@ -252,8 +252,9 @@
     <Compile Include="BusinessLogic\CategoryManagement\Interfaces\ICategoryService.cs" />
     <Compile Include="BusinessLogic\CategoryManagement\Model\DeleteCategoryResult.cs" />
     <Compile Include="BusinessLogic\CategoryManagement\Model\SaveCategoryResult.cs" />
-    <Compile Include="BusinessLogic\BookManagement\Implementation\ElectronicBookServiceImpl.cs" />
-    <Compile Include="BusinessLogic\BookManagement\Interfaces\IElectronicBookService.cs" />
+    <Compile Include="BusinessLogic\BookManagement\Implementation\EBookServiceImpl.cs" />
+    <Compile Include="BusinessLogic\BookManagement\Interfaces\IEBookService.cs" />
+    <Compile Include="BusinessLogic\BookManagement\Model\SaveEBookResult.cs" />
     <Compile Include="BusinessLogic\LanguageManagement\Implementations\LanguageServiceImpl.cs" />
     <Compile Include="BusinessLogic\LanguageManagement\Interfaces\ILanguageService.cs" />
     <Compile Include="BusinessLogic\LanguageManagement\Model\DeleteLanguageResult.cs" />
@@ -367,6 +368,7 @@
     <Compile Include="Models\ViewModels\Account\PasswordChangeViewModel.cs" />
     <Compile Include="Models\ViewModels\Book\BookCopyViewModel.cs" />
     <Compile Include="Models\ViewModels\Book\BookViewModel.cs" />
+    <Compile Include="Models\ViewModels\Book\EBookSaveViewModel.cs" />
     <Compile Include="Models\ViewModels\Category\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Language\LanguageViewModel.cs" />
     <Compile Include="Models\ViewModels\Permission\PermissionViewModel.cs" />
@@ -658,8 +660,7 @@
     <Folder Include="Areas\Role\Models\" />
     <Folder Include="Areas\Role\Views\Role\" />
     <Folder Include="Areas\User\Models\" />
-    <Folder Include="BusinessLogic\EBookManagement\Implementation\" />
-    <Folder Include="BusinessLogic\EBookManagement\Interfaces\" />
+    <Folder Include="Index\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>

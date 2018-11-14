@@ -1,6 +1,5 @@
 ﻿@model LMS.Models.ViewModels.Book.BookViewModel
 @using LMS.Infrastructure.HtmlHelpers
-@using LMS.Infrastructure.HtmlHelpers.Utility
 
 @{ 
     bool showAll = Model.UploadSuccess;
@@ -27,24 +26,12 @@
             }
             else
             {
-                <form action="/EBook/EBook/Save" method="post" id="SaveEBookForm" class="form-horizontal">
-                    @Html.HiddenFor(model => model.Id)
-                    @Html.HiddenFor(model => model.IsActive)
-                    @Html.HiddenFor(model => model.UserCreatedById)
-                    @Html.HiddenFor(model => model.UserCreatedBy)
-                    @Html.HiddenFor(model => model.DateTimeCreatedOn)
-                    @Html.HiddenFor(model => model.UserDeletedById)
-                    @Html.HiddenFor(model => model.UserDeletedBy)
-                    @Html.HiddenFor(model => model.DateTimeDeletedOn)
-                    @Html.HiddenFor(model => model.NumOfAvailableCopies)
-                    @Html.HiddenFor(model => model.MIME)
-
+                <form action="/EBook/EBook/Create" method="post" id="SaveEBookForm1" class="form-horizontal">                 
                     @Html.SimpleFormInput(model => model.Filename, "Filename:", 
                         inputValue: Model.Filename, readOnly: true)
                     @Html.SimpleFormInput(model => model.Title, "Title:", inputValue: Model.Title)
                     @Html.SimpleFormInput(model => model.Author, "Author:", inputValue: Model.Author)
                     @Html.SimpleFormInput(model => model.PublicationYear, "Publication year:",
-                        inputType: FormInputType.NUMBER, specialInputClass: "SpecificInputType",
                         inputValue: Model.PublicationYear.ToString())
                     @Html.SimpleFormInput(model => model.Keywords, "Keywords:", 
                         divClass: "form-group KeywordsFormGroup", inputValue: Model.Keywords)
@@ -68,7 +55,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var handler = new FormHandler();
-        handler.initView();
-        handler.initSelectpickers();
+        handler.init();
     });
 </script>

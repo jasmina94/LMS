@@ -20,6 +20,9 @@ using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System;
+using LMS.IR.Handler;
+using LMS.IR.Indexer;
 
 namespace LMS
 {
@@ -51,6 +54,8 @@ namespace LMS
             RegisterAccessControlService();
             RegisterBusinessLogicLayer();
             RegisterChatHub();
+            RegisterDocumentHandler();
+            RegisterIndexer();
 
             Container = builder.Build();
 
@@ -58,6 +63,22 @@ namespace LMS
             DependencyResolver.SetResolver(new AutofacDependencyResolver(Container));
 
             return Container;
+        }
+
+        private void RegisterDocumentHandler()
+        {
+            builder
+                .RegisterType<PDFHandler>()
+                .As<DocumentHandler>()
+                .SingleInstance();
+        }
+
+        private void RegisterIndexer()
+        {
+            builder
+                .RegisterType<EBookIndexer>()
+                .As<IEBookIndexer>()
+                .SingleInstance();
         }
 
         private void RegisterControllers()

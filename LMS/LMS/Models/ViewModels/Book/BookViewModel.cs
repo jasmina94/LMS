@@ -1,4 +1,5 @@
 ﻿using LMS.Infrastructure.Attributes.Implementation;
+using LMS.Infrastructure.Authorization;
 using LMS.Infrastructure.Validation;
 
 namespace LMS.Models.ViewModels.Book
@@ -53,6 +54,26 @@ namespace LMS.Models.ViewModels.Book
         public override string Validate(ILMSValidator validator)
         {
             return validator.InvokeValidation(this);
+        }
+
+        public BookViewModel()
+        {
+
+        }
+
+        public BookViewModel(EBookCreateViewModel ebookCreateViewModel, UserSessionObject user)
+        {
+            IsElectronic = true;
+            Title = ebookCreateViewModel.Title;
+            Author = ebookCreateViewModel.Author;
+            PublicationYear = ebookCreateViewModel.PublicationYear;
+            NumOfAvailableCopies = 0;
+            Filename = ebookCreateViewModel.Filename;
+            MIME = "application/pdf";
+            Keywords = ebookCreateViewModel.Keywords;
+            LanguageId = ebookCreateViewModel.LanguageId;
+            CategoryId = ebookCreateViewModel.CategoryId;
+            CataloguerId = user.UserId;
         }
     }
 }

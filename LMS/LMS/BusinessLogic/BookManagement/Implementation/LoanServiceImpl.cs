@@ -1,18 +1,19 @@
-﻿using System;
-using LMS.BusinessLogic.BookManagement.Interfaces;
+﻿using LMS.BusinessLogic.BookManagement.Interfaces;
 using LMS.BusinessLogic.BookManagement.Model;
-using LMS.Models.ViewModels.Relation;
+using LMS.BusinessLogic.UserManagement.Interfaces;
+using LMS.DomainModel.DomainObject;
+using LMS.DomainModel.DomainObject.Relation;
+using LMS.Infrastructure.ModelBuilders.Implementation.Relation.UserBookCopy;
+using LMS.Infrastructure.ModelConstructor.Interfaces;
 using LMS.DomainModel.Repository.Relation.Interfaces;
 using LMS.DomainModel.Repository.Book.Interfaces;
-using LMS.Infrastructure.ModelConstructor.Interfaces;
-using LMS.Services.Interfaces;
-using LMS.Infrastructure.ModelBuilders.Implementation.Relation.UserBookCopy;
-using LMS.DomainModel.DomainObject.Relation;
+using LMS.Infrastructure.Authorization;
+using LMS.Models.ViewModels.Relation;
 using LMS.Models.ViewModels.Book;
-using LMS.BusinessLogic.UserManagement.Interfaces;
 using System.Collections.Generic;
-using LMS.DomainModel.DomainObject;
+using LMS.Services.Interfaces;
 using System.Linq;
+using System;
 
 namespace LMS.BusinessLogic.BookManagement.Implementation
 {
@@ -50,7 +51,7 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
             return viewModel;
         }
 
-        public BorrowResult BorrowBook(RelationUserBookCopyViewModel viewModel)
+        public BorrowResult BorrowBook(RelationUserBookCopyViewModel viewModel, UserSessionObject user)
         {
             var result = new BorrowResult();
 
@@ -62,10 +63,13 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
             Constructor.ConstructDomainModelData(builder);
             RelationUserBookCopyData domainModel = builder.GetDataModel();
 
+            if(viewModel.Id == 0)
+                domainModel.RefUserCreatedBy = user.UserId;
+
             int loanId = RelationUserBookCopyRepository.SaveData(domainModel);
             if (loanId != 0)
             {
-                var saveResult = UpdateCopyAndBook(domainModel.BookCopyId);
+                var saveResult = UpdateCopyAndBook(domainModel.BookCopyId, user);
                 if (saveResult.Success)
                 {
                     string username = UserService.Get(domainModel.UserId).Username;
@@ -76,20 +80,21 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
             return result;
         }
 
-        private SaveBookResult UpdateCopyAndBook(int copyId)
+        private SaveBookResult UpdateCopyAndBook(int copyId, UserSessionObject user)
         {
             var result = new SaveBookResult();
+
             BookCopyViewModel bookCopyData = BookService.GetCopy(copyId);
             bookCopyData.Available = false;
 
-            result = BookService.SaveOnly(bookCopyData);
+            result = BookService.SaveOnly(bookCopyData, user);
 
             if (result.Success)
             {
                 BookViewModel bookData = BookService.Get(bookCopyData.BookId);
                 bookData.NumOfAvailableCopies = bookData.NumOfAvailableCopies - 1;
 
-                result = BookService.Save(bookData);
+                result = BookService.Save(bookData, user);
             }
 
             return result;
@@ -139,16 +144,18 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
             return viewModels;
         }
 
-        public BorrowResult ReturnBook(int loandId)
+        public BorrowResult ReturnBook(int loandId, UserSessionObject user)
         {
             var result = new BorrowResult();
-
             RelationUserBookCopyData loanData = RelationUserBookCopyRepository.GetDataById(loandId);
+
             if(loanData != null)
             {
                 loanData.DateReturned = DateTime.Now;
                 loanData.DateTimeDeletedOn = DateTime.Now;
-                loanData.IsActive = false;             
+                loanData.RefUserDeletedBy = user.UserId;
+                loanData.IsActive = false;
+                      
                 BookCopyData bookCopy = BookCopyRepository.GetDataById(loanData.BookCopyId);             
                 if(bookCopy != null)
                 {
@@ -181,6 +188,5 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
 
             return result;
         }
-
     }
 }

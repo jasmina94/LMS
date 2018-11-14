@@ -255,5 +255,10 @@ a.ActiveSidebarItem {
 /*Error tooltip*/
 div#errorfile{
     margin-top: -30px;
-    margin-left: 390px;
+    margin-left: 650px;
+}
+div#errorcategoryid,
+div#errorlanguageId{
+    margin-top: -30px;
+    margin-left: 280px;
 }

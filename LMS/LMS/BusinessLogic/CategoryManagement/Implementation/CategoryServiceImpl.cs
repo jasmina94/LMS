@@ -1,17 +1,19 @@
-﻿using LMS.BusinessLogic.CategoryManagement.Interfaces;
-using LMS.BusinessLogic.CategoryManagement.Model;
-using LMS.Models.ViewModels.Category;
-using LMS.DomainModel.Repository.Book.Interfaces;
-using LMS.Infrastructure.ModelConstructor.Interfaces;
-using LMS.Services.Interfaces;
+﻿using LMS.Services.Interfaces;
 using System.Collections.Generic;
 using LMS.DomainModel.DomainObject;
+using LMS.Models.ViewModels.Category;
+using LMS.Infrastructure.Authorization;
+using LMS.DomainModel.Repository.Book.Interfaces;
+using LMS.BusinessLogic.CategoryManagement.Model;
+using LMS.Infrastructure.ModelConstructor.Interfaces;
+using LMS.BusinessLogic.CategoryManagement.Interfaces;
 using LMS.Infrastructure.ModelBuilders.Implementation.Category;
 
 namespace LMS.BusinessLogic.CategoryManagement.Implementation
 {
     public class CategoryServiceImpl : ICategoryService
     {
+        #region Injected properties
         public ICategoryRepository CategoryRepository { get; set; }
 
         public IBookRepository BookRepository { get; set; }
@@ -19,6 +21,8 @@ namespace LMS.BusinessLogic.CategoryManagement.Implementation
         public IModelConstructor Constructor { get; set; }
 
         public IBuilderResolverService BuilderResolverService { get; set; }
+
+        #endregion
 
         public CategoryViewModel Get(int? categoryId)
         {
@@ -59,7 +63,7 @@ namespace LMS.BusinessLogic.CategoryManagement.Implementation
             return viewModels;
         }
 
-        public SaveCategoryResult Save(CategoryViewModel viewModel)
+        public SaveCategoryResult Save(CategoryViewModel viewModel, UserSessionObject user)
         {
             var result = new SaveCategoryResult();
 
@@ -67,16 +71,17 @@ namespace LMS.BusinessLogic.CategoryManagement.Implementation
             Constructor.ConstructDomainModelData(builder);
             CategoryData domainModel = builder.GetDataModel();
 
+            if (viewModel.Id == 0)
+                domainModel.RefUserCreatedBy = user.UserId;            
+
             int id = CategoryRepository.SaveData(domainModel);
             if(id != 0)
-            {
                 result = new SaveCategoryResult(id, domainModel.NameCategory);
-            }
 
             return result;
         }
 
-        public DeleteCategoryResult Delete(int? categoryId)
+        public DeleteCategoryResult Delete(int? categoryId, UserSessionObject user)
         {
             var result = new DeleteCategoryResult();
             if (categoryId.HasValue)
@@ -86,7 +91,7 @@ namespace LMS.BusinessLogic.CategoryManagement.Implementation
                     CategoryData domainModel = CategoryRepository.GetDataById(categoryId.Value);
                     if (domainModel != null)
                     {
-                        CategoryRepository.DeleteById(categoryId.Value);
+                        CategoryRepository.DeleteById(categoryId.Value, user.UserId);
                         result = new DeleteCategoryResult(categoryId.Value, domainModel.NameCategory);
                     }
                 }

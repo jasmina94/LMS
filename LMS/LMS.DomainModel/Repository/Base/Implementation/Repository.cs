@@ -101,16 +101,16 @@ namespace LMS.DomainModel.Repository.Base.Implementation
             DataSource.ExecuteNonQueryInTransaction(sqlCommand, sqlTransaction);
         }
 
-        public void DeleteById(int id)
+        public void DeleteById(int id, int userId)
         {
-            SqlCommand sqlCommand = CreateSqlCommandDeleteById(id);
+            SqlCommand sqlCommand = CreateSqlCommandDeleteById(id, userId);
 
             DataSource.ExecuteNonQuery(sqlCommand);
         }
 
-        public void DeleteByIdInTransaction(int id, SqlTransaction sqlTransaction)
+        public void DeleteByIdInTransaction(int id, int userId, SqlTransaction sqlTransaction)
         {
-            SqlCommand sqlCommand = CreateSqlCommandDeleteById(id);
+            SqlCommand sqlCommand = CreateSqlCommandDeleteById(id, userId);
 
             DataSource.ExecuteNonQueryInTransaction(sqlCommand, sqlTransaction);
         }

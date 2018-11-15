@@ -393,6 +393,11 @@
     <Content Include="Resources\Images\category.png" />
     <Content Include="Resources\Images\chat.png" />
     <Content Include="Resources\Images\confirm.png" />
+    <Content Include="Resources\Images\data-tables\sort_asc.png" />
+    <Content Include="Resources\Images\data-tables\sort_asc_disabled.png" />
+    <Content Include="Resources\Images\data-tables\sort_both.png" />
+    <Content Include="Resources\Images\data-tables\sort_desc.png" />
+    <Content Include="Resources\Images\data-tables\sort_desc_disabled.png" />
     <Content Include="Resources\Images\delete.png" />
     <Content Include="Resources\Images\delete_trash.png" />
     <Content Include="Resources\Images\ebook_photo.jpg" />
@@ -414,6 +419,7 @@
     <Content Include="Resources\Scripts\bootstrap-datetimepicker\moment.js" />
     <Content Include="Resources\Scripts\css-element-queries\ElementQueries.js" />
     <Content Include="Resources\Scripts\css-element-queries\ResizeSensor.js" />
+    <Content Include="Resources\Scripts\data-tables\datatables.min.js" />
     <Content Include="Resources\Scripts\dialogs\BaseDialog.js" />
     <Content Include="Resources\Scripts\dialogs\Book\Book.js" />
     <Content Include="Resources\Scripts\dialogs\Book\BookCopy.js" />
@@ -510,6 +516,7 @@
     <Content Include="Resources\Styles\bootstrap\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Resources\Styles\chat\Chat.css" />
+    <Content Include="Resources\Styles\data-tables\datatables.css" />
     <Content Include="Resources\Styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Resources\Styles\jqueryUI\base\accordion.css" />

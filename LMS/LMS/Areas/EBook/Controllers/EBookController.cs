@@ -1,11 +1,11 @@
-﻿using LMS.BusinessLogic.BookManagement.Interfaces;
+﻿using LMS.Infrastructure.Authorization.Attributes;
+using LMS.BusinessLogic.BookManagement.Interfaces;
 using LMS.BusinessLogic.BookManagement.Model;
 using LMS.Infrastructure.Authorization;
-using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Infrastructure.Helpers;
 using LMS.Models.ViewModels.Book;
-using System;
 using System.Collections.Generic;
+using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
@@ -85,7 +85,19 @@ namespace LMS.Areas.EBook.Controllers
                 };
             }
 
-            return Json(new { data = result });
+            return Json(result);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            UserSessionObject user = Session.GetUser();
+            BookViewModel book = EBookService.Get(id);
+
+            var relativePath = "~/UploadedFiles/" + book.Filename;
+            var absolutePath = HttpContext.Server.MapPath(relativePath);
+
+            bool result = EBookService.Delete(id, absolutePath, user.UserId);
+            return Json(new { Success = true });
         }
     }
 }

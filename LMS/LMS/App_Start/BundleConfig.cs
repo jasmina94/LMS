@@ -45,6 +45,9 @@ namespace LMS
             bundles.Add(new ScriptBundle("~/bundles/css").Include(
                    "~/Resources/Scripts/css-element-queries/ElementQueries.js",
                    "~/Resources/Scripts/ResizeSensor.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                "~/Resources/Scripts/data-tables/datatables.min.js"));
         }
 
         private static void RegisterCustomScripts(BundleCollection bundles)
@@ -107,6 +110,9 @@ namespace LMS
                       "~/Resources/Styles/chat/Chat.css",
                       "~/Resources/Styles/lms-grid/LMSGrid.css",
                       "~/Resources/Styles/lms-ribbon/LMSRibbon.css"));
+
+            bundles.Add(new StyleBundle("~/datatables/css").Include(
+                   "~/Resources/Styles/data-tables/datatables.css"));
         }
     }
 }

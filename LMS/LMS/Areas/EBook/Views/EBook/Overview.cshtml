@@ -5,9 +5,8 @@
     bool hasPermissionToSearch = true;
 }
 
-<div class="col-md-8 col-md-offset-2" style="height:500px;">
-
-    <div style="display:inline-block; padding:10px;">
+<div class="col-md-10 col-md-offset-1" style="height:600px;">
+    <div class="lms-overview-button-set">
         @if (hasPermissionToAdd)
         {
             <a class="btn btn-success lms-add-new-ebook-btn" href="/EBook/EBook/ViewForm">Add new e-book</a> 
@@ -23,7 +22,7 @@
     <div>
         @if (Model.Count() != 0)
         {
-            <table>
+            <table class="display lms-ebook-table" style="width:100%">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -38,7 +37,7 @@
                 <tbody>
                     @foreach (var ebook in Model)
                 {
-                        <tr>
+                        <tr id="@ebook.Id">
                             <td>@ebook.Title</td>
                             <td>@ebook.Author</td>
                             <td>@ebook.PublicationYear</td>
@@ -55,10 +54,66 @@
         }
         else
         {
-            <p style="padding:10px;font-size:18px;">Currently there are no active e-books.</p>
-            <p style="padding:5px;font-size:12px;">You can check if book you want to read is available for borrowing.</p>
+            <p class="lms-main-message-no-ebooks">Currently there are no active e-books.</p>
+            <p class="lms-sub-message-no-ebooks">You can check if book you want to read is available for borrowing.</p>
             <img src="~/Resources/Images/info3.jpg"/>
         }
     </div>
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var table = $(".lms-ebook-table").DataTable({
+            "pagingType": "full_numbers",
+            "scrollY": "50vh",
+            "scrollCollapse": true,
+        });
+
+        var $deleteBtn = $(".lms-ebook-delete-btn");
+
+        $(".lms-ebook-table tbody").on("click", "tr", function () {
+            if ($(this).hasClass("selected")) {
+                $(this).removeClass("selected");
+            }
+            else {
+                table.$("tr.selected").removeClass("selected");
+                $(this).addClass("selected");
+            }
+        });
+
+        $deleteBtn.on("click", function (e) {
+            e.preventDefault();
+
+            var $nearestRow = $(this).closest("tr");
+            if (!$nearestRow.hasClass("selected")) {
+                $nearestRow.addClass("selected");
+            }
+
+            var ebookId = $(this).attr("id");
+            if (confirm("Do you want to delete selected e-book? [Id: " + ebookId + "]")) {
+                $.ajax({
+                    url: "/EBook/EBook/Delete/" + ebookId,
+                    type: "GET",
+                    success: function (data) {
+                        if (data.Success) {
+                            toastr.success(data.Message);
+                            window.setTimeout(function () {
+                                location.reload();
+                            }, 2800);
+                            location.reload();
+                        } else {
+                            toastr.error(data.Message);
+                        }                        
+                    },
+                    error: function (XMLHtppRequest, textStatus, errorThrown) {
+                        toastr.error("Error making AJAX call: " +
+                            XMLHttpRequest.statusText + " (" + XMLHttpRequest.status + ")");
+                    }
+                });
+            } else {
+                $nearestRow.removeClass("selected");
+            }
+        });
+    });
+</script>

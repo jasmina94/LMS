@@ -24,7 +24,7 @@ $(function () {
     var $changePasswordLink = $("a#ChangePassword");
     var $profileInfoForm = $("#ProfileInfoForm");
     var $logoutLink = $(".lms-logout-link");
-    var $profileSidebarItems = $(".ProfileSidebarItem");
+    var $profileSidebarItems = $(".ProfileSidebarItem");    
 
     var setRegularSidebar = function () {
         var $sidebar = $("ul.sidebar");

@@ -262,3 +262,31 @@ div#errorlanguageId{
     margin-top: -30px;
     margin-left: 280px;
 }
+
+/*EBook*/
+.lms-add-new-ebook-btn{
+    margin-right:10px;
+}
+
+.lms-overview-button-set{
+    display:inline-block; 
+    padding-bottom:20px;
+}
+
+.lms-ebook-table{
+   
+}
+
+.lms-ebook-delete-btn{
+    cursor:pointer;
+}
+
+.lms-main-message-no-ebooks{
+    padding:10px;
+    font-size:18px;
+}
+
+.lms-sub-message-no-ebooks{
+    padding:5px;
+    font-size:12px;
+}

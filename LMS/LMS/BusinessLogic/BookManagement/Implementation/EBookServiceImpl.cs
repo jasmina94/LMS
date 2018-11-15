@@ -14,6 +14,7 @@ using LMS.DomainModel.Repository.Book.Interfaces;
 using LMS.BusinessLogic.BookManagement.Interfaces;
 using LMS.Infrastructure.ModelConstructor.Interfaces;
 using LMS.Infrastructure.ModelBuilders.Implementation.Book;
+using System.Web;
 
 namespace LMS.BusinessLogic.BookManagement.Implementation
 {
@@ -125,6 +126,50 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
             catch(Exception e)
             {
                 success = false;
+            }
+
+            return success;
+        }
+
+        public bool Delete(int bookId, string path, int userId)
+        {
+            bool success = false;
+            BookData book = BookRepository.GetDataById(bookId);
+            if (book != null && DeleteEBookIndex(book, path) && DeleteFile(path))
+            {
+                BookRepository.DeleteById(bookId, userId);
+                success = true;
+            }
+
+            return success;
+        }
+
+        private bool DeleteEBookIndex(BookData book, string path)
+        {
+            bool success = false;
+
+            Document document;
+            try
+            {
+                document = DocumentHandler.GetDocument(book, path);
+                EBookIndexer.Delete(document);
+                success = true;
+            }
+            catch (Exception e)
+            {
+                success = false;
+            }
+
+            return success;
+        }
+
+        private bool DeleteFile(string filePath)
+        {
+            bool success = false;
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+                success = true;
             }
 
             return success;

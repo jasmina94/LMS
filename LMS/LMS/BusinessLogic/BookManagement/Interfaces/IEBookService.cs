@@ -14,5 +14,7 @@ namespace LMS.BusinessLogic.BookManagement.Interfaces
         BookViewModel LoadBaseFromFile(string filePath, string fileName);
 
         SaveEBookResult SaveAndIndex(EBookCreateViewModel viewModel, string fullPath, UserSessionObject user);
+
+        bool Delete(int bookId, string path, int userId);
     }
 }

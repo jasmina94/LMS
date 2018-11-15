@@ -153,7 +153,6 @@
             if ($form.valid()) {
                 var formData = getFormData();
                 var url = $form.attr("action");
-                console.log(formData);
                 $.ajax({
                     url: url,
                     method: "POST",
@@ -161,7 +160,15 @@
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",                    
                     success: function (data) {
-                        console.log(data);
+                        if (data.Success) {
+                            var newLocation = location.origin + "/EBook/EBook/ViewOverview";                            
+                            toastr.success(data.Message);
+                            window.setTimeout(function () {
+                               window.location = newLocation
+                            }, 2800);
+                        } else {
+                            toastr.error(data.Message);
+                        }
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         toastr.error('Error authenitication user!  Status = ' + xhr.status);

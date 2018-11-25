@@ -98,7 +98,7 @@ namespace LMS.DomainModel.Repository.Base.Implementation
 
             sqlCommand.Parameters.AddWithValue("@IsActive", false.ToDBFromBool());
             sqlCommand.Parameters.AddWithValue("@DateTimeDeletedOn", DateTime.Now);
-            sqlCommand.Parameters.AddWithValue("@DateTimeDeletedOn", userId);
+            sqlCommand.Parameters.AddWithValue("@RefUserDeletedBy", userId);
             sqlCommand.Parameters.AddWithValue("@Id", id);
 
             return sqlCommand;

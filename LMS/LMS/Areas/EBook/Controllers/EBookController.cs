@@ -97,7 +97,8 @@ namespace LMS.Areas.EBook.Controllers
             var absolutePath = HttpContext.Server.MapPath(relativePath);
 
             bool result = EBookService.Delete(id, absolutePath, user.UserId);
-            return Json(new { Success = true });
+
+            return Json(new { Success = result }, JsonRequestBehavior.AllowGet);
         }
     }
 }

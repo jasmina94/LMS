@@ -19,7 +19,8 @@ namespace LMS
                         "~/Resources/Scripts/jquery/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Resources/Scripts/jquery/jquery.validate*"));
+                        "~/Resources/Scripts/jquery/jquery.validate*",
+                        "~/Resources/Scripts/jquery/additional-methods.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Resources/Scripts/modernizr-*"));

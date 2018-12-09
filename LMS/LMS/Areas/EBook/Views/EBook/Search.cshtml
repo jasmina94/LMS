@@ -1,67 +1,128 @@
-﻿<div class="col-md-10 col-md-offset-1">
-  <div class="panel panel-default">
-      <div class="panel-heading">
-          <h4>Search e-book repository</h4>
-      </div>
-      <div class="panel-body">
-          <form name="sfsForm" class="form-inline">
-              <h4>Single field search</h4>
-              <div class="form-group" style="padding-right:20px;">
-                  <label for="sfsFieldName">Field name you want to search e-book by:</label>
-                  <select class="form-control" id="sfsFieldName">
-                      <option id="title">Title</option>
-                      <option id="author">Author</option>
-                      <option id="keyword">Keyword</option>
-                      <option id="content">Content</option>
-                      <option id="language">Language</option>
-                  </select>
-              </div>
-              <div class="form-group" style="padding-right:20px;">
-                  <label for="sfsFieldValue">Value you're looking for:</label>
-                  <input class="form-control" type="text" id="sfsFieldValue">
-              </div>
-              <button type="submit" class="btn btn-primary" style="margin-top:23px;width:200px">Search</button>
-          </form>
-          <hr/>
-          <form name="mfsForm" class="form-inline">
-              <h4>Multiple field search <i>(can search by multiple parameters by filling fields)</i></h4>
-              <div class="form-group" style="padding-right:20px;padding-top:10px;">
-                  <label for="mfsTitle">Title:</label>
-                  <input class="form-control" type="text" id="mfsTitle">
-              </div>
-              <div class="form-group" style="padding-right:20px;padding-top:10px;">
-                  <label for="mfsAuthor">Author:</label>
-                  <input class="form-control" type="text" id="mfsAuthor">
-              </div>
-              <div class="form-group" style="padding-right:20px;padding-top:10px;">
-                  <label for="mfsKeywords">Keywords:</label>
-                  <input class="form-control" type="text" id="mfsKeywords">
-              </div>
-              <div class="form-group" style="padding-right:20px;padding-top:10px;">
-                  <label for="mfsContent">Content:</label>
-                  <input class="form-control" type="text" id="mfsContent">
-              </div>
-              <div class="form-group" style="padding-right:20px;padding-top:20px;">
-                  <label for="mfsLanguage">Language:</label>
-                  <input class="form-control" type="text" id="mfsLanguage">
-              </div>
-              <div class="form-group" style="padding-right:20px;padding-top:20px;">
-                  <label for="mfsQueryOperator">Query operator:</label>
-                  <select class="form-control" id="mfsQueryOperator">
-                      <option id="OR">Or</option>
-                      <option id="AND">And</option>
-                  </select>
-              </div>
-              <div class="form-group" style="padding-right:20px;padding-top:20px;">
-                  <label for="mfsQueryType">Query type:</label>
-                  <select class="form-control" id="mfsQueryType">
-                      <option id="STANDARD">Standard</option>
-                      <option id="PHRASE">Phrase</option>
-                      <option id="FUZZY">Fuzzy</option>
-                  </select>
-              </div>
-              <button type="submit" class="btn btn-success" style="margin-top:43px;width:200px">Search</button>
-          </form>       
-      </div>
-  </div>
+﻿@model LMS.Models.ViewModels.Search.SearchViewModel
+
+
+<div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Search e-book repository</h4>
+        </div>
+        <div class="panel-body">
+            <form name="sfsForm" class="form-inline lms-sfs-form" action="/EBook/EBook/SearchSingle">
+                <h4>Single field search</h4>
+                <div class="form-group" style="padding-right:20px;width:300px;">
+                    <label for="sfsFieldName">Field name you want to search e-book by:</label>
+                    <select class="form-control" id="sfsFieldName" name="FieldName" style="width:100%;">
+                        <option id="title">Title</option>
+                        <option id="author">Author</option>
+                        <option id="keyword">Keyword</option>
+                        <option id="content">Content</option>
+                        <option id="language">Language</option>
+                    </select>
+                </div>
+                <div class="form-group" style="padding-right:20px;">
+                    <label for="sfsFieldValue">Value you're looking for:</label>
+                    <input class="form-control" type="text" id="sfsFieldValue" 
+                           value="@Model.SFSFilter.FieldValue" name="FieldValue">
+                </div>
+                <div class="form-group" style="padding-right:20px;">
+                    <label for="sfsQueryType">Query type:</label>
+                    <select class="form-control" id="sfsQueryType" name="QueryType">
+                        <option value="STANDARD">Standard</option>
+                        <option value="PHRASE">Phrase</option>
+                        <option value="FUZZY">Fuzzy</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary lms-sfs-search-btn" 
+                        style="margin-top:23px;width:200px">Search</button>
+            </form>
+            <hr />
+            <form name="mfsForm" class="form-inline lms-mfs-form">
+                <h4>Multiple field search <i>(can search by multiple parameters by filling fields)</i></h4>
+                <div class="form-group" style="padding-right:20px;padding-top:10px;">
+                    <label for="mfsTitle">Title:</label>
+                    <input class="form-control mfsGroup" type="text" id="mfsTitle" name="Title">
+                </div>
+                <div class="form-group" style="padding-right:20px;padding-top:10px;">
+                    <label for="mfsAuthor">Author:</label>
+                    <input class="form-control mfsGroup" type="text" id="mfsAuthor" name="Author">
+                </div>
+                <div class="form-group" style="padding-right:20px;padding-top:10px;">
+                    <label for="mfsKeywords">Keywords:</label>
+                    <input class="form-control mfsGroup" type="text" id="mfsKeywords" name="Keywords">
+                </div>
+                <div class="form-group" style="padding-right:20px;padding-top:10px;">
+                    <label for="mfsContent">Content:</label>
+                    <input class="form-control mfsGroup" type="text" id="mfsContent" name="Content">
+                </div>
+                <div class="form-group" style="padding-right:20px;padding-top:20px;">
+                    <label for="mfsLanguage">Language:</label>
+                    <input class="form-control mfsGroup" type="text" id="mfsLanguage" 
+                           readonly="readonly" value="Serbian">
+                </div>
+                <div class="form-group" style="padding-right:20px;padding-top:20px;">
+                    <label for="mfsQueryOperator">Query operator:</label>
+                    <select class="form-control" id="mfsQueryOperator">
+                        <option id="OR">Or</option>
+                        <option id="AND">And</option>
+                    </select>
+                </div>
+                <div class="form-group" style="padding-right:20px;padding-top:20px;">
+                    <label for="mfsQueryType">Query type:</label>
+                    <select class="form-control" id="mfsQueryType">
+                        <option id="STANDARD">Standard</option>
+                        <option id="PHRASE">Phrase</option>
+                        <option id="FUZZY">Fuzzy</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success lms-mfs-search-btn" 
+                        style="margin-top:43px;width:200px">Search</button>
+            </form>
+            @if (Model.IsSuccess)
+            {
+                <hr />
+                <table class="display lms-ebook-table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Publication year</th>
+                            <th>Language</th>
+                            <th>Category</th>
+                            <th>Keywords</th>
+                            <th>Delete</th>
+                            <th>Download</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ebook in Model.Result)
+                        {
+                            <tr id="@ebook.Id">
+                                <td>@ebook.Title</td>
+                                <td>@ebook.Author</td>
+                                <td>@ebook.Year</td>
+                                <td>@ebook.Language</td>
+                                <td>@ebook.Category</td>
+                                <td>@ebook.Keywords</td>
+                                <td id="@ebook.Id" class="lms-ebook-delete-btn">
+                                    <img src="~/Resources/Images/delete_trash.png" />
+                                </td>
+                                <td id="@ebook.Id|@ebook.Filename" class="lms-ebook-download-btn">
+                                    <img src="~/Resources/Images/download.png" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var selectedSingleField = '@Model.SFSFilter.FieldName';
+        var handler = new SearchHandler();
+        handler.init(selectedSingleField);
+    });
+</script>

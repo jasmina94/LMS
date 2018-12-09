@@ -363,11 +363,12 @@
     <Compile Include="IR\QueryLogic\QueryOperator.cs" />
     <Compile Include="IR\QueryLogic\QueryType.cs" />
     <Compile Include="IR\Retriever\DocumentRetriever.cs" />
-    <Compile Include="IR\Retriever\InformationRetreiver.cs" />
+    <Compile Include="IR\Retriever\InformationRetriever.cs" />
     <Compile Include="Models\ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\PasswordChangeViewModel.cs" />
     <Compile Include="Models\ViewModels\Book\BookCopyViewModel.cs" />
     <Compile Include="Models\ViewModels\Book\BookViewModel.cs" />
+    <Compile Include="Models\ViewModels\Book\CanDownloadViewModel.cs" />
     <Compile Include="Models\ViewModels\Book\EBookSaveViewModel.cs" />
     <Compile Include="Models\ViewModels\Category\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Language\LanguageViewModel.cs" />
@@ -377,6 +378,9 @@
     <Compile Include="Models\ViewModels\Relation\RelationUserPermissionViewModel.cs" />
     <Compile Include="Models\ViewModels\Relation\RelationUserRoleViewModel.cs" />
     <Compile Include="Models\ViewModels\Role\RoleViewModel.cs" />
+    <Compile Include="Models\ViewModels\Search\MultiFieldSearchViewModel.cs" />
+    <Compile Include="Models\ViewModels\Search\SearchViewModel.cs" />
+    <Compile Include="Models\ViewModels\Search\SingleFieldSearchViewModel.cs" />
     <Compile Include="Models\ViewModels\User\UserViewModel.cs" />
     <Compile Include="Models\ViewModels\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -399,7 +403,10 @@
     <Content Include="Resources\Images\data-tables\sort_desc.png" />
     <Content Include="Resources\Images\data-tables\sort_desc_disabled.png" />
     <Content Include="Resources\Images\delete.png" />
-    <Content Include="Resources\Images\delete_trash.png" />
+    <Content Include="Resources\Images\delete_trash.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\download.png" />
     <Content Include="Resources\Images\ebook_photo.jpg" />
     <Content Include="Resources\Images\edit.png" />
     <Content Include="Resources\Images\filter.png" />
@@ -438,6 +445,8 @@
     <Content Include="Resources\Scripts\dialogs\User\EditUser.js" />
     <Content Include="Resources\Scripts\dialogs\User\User.js" />
     <Content Include="Resources\Scripts\ebook\FormHandler.js" />
+    <Content Include="Resources\Scripts\ebook\SearchHandler.js" />
+    <Content Include="Resources\Scripts\jquery\additional-methods.js" />
     <Content Include="Resources\Scripts\jquery\jquery-ui-1.12.1.js" />
     <Content Include="Resources\Scripts\lms-grid\LMSGrid.js" />
     <Content Include="Resources\Scripts\lms-grid\LMSGridEnum.js" />

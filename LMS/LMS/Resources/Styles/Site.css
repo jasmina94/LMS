@@ -263,6 +263,23 @@ div#errorlanguageId{
     margin-left: 280px;
 }
 
+div#errorsfsFieldValue{
+    margin-top: -50px;
+    margin-left: 250px;
+}
+
+div#errormfsContent,
+div#errormfsAuthor,
+div#errormfsTitle{
+    margin-top: -50px;
+    margin-left: 130px;
+}
+
+div#errormfsKeywords{
+     margin-top: -50px;
+    margin-left: 150px;
+}
+
 /*EBook*/
 .lms-add-new-ebook-btn{
     margin-right:10px;
@@ -277,7 +294,7 @@ div#errorlanguageId{
    
 }
 
-.lms-ebook-delete-btn{
+.lms-ebook-delete-btn, .lms-ebook-download-btn{
     cursor:pointer;
 }
 

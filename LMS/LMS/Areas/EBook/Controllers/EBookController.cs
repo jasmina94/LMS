@@ -9,12 +9,17 @@ using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using LMS.Models.ViewModels.Search;
+using LMS.IR.Model;
+using LMS.BusinessLogic.UserManagement.Interfaces;
 
 namespace LMS.Areas.EBook.Controllers
 {
     public class EBookController : Controller
     {
         public IEBookService EBookService { get; set; }
+
+        public IUserService UserService { get; set; }
 
         public ActionResult ViewOverview()
         {
@@ -32,9 +37,15 @@ namespace LMS.Areas.EBook.Controllers
 
         public ActionResult ViewSearch()
         {
-            return View("Search");
-        }
+            var model = new SearchViewModel
+            {
+                SFSFilter = new SingleFieldSearchViewModel(),
+                MFSFilter = new MultiFieldSearchViewModel(),
+                Result = new List<ResultData>()
+            };
 
+            return View("Search", model);
+        }
 
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase file)
@@ -99,6 +110,48 @@ namespace LMS.Areas.EBook.Controllers
             bool result = EBookService.Delete(id, absolutePath, user.UserId);
 
             return Json(new { Success = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SearchSingle(SingleFieldSearchViewModel sfsViewModel)
+        {
+            List<ResultData> result = EBookService.Search(sfsViewModel);
+            var model = new SearchViewModel(sfsViewModel, result);
+
+            return View("Search", model);
+        }
+
+        [HttpPost]
+        public ActionResult MultiSingle(MultiFieldSearchViewModel mfsViewModel)
+        {
+            List<ResultData> result = EBookService.Search(mfsViewModel);
+            var model = new SearchViewModel(mfsViewModel, result);
+
+            return View("Search", model);
+        }
+
+        [HttpPost]
+        public ActionResult AllowDownload(CanDownloadViewModel viewModel)
+        {
+            bool allow = false;
+            int categoryId = EBookService.Get(viewModel.EBookId).CategoryId;
+            int subscribedCategoryId = UserService.Get(viewModel.UserId).CategoryId;
+            
+            if(categoryId == subscribedCategoryId)
+            {
+                allow = true;
+            }
+
+            return Json(allow);
+        }
+
+        [HttpGet]
+        public ActionResult Download(int id)
+        {
+            string filename = EBookService.Get(id).Filename;
+            string path = Path.Combine(Server.MapPath("~/UploadedFiles"), filename);
+
+            return File(path, "application/pdf", filename);
         }
     }
 }

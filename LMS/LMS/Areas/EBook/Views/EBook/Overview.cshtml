@@ -32,6 +32,7 @@
                         <th>Category</th>
                         <th>Keywords</th>
                         <th>Delete</th>
+                        <th>Download</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +47,9 @@
                             <td>@ebook.Keywords</td>
                             <td id="@ebook.Id" class="lms-ebook-delete-btn">
                                 <img src="~/Resources/Images/delete_trash.png" />
+                            </td>
+                            <td id="@ebook.Id|@ebook.Filename" class="lms-ebook-download-btn">
+                                <img src="~/Resources/Images/download.png"/>
                             </td>
                         </tr>
                     }
@@ -69,8 +73,7 @@
             "scrollY": "50vh",
             "scrollCollapse": true,
         });
-
-        var $deleteBtn = $(".lms-ebook-delete-btn");
+        
 
         $(".lms-ebook-table tbody").on("click", "tr", function () {
             if ($(this).hasClass("selected")) {
@@ -80,40 +83,6 @@
                 table.$("tr.selected").removeClass("selected");
                 $(this).addClass("selected");
             }
-        });
-
-        $deleteBtn.on("click", function (e) {
-            e.preventDefault();
-
-            var $nearestRow = $(this).closest("tr");
-            if (!$nearestRow.hasClass("selected")) {
-                $nearestRow.addClass("selected");
-            }
-
-            var ebookId = $(this).attr("id");
-            if (confirm("Do you want to delete selected e-book? [Id: " + ebookId + "]")) {
-                $.ajax({
-                    url: "/EBook/EBook/Delete/" + ebookId,
-                    type: "GET",
-                    success: function (data) {
-                        if (data.Success) {
-                            toastr.success(data.Message);
-                            window.setTimeout(function () {
-                                location.reload();
-                            }, 2800);
-                            location.reload();
-                        } else {
-                            toastr.error(data.Message);
-                        }                        
-                    },
-                    error: function (XMLHtppRequest, textStatus, errorThrown) {
-                        toastr.error("Error making AJAX call: " +
-                            XMLHttpRequest.statusText + " (" + XMLHttpRequest.status + ")");
-                    }
-                });
-            } else {
-                $nearestRow.removeClass("selected");
-            }
-        });
+        }); 
     });
 </script>

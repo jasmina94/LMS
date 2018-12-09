@@ -28,17 +28,21 @@ namespace LMS.IR.Analyzer
         {
             this.version = version;
         }
-        
+
+
         public override TokenStream TokenStream(string fieldName, TextReader reader)
         {
+
             Tokenizer tokenizer = new StandardTokenizer(version, reader);
-            TokenStream tokenStream = new Filter.LowerCaseFilter(tokenizer);
-            ISet<string> stopWordsSet = new HashSet<string>(STOP_WORDS);
-            
+            TokenStream tokenStream = new Filter.LowerCaseFilter(tokenizer);        
+
             tokenStream = new CyrillicToLatinFilter(tokenStream);
-            tokenStream = new StopFilter(true, tokenStream, stopWordsSet);
+            
+            tokenStream = new StopFilter(true, tokenStream, StopFilter.MakeStopSet(STOP_WORDS));
+
             //tokenStream = new SnowballFilter(tokenStream, new SerbianStemmer());
-            tokenStream = new ASCIIFoldingFilter(tokenStream);            
+
+            tokenStream = new ASCIIFoldingFilter(tokenStream);
 
             return tokenStream;
         }

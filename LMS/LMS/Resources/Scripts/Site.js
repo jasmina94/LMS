@@ -25,6 +25,39 @@ $(function () {
     var $profileInfoForm = $("#ProfileInfoForm");
     var $logoutLink = $(".lms-logout-link");
     var $profileSidebarItems = $(".ProfileSidebarItem");    
+    var $deleteEBookBtn = $(".lms-ebook-delete-btn");
+    var $downloadEBookBtn = $(".lms-ebook-download-btn");
+    
+    var canDownload = function (ebookId, user) {
+        var success = false
+        var currentUser = JSON.parse(user);
+        var roles = currentUser.Roles;
+        var userId = currentUser.UserId;
+
+        if (roles.includes("RoleAdmin") || roles.includes("RoleLibrarian")) {
+            success = true;
+        } else {
+            var postData = new Object();
+            postData["EBookId"] = parseInt(ebookId);
+            postData["UserId"] = userId;     
+            $.ajax({
+                url: "/EBook/EBook/AllowDownload",
+                type: "POST",
+                data: JSON.stringify(postData),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (data) {
+                    if (data) {
+                        success = true;
+                    } else {
+                        success = false;
+                    }
+                }
+            });
+        }
+        return success;
+    }
 
     var setRegularSidebar = function () {
         var $sidebar = $("ul.sidebar");
@@ -173,6 +206,59 @@ $(function () {
             case "chat":
                 var newLocation = location.origin + "/Chat/Chat";
                 location.href = newLocation;
+        }
+    });
+
+    $deleteEBookBtn.on("click", function (e) {
+        e.stopPropagation();
+        var $nearestRow = $(this).closest("tr");
+        if (!$nearestRow.hasClass("selected")) {
+            $nearestRow.addClass("selected");
+        }
+        var ebookId = $(this).attr("id");
+        if (confirm("Do you want to delete selected e-book? [Id: " + ebookId + "]")) {
+            $.ajax({
+                url: "/EBook/EBook/Delete/" + ebookId,
+                type: "GET",
+                success: function (data) {
+                    if (data.Success) {
+                        toastr.success(data.Message);
+                        window.setTimeout(function () {
+                            location.reload();
+                        }, 2800);
+                        location.reload();
+                    } else {
+                        toastr.error(data.Message);
+                    }                        
+                },
+                error: function (XMLHtppRequest, textStatus, errorThrown) {
+                    toastr.error("Error making AJAX call: " +
+                        XMLHttpRequest.statusText + " (" + XMLHttpRequest.status + ")");
+                }
+            });
+        } else {
+            $nearestRow.removeClass("selected");
+        }
+    });   
+
+    $downloadEBookBtn.on("click", function (e) {
+        e.stopPropagation();
+        var id = $(this).attr("id");
+        var ebookId = id.split("|")[0];
+        var ebookFilename = id.split("|")[1];
+        var currentUser = sessionStorage.getItem("current-user");
+
+        if (!currentUser) {
+            alert("You must be signed in to be able to download e-books!");
+        } else if (canDownload(ebookId, currentUser)) {
+            var aElement = document.createElement("a");
+            var fileUrl = "/EBook/EBook/Download/" + ebookId;
+
+            aElement.href = fileUrl;
+            aElement.download = ebookFilename;
+            aElement.click();
+        } else {
+            alert("You aren't able to download this e-book. It is in category you're not subscribed to.");
         }
     });
 });

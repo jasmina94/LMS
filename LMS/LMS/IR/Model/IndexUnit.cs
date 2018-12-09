@@ -34,14 +34,14 @@ namespace LMS.IR.Model
         {
             Document retVal = new Document();
 
-            retVal.Add(new Field("text", Text, Field.Store.YES, Field.Index.ANALYZED));
-            retVal.Add(new Field("title", Title, Field.Store.YES, Field.Index.ANALYZED));
+            retVal.Add(new Field("Text", Text, Field.Store.YES, Field.Index.ANALYZED));
+            retVal.Add(new Field("Title", Title, Field.Store.YES, Field.Index.ANALYZED));
             foreach (string keyword in Keywords)
             {
-                retVal.Add(new Field("keyword", keyword, Field.Store.YES, Field.Index.ANALYZED));
+                retVal.Add(new Field("Keyword", keyword, Field.Store.YES, Field.Index.ANALYZED));
             }
-            retVal.Add(new Field("filename", FileName, Field.Store.YES, Field.Index.ANALYZED));
-            retVal.Add(new Field("filedate", FileDate, Field.Store.YES, Field.Index.ANALYZED));
+            retVal.Add(new Field("Filename", FileName, Field.Store.YES, Field.Index.ANALYZED));
+            retVal.Add(new Field("Filedate", FileDate, Field.Store.YES, Field.Index.ANALYZED));
 
             return retVal;
         }

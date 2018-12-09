@@ -5,11 +5,11 @@ namespace LMS.IR.Filter
 {
     public class LowerCaseFilter : TokenFilter
     {
-        private TermAttribute termAttribute;
+        private ITermAttribute termAttribute;
 
         public LowerCaseFilter(TokenStream input) : base(input)
         {
-            termAttribute = input.AddAttribute<TermAttribute>();
+            termAttribute = input.AddAttribute<ITermAttribute>();
         }
 
         public override bool IncrementToken()
@@ -18,7 +18,7 @@ namespace LMS.IR.Filter
             if (input.IncrementToken())
             {
                 string text = termAttribute.ToString();
-                termAttribute.Clear();
+                termAttribute.ResizeTermBuffer(0);
                 termAttribute.SetTermBuffer(text.ToLower());
                 success = true;
             }

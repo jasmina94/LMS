@@ -30,20 +30,20 @@ namespace LMS.IR.Handler
 
         private void AddMetadataToDocument(BookData book, Document document)
         {
-            document.Add(new Field("id", book.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-            document.Add(new Field("title", book.Title, Field.Store.YES, Field.Index.ANALYZED));
-            document.Add(new Field("filename", book.Filename, Field.Store.YES, Field.Index.ANALYZED));
-            document.Add(new Field("language", book.LanguageId.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-            document.Add(new Field("category", book.CategoryId.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+            document.Add(new Field("Id", book.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+            document.Add(new Field("Title", book.Title, Field.Store.YES, Field.Index.ANALYZED));
+            document.Add(new Field("Filename", book.Filename, Field.Store.YES, Field.Index.ANALYZED));
+            document.Add(new Field("Language", book.LanguageId.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+            document.Add(new Field("Category", book.CategoryId.ToString(), Field.Store.YES, Field.Index.ANALYZED));
 
             //Check non-required properties
             if (!string.IsNullOrEmpty(book.Author.Trim()))
             {
-                document.Add(new Field("author", book.Author, Field.Store.YES, Field.Index.ANALYZED));
+                document.Add(new Field("Author", book.Author, Field.Store.YES, Field.Index.ANALYZED));
             }
             if (!string.IsNullOrEmpty(book.PublicationYear.ToString()))
             {
-                document.Add(new Field("year", book.PublicationYear.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+                document.Add(new Field("Year", book.PublicationYear.ToString(), Field.Store.YES, Field.Index.ANALYZED));
             }
 
             if (!string.IsNullOrEmpty(book.Keywords.Trim()))
@@ -53,7 +53,7 @@ namespace LMS.IR.Handler
                 {
                     if (!string.IsNullOrEmpty(keyword.Trim()))
                     {
-                        document.Add(new Field("keyword", keyword.Trim(), Field.Store.YES, Field.Index.ANALYZED));
+                        document.Add(new Field("Keyword", keyword.Trim(), Field.Store.YES, Field.Index.ANALYZED));
                     }
                 }
             }

@@ -24,6 +24,7 @@ C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\roslyn\vbc.exe.confi
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\roslyn\vbc.rsp
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\roslyn\VBCSCompiler.exe
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\Resources\Images\delete_trash.png
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\LMS.dll.config
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\LMS.dll
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS\bin\LMS.pdb

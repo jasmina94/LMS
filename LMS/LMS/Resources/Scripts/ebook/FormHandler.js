@@ -5,6 +5,7 @@
         initSelectpickerHandler();
         initSubmitSaveHandler();
     }
+
     var initSelectpickerHandler = function () {
         var selectpickers = $(".lms-selectpicker");
 
@@ -44,7 +45,6 @@
     }
     
     var findPlaceHolder = function (id) {
-
         if (id.indexOf("Category") !== -1) {
             placeholder = "Select category";
         }
@@ -68,13 +68,18 @@
     var initBaseFormValidator = function () {
         var $formUpload = $("#UploadEBookForm");
         if ($formUpload.length != 0) {
-
             $formUpload.validate({
                 rules: {
-                    File: "required"
+                    File: {
+                        required: true,
+                        extension: "pdf"
+                    }
                 },
                 messages: {
-                    File: "Chosing file is required!"
+                    File: {
+                        required: "Chosing file is required!",
+                        extension: "Wrong file type chosen!"
+                    }
                 }
             });
         }
@@ -82,8 +87,7 @@
 
     var initMainFormValidator = function () {
         var $formSave = $("#SaveEBookForm1");
-        if ($formSave.length != 0) {
-            
+        if ($formSave.length != 0) {            
             $formSave.validate({
                 rules: {
                     Title: "required",

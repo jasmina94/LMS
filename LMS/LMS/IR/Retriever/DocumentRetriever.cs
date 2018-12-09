@@ -50,7 +50,7 @@ namespace LMS.IR.Retriever
                     if (analyze)
                     {
                         QueryParser queryParser = new QueryParser(version, "", analyzer);
-                        query = queryParser.Parse(query.ToString());
+                        query = queryParser.Parse(query.ToString().Trim());
                     }
 
                     if (sort == null)
@@ -58,11 +58,13 @@ namespace LMS.IR.Retriever
                         sort = Sort.INDEXORDER;
                     }
 
-                    scoreDocs = indexSearcher.Search(query, filter, MAX_HITS, sort).ScoreDocs;
+                    //scoreDocs = indexSearcher.Search(query, filter, MAX_HITS, sort).ScoreDocs;
+                    TopDocs docs = indexSearcher.Search(query, filter, MAX_HITS, sort);
+                    var hits = docs.ScoreDocs;
 
-                    foreach (ScoreDoc scoreDoc in scoreDocs)
+                    foreach (var hit in hits)
                     {
-                        documents.Add(indexSearcher.Doc(scoreDoc.Doc));
+                        documents.Add(indexSearcher.Doc(hit.Doc));
                     }
 
                 }

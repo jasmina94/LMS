@@ -12,7 +12,7 @@ using Lucene.Net.Analysis.Standard;
 
 namespace LMS.IR.Retriever
 {
-    public class InformationRetreiver
+    public class InformationRetriever
     {
         private string rawDirectoryPath;
 
@@ -22,14 +22,14 @@ namespace LMS.IR.Retriever
 
         private DocumentRetriever documentRetriever;
 
-        public InformationRetreiver(string rawDirectoryPath, string indexDirectoryPath, int maxHits)
+        public InformationRetriever(string rawDirectoryPath, string indexDirectoryPath, int maxHits)
         {
             this.rawDirectoryPath = rawDirectoryPath;
             this.indexDirectoryPath = indexDirectoryPath;
             documentRetriever = new DocumentRetriever(indexDirectoryPath, maxHits);
         }
 
-        public InformationRetreiver(string rawDirectoryPath, string indexDirectoryPath)
+        public InformationRetriever(string rawDirectoryPath, string indexDirectoryPath)
         {
             this.rawDirectoryPath = rawDirectoryPath;
             this.indexDirectoryPath = indexDirectoryPath;
@@ -38,7 +38,7 @@ namespace LMS.IR.Retriever
 
         //TODO: Check query before call
         //TODO: Set sort properly
-        public List<ResultData> retrieveEBooks(Query query, List<string> fieldNames, Sort sort)
+        public List<ResultData> RetrieveEBooks(Query query, List<string> fieldNames, Sort sort)
         {
             var results = new List<ResultData>();
             List<Document> documents = documentRetriever.RetrieveDocuments(query, true, sort);
@@ -56,14 +56,14 @@ namespace LMS.IR.Retriever
         private ResultData GenerateResultData(Document document)
         {
             ResultData resultData = new ResultData();
-            resultData.Id = int.Parse(document.Get("id"));
-            resultData.Title = document.Get("title");
-            resultData.Language = document.Get("language");
-            resultData.Category = document.Get("category");
-            resultData.Filename = document.Get("filename");
-            resultData.Author = document.Get("author");
+            resultData.Id = int.Parse(document.Get("Id"));
+            resultData.Title = document.Get("Title");
+            resultData.Language = document.Get("Language");
+            resultData.Category = document.Get("Category");
+            resultData.Filename = document.Get("Filename");
+            resultData.Author = document.Get("Author");
             resultData.Keywords = GenerateKeywords(document);
-            resultData.Year = document.Get("year");
+            resultData.Year = document.Get("Year");
 
             return resultData;
         }
@@ -73,7 +73,7 @@ namespace LMS.IR.Retriever
             string result = "";
             StringBuilder stringBuilder = new StringBuilder("");
 
-            string[] keywords = document.GetValues("keyword");
+            string[] keywords = document.GetValues("Keyword");
             foreach (string keyword in keywords)
             {
                 stringBuilder.Append(keyword).Append(",");

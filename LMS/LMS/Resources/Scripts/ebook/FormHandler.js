@@ -120,7 +120,7 @@
                     CategoryId: "Category is required!",
                     LanguageId: {
                         required: "Language is required!",
-                        serbianIsChosen: "Currently is only available adding e-books on Serbian lanugage!"
+                        serbianIsChosen: "Currently is only available adding e-books on English or Serbian lanugage!"
                     }
                 }
             });

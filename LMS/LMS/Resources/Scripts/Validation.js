@@ -147,8 +147,9 @@ Validator.prototype = {
         }, "* Publication year is not valid!");
 
         $.validator.addMethod("serbianIsChosen", function (value, element) {
-            return $("select#languageid").find("option:selected").val() === "3";
-        }, "* Currently is only available adding e-books on Serbian lanugage!");
+            return $("select#languageid").find("option:selected").val() === "3" || 
+            $("select#languageid").find("option:selected").val() === "1";
+        }, "* Currently is only available adding e-books on English or Serbian lanugage!");
     }
 }
 

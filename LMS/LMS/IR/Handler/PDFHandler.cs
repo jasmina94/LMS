@@ -30,20 +30,20 @@ namespace LMS.IR.Handler
 
         private void AddMetadataToDocument(BookData book, Document document)
         {
-            document.Add(new Field("Id", book.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-            document.Add(new Field("Title", book.Title, Field.Store.YES, Field.Index.ANALYZED));
-            document.Add(new Field("Filename", book.Filename, Field.Store.YES, Field.Index.ANALYZED));
-            document.Add(new Field("Language", book.LanguageId.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-            document.Add(new Field("Category", book.CategoryId.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+            document.Add(new StringField("Id", book.Id.ToString(), Field.Store.YES));
+            document.Add(new Lucene.Net.Documents.TextField("Title", book.Title, Field.Store.YES));
+            document.Add(new Lucene.Net.Documents.TextField("Filename", book.Filename, Field.Store.YES));
+            document.Add(new Lucene.Net.Documents.TextField("Language", book.LanguageId.ToString(), Field.Store.YES));
+            document.Add(new Lucene.Net.Documents.TextField("Category", book.CategoryId.ToString(), Field.Store.YES));
 
             //Check non-required properties
             if (!string.IsNullOrEmpty(book.Author.Trim()))
             {
-                document.Add(new Field("Author", book.Author, Field.Store.YES, Field.Index.ANALYZED));
+                document.Add(new Lucene.Net.Documents.TextField("Author", book.Author, Field.Store.YES));
             }
             if (!string.IsNullOrEmpty(book.PublicationYear.ToString()))
             {
-                document.Add(new Field("Year", book.PublicationYear.ToString(), Field.Store.YES, Field.Index.ANALYZED));
+                document.Add(new Lucene.Net.Documents.TextField("Year", book.PublicationYear.ToString(), Field.Store.YES));
             }
 
             if (!string.IsNullOrEmpty(book.Keywords.Trim()))
@@ -53,7 +53,7 @@ namespace LMS.IR.Handler
                 {
                     if (!string.IsNullOrEmpty(keyword.Trim()))
                     {
-                        document.Add(new Field("Keyword", keyword.Trim(), Field.Store.YES, Field.Index.ANALYZED));
+                        document.Add(new Lucene.Net.Documents.TextField("Keyword", keyword.Trim(), Field.Store.YES));
                     }
                 }
             }
@@ -66,7 +66,7 @@ namespace LMS.IR.Handler
 
             if (!string.IsNullOrEmpty(content))
             {
-                document.Add(new Field("content", content, Field.Store.YES, Field.Index.ANALYZED));
+                document.Add(new Lucene.Net.Documents.TextField("Content", content, Field.Store.YES));
             }
             else
             {

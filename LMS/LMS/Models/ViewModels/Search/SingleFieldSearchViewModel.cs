@@ -12,5 +12,8 @@ namespace LMS.Models.ViewModels.Search
 
         [RegularExpression("^(STANDARD|PHRASE|FUZZY)$")]
         public string QueryType { get; set; }
+
+        [Required]
+        public string Language { get; set; }
     }
 }

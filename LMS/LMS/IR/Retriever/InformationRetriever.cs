@@ -1,52 +1,53 @@
-﻿using System;
-using System.IO;
-using System.Text;
+﻿using LMS.IR.Indexer;
+using LMS.IR.LanguageAnalysis;
 using LMS.IR.Model;
-using Lucene.Net.Store;
+using Lucene.Net.Analysis;
+using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.Search;
-using Lucene.Net.Documents;
-using System.Collections.Generic;
 using Lucene.Net.Search.Highlight;
-using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Store;
+using Lucene.Net.Util;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace LMS.IR.Retriever
 {
     public class InformationRetriever
     {
+        private static readonly LuceneVersion VERSION = LuceneVersion.LUCENE_48;
+
         private string rawDirectoryPath;
 
         private string indexDirectoryPath;
 
-        private StandardAnalyzer analyzer;
-
         private DocumentRetriever documentRetriever;
 
-        public InformationRetriever(string rawDirectoryPath, string indexDirectoryPath, int maxHits)
+        public InformationRetriever(IndexerType indexerType, string rawPath, string indexPath, int maxHits)
         {
-            this.rawDirectoryPath = rawDirectoryPath;
-            this.indexDirectoryPath = indexDirectoryPath;
-            documentRetriever = new DocumentRetriever(indexDirectoryPath, maxHits);
+            rawDirectoryPath = rawPath;
+            indexDirectoryPath = indexPath;
+            documentRetriever = new DocumentRetriever(indexerType, indexDirectoryPath, maxHits);
         }
 
-        public InformationRetriever(string rawDirectoryPath, string indexDirectoryPath)
+        public InformationRetriever(IndexerType indexerType, string rawPath, string indexPath)
         {
-            this.rawDirectoryPath = rawDirectoryPath;
-            this.indexDirectoryPath = indexDirectoryPath;
-            documentRetriever = new DocumentRetriever(indexDirectoryPath);
+            rawDirectoryPath = rawPath;
+            indexDirectoryPath = indexPath;
+            documentRetriever = new DocumentRetriever(indexerType, indexDirectoryPath);
         }
 
-        //TODO: Check query before call
-        //TODO: Set sort properly
-        public List<ResultData> RetrieveEBooks(Query query, List<string> fieldNames, Sort sort)
+        public List<ResultData> RetrieveEBooks(IndexerType indexerType, Query query, List<string> fieldNames, Sort sort)
         {
             var results = new List<ResultData>();
             List<Document> documents = documentRetriever.RetrieveDocuments(query, true, sort);
+            Analyzer analyzer = AnalyzerService.GetAnalyzer(indexerType);
 
             foreach (Document document in documents)
             {
                 ResultData resultData = GenerateResultData(document);
-                resultData.Highlights = GenerateHighlights(query, document, fieldNames);
+                resultData.Highlights = GenerateHighlights(analyzer, query, document, fieldNames);
                 results.Add(resultData);
             }
 
@@ -56,6 +57,7 @@ namespace LMS.IR.Retriever
         private ResultData GenerateResultData(Document document)
         {
             ResultData resultData = new ResultData();
+
             resultData.Id = int.Parse(document.Get("Id"));
             resultData.Title = document.Get("Title");
             resultData.Language = document.Get("Language");
@@ -78,35 +80,44 @@ namespace LMS.IR.Retriever
             {
                 stringBuilder.Append(keyword).Append(",");
             }
-            result = stringBuilder.ToString().Trim();
-            result = result.Substring(0, result.Length - 1);
+
+            if (!string.IsNullOrEmpty(stringBuilder.ToString()))
+            {
+                result = stringBuilder.ToString().Trim();
+                result = result.Substring(0, result.Length - 1);
+            }            
 
             return result;
         }
 
-        private string GenerateHighlights(Query query, Document document, List<string> fieldNames)
+        private string GenerateHighlights(Analyzer analyzer, Query query, Document document, List<string> fieldNames)
         {
             string highlights = "";
-            var stringBuilder = new StringBuilder("");
+            StringBuilder stringBuilder = new StringBuilder("");
+
             foreach (string fieldName in fieldNames)
             {
                 try
                 {
-                    Lucene.Net.Store.Directory directory = FSDirectory.Open(new DirectoryInfo(indexDirectoryPath));
-                    IndexReader directoryReader = IndexReader.Open(directory, true);
+                    Lucene.Net.Store.Directory indexDirectory = FSDirectory.Open(new DirectoryInfo(indexDirectoryPath));
+                    DirectoryReader directoryReader = DirectoryReader.Open(indexDirectory);
 
                     Highlighter highlighter = new Highlighter(new QueryScorer(query, directoryReader, fieldName));
 
                     string fieldValue = document.Get(fieldName);
                     string highlight = highlighter.GetBestFragment(analyzer, fieldName, fieldValue);
 
-                    if (highlight != null && !string.IsNullOrEmpty(highlight))
+                    if (!string.IsNullOrEmpty(highlight))
                     {
                         stringBuilder.Append(fieldName).Append(": ").Append(highlight.Trim()).Append("...");
                         highlights = stringBuilder.ToString();
                     }
                 }
-                catch (Exception e)
+                catch (IOException e)
+                {
+                    throw e;
+                }
+                catch (InvalidTokenOffsetsException e)
                 {
                     throw e;
                 }

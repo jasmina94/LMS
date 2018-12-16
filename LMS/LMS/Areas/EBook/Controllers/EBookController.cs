@@ -118,7 +118,7 @@ namespace LMS.Areas.EBook.Controllers
             List<ResultData> result = EBookService.Search(sfsViewModel);
             var model = new SearchViewModel(sfsViewModel, result);
 
-            return View("Search", model);
+            return Json(model);
         }
 
         [HttpPost]
@@ -127,7 +127,7 @@ namespace LMS.Areas.EBook.Controllers
             List<ResultData> result = EBookService.Search(mfsViewModel);
             var model = new SearchViewModel(mfsViewModel, result);
 
-            return View("Search", model);
+            return Json(model);
         }
 
         [HttpPost]

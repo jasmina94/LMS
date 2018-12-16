@@ -1,35 +1,39 @@
-﻿using System;
-using System.IO;
-using LMS.IR.Analyzer;
-using Lucene.Net.Store;
-using Lucene.Net.Index;
-using Lucene.Net.Search;
+﻿using LMS.IR.Indexer;
+using LMS.IR.LanguageAnalysis;
+using Lucene.Net.Analysis;
 using Lucene.Net.Documents;
-using Lucene.Net.QueryParsers;
+using Lucene.Net.Index;
+using Lucene.Net.QueryParsers.Classic;
+using Lucene.Net.Search;
+using Lucene.Net.Store;
+using Lucene.Net.Util;
+using System;
 using System.Collections.Generic;
-using Lucene.Net.Analysis.Standard;
+using System.IO;
 
 namespace LMS.IR.Retriever
 {
     public class DocumentRetriever
     {
-        private StandardAnalyzer analyzer;
-        private string indexDirectoryPath;
+        private static readonly LuceneVersion VERSION = LuceneVersion.LUCENE_48;
 
         private readonly int MAX_HITS = 10;
-        private readonly Lucene.Net.Util.Version version = Lucene.Net.Util.Version.LUCENE_20;
 
-        public DocumentRetriever(string indexDirPath, int maxHits)
+        private string indexDirectoryPath;
+
+        private Analyzer analyzer;
+
+        public DocumentRetriever(IndexerType indexerType, string indexDirPath, int maxHits)
         {
-            analyzer = new SerbianAnalyzer(version);
-            indexDirectoryPath = indexDirPath;
             MAX_HITS = maxHits;
+            indexDirectoryPath = indexDirPath;
+            analyzer = AnalyzerService.GetAnalyzer(indexerType);
         }
 
-        public DocumentRetriever(string indexDirPath)
+        public DocumentRetriever(IndexerType indexerType, string indexDirPath)
         {
-            analyzer = new SerbianAnalyzer(version);
             indexDirectoryPath = indexDirPath;
+            analyzer = AnalyzerService.GetAnalyzer(indexerType);
         }
 
         public List<Document> RetrieveDocuments(Query query, bool analyze, Sort sort)
@@ -40,39 +44,32 @@ namespace LMS.IR.Retriever
                 try
                 {
                     Lucene.Net.Store.Directory indexDirectory = FSDirectory.Open(new DirectoryInfo(indexDirectoryPath));
+                    DirectoryReader directoryReader = DirectoryReader.Open(indexDirectory);
 
-                    IndexReader indexReader = IndexReader.Open(indexDirectory, true);
-                    Searcher indexSearcher = new IndexSearcher(indexReader);
-                    var filter = new QueryWrapperFilter(query);
-
+                    IndexSearcher indexSearcher = new IndexSearcher(directoryReader);
                     ScoreDoc[] scoreDocs = null;
 
                     if (analyze)
                     {
-                        QueryParser queryParser = new QueryParser(version, "", analyzer);
-                        query = queryParser.Parse(query.ToString().Trim());
+                        QueryParser queryParser = new QueryParser(VERSION, "", analyzer);
+                        query = queryParser.Parse(query.ToString());
                     }
-
                     if (sort == null)
                     {
                         sort = Sort.INDEXORDER;
                     }
 
-                    //scoreDocs = indexSearcher.Search(query, filter, MAX_HITS, sort).ScoreDocs;
-                    TopDocs docs = indexSearcher.Search(query, filter, MAX_HITS, sort);
-                    var hits = docs.ScoreDocs;
+                    scoreDocs = indexSearcher.Search(query, MAX_HITS, sort).ScoreDocs;
 
-                    foreach (var hit in hits)
+                    foreach (ScoreDoc scoreDoc in scoreDocs)
                     {
-                        documents.Add(indexSearcher.Doc(hit.Doc));
+                        documents.Add(indexSearcher.Doc(scoreDoc.Doc));
                     }
-
                 }
                 catch (Exception e)
                 {
                     throw e;
                 }
-
             }
 
             return documents;

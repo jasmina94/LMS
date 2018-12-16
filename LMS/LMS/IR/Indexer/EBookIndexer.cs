@@ -1,144 +1,86 @@
-﻿using Lucene.Net.Analysis.Standard;
+﻿using System;
 using Lucene.Net.Documents;
-using Lucene.Net.Index;
 using Lucene.Net.Store;
-using Lucene.Net.Util;
-using System;
-using System.IO;
 using System.Web.Hosting;
+using Lucene.Net.Index;
+using Lucene.Net.Analysis;
+using LMS.IR.LanguageAnalysis;
+using Lucene.Net.Util;
+using System.IO;
 
 namespace LMS.IR.Indexer
 {
     public class EBookIndexer : IEBookIndexer
     {
-        private readonly Lucene.Net.Util.Version version;
-
-        private StandardAnalyzer analyzer;
-
-        private IndexWriter indexWriter;
-
-        private Lucene.Net.Store.Directory indexDirectory;
+        private static readonly LuceneVersion VERSION = LuceneVersion.LUCENE_48;        
 
         private readonly string INDEX_PATH = HostingEnvironment.MapPath(@"~/Index");
 
-        public EBookIndexer()
+        private readonly Lucene.Net.Store.Directory indexDirectory;
+
+        private IndexWriterConfig indexWriterConfig;
+
+        private IndexWriter indexWriter;
+
+        private Analyzer englishAnalyzer = new EnglishAnalyzer(VERSION);
+
+        private Analyzer serbianAnalyzer = new SerbianAnalyzer(VERSION);
+
+        public EBookIndexer(string path) : this(path, false)
+        {
+            
+        }
+
+        public EBookIndexer(string path, bool restart)
         {
             try
             {
-                indexDirectory = FSDirectory.Open(new DirectoryInfo(INDEX_PATH));               
-                indexWriter = new IndexWriter(indexDirectory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED);
-                indexWriter.Commit();
-                indexWriter.Dispose();
+                indexDirectory = FSDirectory.Open(new DirectoryInfo(INDEX_PATH));
+                if (restart)
+                {
+                    indexWriterConfig.OpenMode = OpenMode.CREATE;
+                    indexWriter = new IndexWriter(indexDirectory, indexWriterConfig);
+                    indexWriter.Commit();
+                    indexWriter.Dispose();
+                }
+
             }
             catch (IOException e)
             {
                 throw e;
             }
-        }
+        }       
 
         public Document[] Get()
         {
             Document[] documents = null;
             try
             {
-                IndexReader reader = IndexReader.Open(indexDirectory, true);
-                documents = new Document[reader.MaxDoc];
-
-                for (int i = 0; i < reader.MaxDoc; i++)
+                DirectoryReader directoryReader = DirectoryReader.Open(indexDirectory);
+                documents = new Document[directoryReader.MaxDoc];
+                for (int i = 0; i < directoryReader.MaxDoc; i++)
                 {
-                    documents[i] = reader.Document(i);
+                    documents[i] = directoryReader.Document(i);
                 }
-
-                reader.Dispose();
+                directoryReader.Dispose();
             }
             catch (IOException e)
             {
                 documents = null;
             }
+
             return documents;
         }
 
-
-        public bool Add(Document document)
+        public bool Add(Document document, IndexerType type)
         {
             bool success;
             try
             {
-                OpenIndexWriter();
-                indexWriter.Optimize();
+                OpenIndexWriter(type);
                 indexWriter.AddDocument(document);
                 indexWriter.Commit();
                 indexWriter.Dispose();
-                success = true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message + " " + e.StackTrace);
-                success = false;
-            }
-
-            return success;
-        }
-
-        public bool Update(Document document, Field[] fields)
-        {
-            bool success;
-            string id = document.Get("id");
-            ReplaceFields(document, fields);
-            try
-            {
-                lock(this) {
-                    OpenIndexWriter();
-                    indexWriter.UpdateDocument(new Term("id", id), document);
-                    indexWriter.Commit();
-                    indexWriter.Dispose();
-                }
-                success =  true;
-            }
-            catch (System.Exception e)
-            {
-                success =  false;
-            }
-
-            return success;
-        }
-
-        public bool Delete(Document document)
-        {
-            bool success = false;
-            if (document != null)
-            {
-                success = Delete("id", document.Get("id"));
-            }
-            return success;
-        }
-
-        public bool Delete(string fieldValue)
-        {
-            return Delete("id", fieldValue);
-        }
-
-        public bool Delete(string fieldName, string fieldValue)
-        {
-            bool success;
-            Term term = new Term(fieldName, fieldValue);
-
-            success = Delete(term);
-
-            return success;
-        }
-
-        private bool Delete(Term term)
-        {
-            bool success;
-            try
-            {
-                lock(this) {
-                    OpenIndexWriter();
-                    indexWriter.DeleteDocuments(term);
-                    indexWriter.Commit();
-                    indexWriter.Dispose();
-                }
                 success = true;
             }
             catch (IOException e)
@@ -149,9 +91,90 @@ namespace LMS.IR.Indexer
             return success;
         }
 
-        private void OpenIndexWriter()
+        public bool Update(Document document, Field[] fields, IndexerType type)
         {
-            indexWriter = new IndexWriter(indexDirectory, analyzer, false, IndexWriter.MaxFieldLength.UNLIMITED);
+            bool success;
+            string id = document.Get("Id");
+            ReplaceFields(document, fields);
+            try
+            {
+                lock(this) {
+                    OpenIndexWriter(type);
+                    indexWriter.UpdateDocument(new Term("Id", id), document);
+                    indexWriter.ForceMergeDeletes();
+                    indexWriter.DeleteUnusedFiles();
+                    indexWriter.Commit();
+                    indexWriter.Dispose();
+                }
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                success = false;
+            }
+
+            return success;
+        }
+
+        public bool DeleteByDocument(Document document, IndexerType type)
+        {
+            bool success = false;
+            if (document != null)
+            {
+                success = Delete("Id", document.Get("Id"), type);
+            }
+            return success;
+        }
+
+        public bool DeleteById(string fieldValue, IndexerType type)
+        {
+            return Delete("Id", fieldValue, type);
+        }
+
+        private bool Delete(string fieldName, string fieldValue, IndexerType type)
+        {
+            bool success;
+            Term term = new Term(fieldName, fieldValue);
+            success = DeleteDocuments(type, term);
+            return success;
+        }
+
+        private bool DeleteDocuments(IndexerType type, params Term[] terms)
+        {
+            bool success;
+            try
+            {
+                lock(this) {
+                    OpenIndexWriter(type);
+                    indexWriter.DeleteDocuments(terms);
+                    indexWriter.DeleteUnusedFiles();
+                    indexWriter.ForceMergeDeletes();
+                    indexWriter.Commit();
+                    indexWriter.Dispose();
+                }
+                success = true;
+            }
+            catch (IOException e)
+            {
+                success = false;
+            }
+            return success;
+        }        
+
+        private void OpenIndexWriter(IndexerType type)
+        {
+            Analyzer analyzer;
+            if (type == IndexerType.ENGLISH)
+            {
+                analyzer = new EnglishAnalyzer(VERSION);
+            }
+            else
+            {
+                analyzer = new SerbianAnalyzer(VERSION);
+            }
+            indexWriterConfig = new IndexWriterConfig(VERSION, analyzer);
+            indexWriterConfig.OpenMode = OpenMode.CREATE_OR_APPEND;
+            indexWriter = new IndexWriter(indexDirectory, indexWriterConfig);
         }
 
         private void ReplaceFields(Document document, Field[] fields)
@@ -160,6 +183,7 @@ namespace LMS.IR.Indexer
             {
                 document.RemoveFields(field.Name);
             }
+
             foreach (Field field in fields)
             {
                 document.Add(field);

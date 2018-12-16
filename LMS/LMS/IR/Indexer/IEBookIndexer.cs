@@ -6,14 +6,12 @@ namespace LMS.IR.Indexer
     {
         Document[] Get();
 
-        bool Add(Document document);
+        bool Add(Document document, IndexerType type);
 
-        bool Update(Document document, Field[] fields);
+        bool Update(Document document, Field[] fields, IndexerType type);
 
-        bool Delete(Document document);
+        bool DeleteByDocument(Document document, IndexerType type);
 
-        bool Delete(string fieldValue);
-
-        bool Delete(string fieldName, string fieldValue);
+        bool DeleteById(string fieldValue, IndexerType type);
     }
 }

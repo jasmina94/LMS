@@ -55,7 +55,7 @@ namespace LMS
             RegisterBusinessLogicLayer();
             RegisterChatHub();
             RegisterDocumentHandler();
-            RegisterIndexer();
+            //RegisterIndexer();
 
             Container = builder.Build();
 
@@ -73,13 +73,13 @@ namespace LMS
                 .SingleInstance();
         }
 
-        private void RegisterIndexer()
-        {
-            builder
-                .RegisterType<EBookIndexer>()
-                .As<IEBookIndexer>()
-                .SingleInstance();
-        }
+        //private void RegisterIndexer()
+        //{
+        //    builder
+        //        .RegisterType<EBookIndexer>()
+        //        .As<IEBookIndexer>()
+        //        .SingleInstance();
+        //}
 
         private void RegisterControllers()
         {

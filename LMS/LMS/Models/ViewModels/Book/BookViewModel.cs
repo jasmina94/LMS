@@ -58,7 +58,6 @@ namespace LMS.Models.ViewModels.Book
 
         public BookViewModel()
         {
-
         }
 
         public BookViewModel(EBookCreateViewModel ebookCreateViewModel, UserSessionObject user)

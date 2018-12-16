@@ -1,6 +1,5 @@
 ﻿@model LMS.Models.ViewModels.Search.SearchViewModel
 
-
 <div class="col-md-10 col-md-offset-1">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -19,10 +18,17 @@
                         <option id="language">Language</option>
                     </select>
                 </div>
-                <div class="form-group" style="padding-right:20px;">
+                <div class="form-group" style="width:250px;padding-right:20px;">
                     <label for="sfsFieldValue">Value you're looking for:</label>
                     <input class="form-control" type="text" id="sfsFieldValue" 
                            value="@Model.SFSFilter.FieldValue" name="FieldValue">
+                </div>
+                <div class="form-group" style="padding-right:20px;">
+                    <label for="sfsLanguage">Language:</label>
+                    <select class="form-control" id="sfsLanguage" name="Language">
+                        <option value="English">English</option>
+                        <option value="Serbian">Serbian</option>
+                    </select>
                 </div>
                 <div class="form-group" style="padding-right:20px;">
                     <label for="sfsQueryType">Query type:</label>
@@ -31,7 +37,7 @@
                         <option value="PHRASE">Phrase</option>
                         <option value="FUZZY">Fuzzy</option>
                     </select>
-                </div>
+                </div>              
                 <button type="submit" class="btn btn-primary lms-sfs-search-btn" 
                         style="margin-top:23px;width:200px">Search</button>
             </form>
@@ -77,14 +83,16 @@
                 <button type="submit" class="btn btn-success lms-mfs-search-btn" 
                         style="margin-top:43px;width:200px">Search</button>
             </form>
-            @if (Model.IsSuccess)
-            {
+
+            <div id="searchResultsDiv">
                 <hr />
-                <table class="display lms-ebook-table" style="width:100%">
+                <h4>Search results ... </h4>
+                <table class="display table" style="width:100%" id="searchResultTable">
                     <thead>
                         <tr>
                             <th>Title</th>
                             <th>Author</th>
+                            <th>Highlights</th>
                             <th>Publication year</th>
                             <th>Language</th>
                             <th>Category</th>
@@ -93,27 +101,12 @@
                             <th>Download</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach (var ebook in Model.Result)
-                        {
-                            <tr id="@ebook.Id">
-                                <td>@ebook.Title</td>
-                                <td>@ebook.Author</td>
-                                <td>@ebook.Year</td>
-                                <td>@ebook.Language</td>
-                                <td>@ebook.Category</td>
-                                <td>@ebook.Keywords</td>
-                                <td id="@ebook.Id" class="lms-ebook-delete-btn">
-                                    <img src="~/Resources/Images/delete_trash.png" />
-                                </td>
-                                <td id="@ebook.Id|@ebook.Filename" class="lms-ebook-download-btn">
-                                    <img src="~/Resources/Images/download.png" />
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
                 </table>
-            }
+            </div>
+        
+            <div id="searchNoResults">
+                <h4>Sorry, there are no results for search parameters you've passed.</h4>
+            </div>
         </div>
     </div>
 </div>

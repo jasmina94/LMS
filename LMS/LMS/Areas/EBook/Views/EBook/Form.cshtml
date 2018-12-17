@@ -43,7 +43,7 @@
                     @Html.DropDownSelect(model => model.LanguageId, "Language:",
                         innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Language/Language/GetSelect",
                         edit: editMode, divClass: "form-group KeywordsFormGroup")
-                    <p style="margin-left:165px;font-size:12px;"><i>Only Serbian language is allowed for e-books!</i></p>
+                    <p style="margin-left:165px;font-size:12px;"><i>Currently available English and Serbian.</i></p>
 
                     @Html.FormSubmit(specialBtnClass: "lms-save-button SubmitEBookSave", newLine: true)
                 </form>

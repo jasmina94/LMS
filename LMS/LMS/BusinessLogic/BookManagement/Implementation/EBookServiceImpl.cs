@@ -249,13 +249,13 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
                 if (!string.IsNullOrEmpty(mfsViewModel.Title))
                 {
                     requiredHighlights.Add("Title");
-                    booleanQuery.Add(QueryBuilder.BuildQuery(type, queryType, "Title", mfsViewModel.Content.Trim()), occur);
+                    booleanQuery.Add(QueryBuilder.BuildQuery(type, queryType, "Title", mfsViewModel.Title.Trim()), occur);
                 }
 
                 if (!string.IsNullOrEmpty(mfsViewModel.Author))
                 {
                     requiredHighlights.Add("Author");
-                    booleanQuery.Add(QueryBuilder.BuildQuery(type, queryType, "Author", mfsViewModel.Content.Trim()), occur);
+                    booleanQuery.Add(QueryBuilder.BuildQuery(type, queryType, "Author", mfsViewModel.Author.Trim()), occur);
                 }
 
                 if (!string.IsNullOrEmpty(mfsViewModel.Keywords))
@@ -313,7 +313,7 @@ namespace LMS.BusinessLogic.BookManagement.Implementation
             {
                 try
                 {
-                    Query query = QueryBuilder.BuildQuery(indexerType, queryType, "keyword", keywords.Trim());
+                    Query query = QueryBuilder.BuildQuery(indexerType, queryType, "Keyword", keywords.Trim());
                     queries.Add(query);
                 }
                 catch (Exception e)

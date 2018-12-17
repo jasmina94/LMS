@@ -122,7 +122,7 @@ namespace LMS.Areas.EBook.Controllers
         }
 
         [HttpPost]
-        public ActionResult MultiSingle(MultiFieldSearchViewModel mfsViewModel)
+        public ActionResult SearchMulti(MultiFieldSearchViewModel mfsViewModel)
         {
             List<ResultData> result = EBookService.Search(mfsViewModel);
             var model = new SearchViewModel(mfsViewModel, result);

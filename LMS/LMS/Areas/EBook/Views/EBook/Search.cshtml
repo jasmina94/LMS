@@ -15,7 +15,6 @@
                         <option id="author">Author</option>
                         <option id="keyword">Keyword</option>
                         <option id="content">Content</option>
-                        <option id="language">Language</option>
                     </select>
                 </div>
                 <div class="form-group" style="width:250px;padding-right:20px;">
@@ -42,7 +41,7 @@
                         style="margin-top:23px;width:200px">Search</button>
             </form>
             <hr />
-            <form name="mfsForm" class="form-inline lms-mfs-form">
+            <form name="mfsForm" class="form-inline lms-mfs-form" action="/EBook/EBook/SearchMulti">
                 <h4>Multiple field search <i>(can search by multiple parameters by filling fields)</i></h4>
                 <div class="form-group" style="padding-right:20px;padding-top:10px;">
                     <label for="mfsTitle">Title:</label>
@@ -62,8 +61,10 @@
                 </div>
                 <div class="form-group" style="padding-right:20px;padding-top:20px;">
                     <label for="mfsLanguage">Language:</label>
-                    <input class="form-control mfsGroup" type="text" id="mfsLanguage" 
-                           readonly="readonly" value="Serbian">
+                    <select class="form-control" id="mfsLanguage" name="Language">
+                        <option value="English">English</option>
+                        <option value="Serbian">Serbian</option>
+                    </select>
                 </div>
                 <div class="form-group" style="padding-right:20px;padding-top:20px;">
                     <label for="mfsQueryOperator">Query operator:</label>
@@ -105,7 +106,8 @@
             </div>
         
             <div id="searchNoResults">
-                <h4>Sorry, there are no results for search parameters you've passed.</h4>
+                <hr/>
+                <h4 style="margin-top:40px;">Sorry, there are no results for search parameters you've passed.</h4>
             </div>
         </div>
     </div>

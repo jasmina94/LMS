@@ -79,16 +79,17 @@ namespace LMS.IR.Handler
         private string GenerateTextFromPdf(string filePath)
         {
             var textContent = string.Empty;
+            var textBuilder = new StringBuilder();
 
-            using(var reader = new PdfReader(filePath))
+            using (var reader = new PdfReader(filePath))
             {
-                var textBuilder = new StringBuilder();
-
                 for (int i = 1; i <= reader.NumberOfPages; i++)
                 {
                     textBuilder.Append(PdfTextExtractor.GetTextFromPage(reader, i));
                 }
             }
+
+            textContent = textBuilder.ToString();
 
             return textContent;
         }

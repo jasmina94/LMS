@@ -196,9 +196,9 @@
         data["Author"] = $form.find("#mfsAuthor").val();
         data["Keywords"] = $form.find("#mfsKeywords").val();
         data["Content"] = $form.find("#mfsContent").val();
-        data["Language"] = $form.find("#mfsContent").val();
-        data["QueryOperator"] = $form.find("select#mfsQueryOperator").val();
-        data["QueryType"] = $form.find("select#mfsQueryType").val();
+        data["Language"] = $form.find("select#mfsLanguage").val();
+        data["QueryOperator"] = $form.find("select#mfsQueryOperator").find("option:selected").attr("id");
+        data["QueryType"] = $form.find("select#mfsQueryType").find("option:selected").attr("id");
 
         return data;
     }
@@ -252,6 +252,14 @@
         return $row;
     }
 
+    var emptyPreviousResults = function () {
+        var $table = $resultsDiv.find("table#searchResultTable");
+        var $tbody = $table.find("tbody");
+        if ($tbody.length > 0) {
+            $tbody.empty();
+        }
+    }
+
     var showResultsInTable = function (data) {
         var results = data.Result;
         var $table = $resultsDiv.find("table#searchResultTable");
@@ -275,6 +283,7 @@
 
         $sfsSearchBtn.on("click", function (e) {
             e.preventDefault();
+            $(".lms-mfs-form").find("input[type=text], textarea").val("");
             if ($form.valid()) {
                 var formData = getSFSData($form);
                 var url = $form.attr("action");
@@ -285,8 +294,8 @@
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
-                        console.log(data);
                         if (data.IsSuccess) {
+                            emptyPreviousResults();
                             showResultsInTable(data);
                             initResultsHandlers();
                         } else {
@@ -303,11 +312,10 @@
 
     var initMFSSearchButtonHandler = function () {
         var $mfsSearchBtn = $(".lms-mfs-search-btn");
-        var $form = $(".lms-mfs-form");
-
+        var $form = $(".lms-mfs-form");        
         $mfsSearchBtn.on("click", function (e) {
             e.preventDefault();
-            console.log($form);
+            $(".lms-sfs-form").find("input[type=text], textarea").val("");
             if ($form.valid()) {
                 var formData = getMFSData($form);
                 var url = $form.attr("action");
@@ -317,9 +325,9 @@
                     data: JSON.stringify(formData),
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    success: function (data) {
-                        console.log(data);
-                        if (data.Success) {
+                    success: function (data) {                        
+                        if (data.IsSuccess) {
+                            emptyPreviousResults();
                             showResultsInTable(data);
                             initResultsHandlers();
                         } else {

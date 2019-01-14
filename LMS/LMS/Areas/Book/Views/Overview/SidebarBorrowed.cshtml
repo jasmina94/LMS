@@ -1,4 +1,10 @@
 ﻿@using LMS.Infrastructure.HtmlHelpers
+@using LMS.Infrastructure.Authorization
+@using LMS.Infrastructure.Authorization.Constants
+
+@{ 
+    var currentUser = (UserSessionObject)Session[SessionConstant.USER];
+}
 
 <ul class="nav nav-pills nav-stacked sidebar" id="BookBorrowedSidebar">
     <li class="lms-sidebar-item">
@@ -7,9 +13,14 @@
     <li class="lms-sidebar-item">
         @Html.SidebarItem("filter", "Filter", "Filter content of the table", style: "FilterSideBar")
     </li>
-    <li class="lms-sidebar-item">
-        @Html.SidebarItem("restore", "Restore", "Return loan", style: "RestoreSideBar")
-    </li>
+
+    @if(Html.HasPermission(currentUser, PermissionEnum.ReturnLoan.ToString()))
+    {
+        <li class="lms-sidebar-item">
+            @Html.SidebarItem("restore", "Restore", "Return loan", style: "RestoreSideBar")
+        </li>        
+    }
+
     <li class="lms-sidebar-item lms-sidebar-item-disabled">
         @Html.SidebarItem("cancel", "Cancel", "Cancel action", style: "CancelSideBar")
     </li>

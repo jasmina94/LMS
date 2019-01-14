@@ -1,16 +1,16 @@
 ﻿using LMS.BusinessLogic.BookManagement.Interfaces;
 using LMS.BusinessLogic.UserManagement.Interfaces;
-using LMS.BusinessLogic.UserManagement.Model;
-using LMS.Infrastructure.Authorization;
 using LMS.Infrastructure.Authorization.Attributes;
 using LMS.Infrastructure.Authorization.Constants;
-using LMS.Infrastructure.Helpers;
-using LMS.Models.ViewModels.Account;
+using LMS.BusinessLogic.UserManagement.Model;
+using LMS.Infrastructure.Authorization;
 using LMS.Models.ViewModels.Relation;
+using LMS.Models.ViewModels.Account;
 using LMS.Models.ViewModels.User;
-using System;
+using LMS.Infrastructure.Helpers;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System;
 
 namespace LMS.Areas.Profile.Controllers
 {

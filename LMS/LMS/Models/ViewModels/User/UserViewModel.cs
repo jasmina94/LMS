@@ -19,8 +19,9 @@ namespace LMS.Models.ViewModels.User
         [RequiredProperty("Password is required!")]
         public string UserPassword { get; set; }
 
-        [RequiredProperty("Date of birth is required!")]
         public DateTime BirthDate { get; set; }
+
+        public string BirthDateString { get; set; }
 
         [RequiredProperty("Email is required")]
         [DataType(DataType.EmailAddress)]

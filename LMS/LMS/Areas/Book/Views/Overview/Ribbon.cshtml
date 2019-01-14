@@ -1,12 +1,16 @@
 ﻿@using LMS.Infrastructure.HtmlHelpers
+@using LMS.Infrastructure.Authorization.Constants
+@using LMS.Infrastructure.Authorization
 
 @{
-    var ribbonItems = new List<IHtmlString>
+    var currentUser = (UserSessionObject)Session[SessionConstant.USER];
+    var ribbonItems = new List<IHtmlString> { @Html.RibbonItem("item1", "List", "List of active books.", style: "BookListRibbonItem") };
+
+    if (currentUser != null && currentUser.Roles.Contains(RoleEnum.Librarian.ToString()))
     {
-        @Html.RibbonItem("item1", "List", "List of active books.", style: "BookListRibbonItem"),
-        @Html.RibbonItem("item2", "List", "List of book copies.", style: "BookCopyListRibbonItem"),
-        @Html.RibbonItem("item3", "List", "List of books on reading.", style: "BorrowedBooksRibbonItem")
-    };
+        ribbonItems.Add(@Html.RibbonItem("item2", "List", "List of book copies.", style: "BookCopyListRibbonItem"));
+        ribbonItems.Add(@Html.RibbonItem("item3", "List", "List of books on reading.", style: "BorrowedBooksRibbonItem"));
+    }
 
     @Html.Ribbon("books", "item1", ribbonItems)
 }

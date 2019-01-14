@@ -2,9 +2,8 @@
 {
     public enum RoleEnum
     {
-        Administrator,
-        Employee,
-        Subscriber,
-        Visitor        
+        Admin,
+        Librarian,
+        Subscriber 
     }
 }

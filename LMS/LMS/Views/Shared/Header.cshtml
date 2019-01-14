@@ -1,5 +1,13 @@
-﻿@using LMS.Infrastructure.Authorization
-@using LMS.Infrastructure.Authorization.Constants
+﻿@using LMS.Infrastructure.Authorization.Constants
+@using LMS.Infrastructure.Authorization
+
+@{
+    UserSessionObject currentUser = null;
+    if (Session[SessionConstant.USER] != null)
+    {
+        currentUser = (UserSessionObject)Session[SessionConstant.USER];
+    }
+}
 
 <nav class="navbar navbar-inverse">
     <div style="margin-right:0px;margin-left:0px;">
@@ -26,22 +34,27 @@
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Category", "Index", "Overview", new { area = "Category" }, "")</li>
                         <li>@Html.ActionLink("Book", "Index", "Overview", new { area = "Book" }, "")</li>
-                        <li>@Html.ActionLink("Language", "Index", "Overview", new { area = "Language" }, "")</li>
-                        <li>@Html.ActionLink("User", "Index", "Overview", new { area = "User" }, "")</li>
+                        <li>@Html.Restrict(currentUser, PermissionEnum.ViewOverviewLanguage, Html.ActionLink("Language", "Index", "Overview", new { area = "Language" }, ""))</li>
+                        <li>@Html.Restrict(currentUser, PermissionEnum.ViewOverviewUser, Html.ActionLink("User", "Index", "Overview", new { area = "User" }, ""))</li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle lms-disable-on-open-dialog" data-toggle="dropdown" href="#">
-                        Add
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Category", "Form", "Category", new { area = "Category" }, new { @class = "lms-open-dialog" })</li>
-                        <li>@Html.ActionLink("Book", "Form", "Book", new { area = "Book" }, new { @class = "lms-open-dialog" })</li>
-                        <li>@Html.ActionLink("Language", "Form", "Language", new { area = "Language" }, new { @class = "lms-open-dialog" })</li>
-                        <li>@Html.ActionLink("User", "Form", "User", new { area = "User" }, new { @class = "lms-open-dialog" })</li>
-                    </ul>
-                </li>
+
+                @if (Html.HasPermission(currentUser, new List<string> { PermissionEnum.ViewAddCategory.ToString(), PermissionEnum.ViewAddBook.ToString(), PermissionEnum.ViewAddLanguage.ToString(), PermissionEnum.ViewAddUser.ToString()}))
+                {
+                    <li class="dropdown">
+                        <a class="dropdown-toggle lms-disable-on-open-dialog" data-toggle="dropdown" href="#">
+                            Add
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.Restrict(currentUser, PermissionEnum.ViewAddCategory, Html.ActionLink("Category", "Form", "Category", new { area = "Category" }, new { @class = "lms-open-dialog" }))</li>
+                            <li>@Html.Restrict(currentUser, PermissionEnum.ViewAddBook, Html.ActionLink("Book", "Form", "Book", new { area = "Book" }, new { @class = "lms-open-dialog" }))</li>
+                            <li>@Html.Restrict(currentUser, PermissionEnum.ViewAddLanguage, Html.ActionLink("Language", "Form", "Language", new { area = "Language" }, new { @class = "lms-open-dialog" }))</li>
+                            <li>@Html.Restrict(currentUser, PermissionEnum.ViewAddUser, Html.ActionLink("User", "Form", "User", new { area = "User" }, new { @class = "lms-open-dialog" }))</li>
+                        </ul>
+                    </li>
+                }               
+                
                 <li class="dropdown">
                     <a class="dropdown-toggle lms-disable-on-open-dialog" data-toggle="dropdown" href="#">
                         e-books
@@ -49,15 +62,14 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Overview", "ViewOverview", "EBook", new { area = "EBook" }, "")</li>
-                        <li>@Html.ActionLink("Add", "ViewForm", "EBook", new { area = "EBook" }, "")</li>
-                        <li>@Html.ActionLink("Search", "ViewSearch", "EBook", new { area = "EBook" }, "")</li>
+                        <li>@Html.Restrict(currentUser, PermissionEnum.ViewAddEBook, Html.ActionLink("Add", "ViewForm", "EBook", new { area = "EBook" }, ""))</li>
+                        <li>@Html.Restrict(currentUser, PermissionEnum.ViewSearchEBook, Html.ActionLink("Search", "ViewSearch", "EBook", new { area = "EBook" }, ""))</li>
                     </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if (Session[SessionConstant.USER] != null)
                 {
-                    UserSessionObject currentUser = (UserSessionObject)Session[SessionConstant.USER];
                     <li>@Html.ActionLink("Chat", "Index", "Chat", new { area = "Chat" }, "")</li>
                     <li class="dropdown">
                         <a class="dropdown-toggle lms-disable-on-open-dialog" data-toggle="dropdown" href="#">

@@ -1,4 +1,6 @@
 ﻿@using LMS.Infrastructure.HtmlHelpers
+@using LMS.Infrastructure.Authorization
+@using LMS.Infrastructure.Authorization.Constants
 
 <ul class="nav nav-pills nav-stacked sidebar" id="CategorySidebar">
     <li class="lms-sidebar-item">
@@ -7,16 +9,34 @@
     <li class="lms-sidebar-item">
         @Html.SidebarItem("filter", "Filter", "Filter categories", style: "FilterSideBar")
     </li>
-    <li class="lms-sidebar-item">
-        @Html.SidebarItem("add", "Add", "Add new category", style: "AddSideBar")
-    </li>
-    <li class="lms-sidebar-item">
-        @Html.SidebarItem("edit", "Edit", "Edit category", style: "EditSideBar")
-    </li>
-    <li class="lms-sidebar-item">
-        @Html.SidebarItem("delete", "Delete", "Delete category", style: "DeleteSideBar")
-    </li>
-    <li class="lms-sidebar-item lms-sidebar-item-disabled">
-        @Html.SidebarItem("cancel", "Cancel", "Cancel action", style: "CancelSideBar")
-    </li>
+
+    @if (Session[SessionConstant.USER] != null)
+    {
+        var currentUser = (UserSessionObject)Session[SessionConstant.USER];
+
+        if(Html.HasPermission(currentUser, new List<string> { PermissionEnum.ViewAddCategory.ToString() }))
+        {
+            <li class="lms-sidebar-item">
+                @Html.SidebarItem("add", "Add", "Add new category", style: "AddSideBar")
+            </li>
+        }
+
+        if (Html.HasPermission(currentUser, new List<string> { PermissionEnum.EditCategory.ToString() }))
+        {
+            <li class="lms-sidebar-item">
+                @Html.SidebarItem("edit", "Edit", "Edit category", style: "EditSideBar")
+            </li>
+        }
+
+        if (Html.HasPermission(currentUser, new List<string> { PermissionEnum.DeleteCategory.ToString() }))
+        {
+            <li class="lms-sidebar-item">
+                @Html.SidebarItem("delete", "Delete", "Delete category", style: "DeleteSideBar")
+            </li>
+        }
+
+        <li class="lms-sidebar-item lms-sidebar-item-disabled">
+            @Html.SidebarItem("cancel", "Cancel", "Cancel action", style: "CancelSideBar")
+        </li>
+    }
 </ul>

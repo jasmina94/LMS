@@ -19,7 +19,7 @@
 
             @Html.SimpleFormInput(model => model.Firstname, "Firstname:", inputValue: Model.Firstname)
             @Html.SimpleFormInput(model => model.Lastname, "Lastname:", inputValue: Model.Lastname)
-            @Html.IconFormInput(model => model.BirthDate, "Date of birth:", 
+            @Html.IconFormInput(model => model.BirthDateString, "Date of birth:", 
                 inputValue: editMode ? Model.BirthDate.Date.ToString("MM/dd/yyyy") : string.Empty,
                 specialInputClass: "InputWithGlyphicon DatePicker", 
                 iconHtmlString: Html.Glyphicon("calendar", true))

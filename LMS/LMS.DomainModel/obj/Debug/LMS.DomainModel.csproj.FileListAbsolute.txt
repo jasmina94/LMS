@@ -42,6 +42,6 @@ C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\Sy
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.WebPages.xml
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\obj\Debug\LMS.DomainModel.csprojResolveAssemblyReference.cache
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\obj\Debug\LMS.DomainModel.dll
 C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\obj\Debug\LMS.DomainModel.pdb
+C:\Users\Jasmina\Documents\git.repositories\LMS\LMS\LMS.DomainModel\obj\Debug\LMS.DomainModel.csprojResolveAssemblyReference.cache

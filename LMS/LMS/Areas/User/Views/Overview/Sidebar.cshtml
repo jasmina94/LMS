@@ -1,4 +1,6 @@
 ﻿@using LMS.Infrastructure.HtmlHelpers
+@using LMS.Infrastructure.Authorization
+@using LMS.Infrastructure.Authorization.Constants
 
 <ul class="nav nav-pills nav-stacked sidebar" id="UserSidebar">
     <li class="lms-sidebar-item">
@@ -7,18 +9,34 @@
     <li class="lms-sidebar-item">
         @Html.SidebarItem("filter", "Filter", "Filter content of the table", style: "FilterSideBar")
     </li>
-    <li class="lms-sidebar-item">
-        @Html.SidebarItem("add", "Add", "Add new item", style: "AddSideBar")
-    </li>
-    <li class="lms-sidebar-item">
-        @Html.SidebarItem("edit", "Edit", "Edit language", style: "EditSideBar")
-    </li>
-    <li class="lms-sidebar-item">
-        @Html.SidebarItem("delete", "Delete", "Delete language", style: "DeleteSideBar")
-    </li>
-    <li class="lms-sidebar-item lms-sidebar-item-disabled">
-        @Html.SidebarItem("cancel", "Cancel", "Cancel action", style: "CancelSideBar")
-    </li>
+
+    @if (Session[SessionConstant.USER] != null)
+    {
+        var currentUser = (UserSessionObject)Session[SessionConstant.USER];
+
+        if (Html.HasPermission(currentUser, PermissionEnum.ViewAddUser.ToString()))
+        {
+            <li class="lms-sidebar-item">
+                @Html.SidebarItem("add", "Add", "Add new user", style: "AddSideBar")
+            </li>
+        }
+
+        if (Html.HasPermission(currentUser, PermissionEnum.EditUser.ToString()))
+        {
+            <li class="lms-sidebar-item">
+                @Html.SidebarItem("edit", "Edit", "Edit user", style: "EditSideBar")
+            </li>
+        }
+
+        if (Html.HasPermission(currentUser, PermissionEnum.DeleteUser.ToString()))
+        {
+            <li class="lms-sidebar-item">
+                @Html.SidebarItem("delete", "Delete", "Delete user", style: "DeleteSideBar")
+            </li>
+        }
+
+        <li class="lms-sidebar-item lms-sidebar-item-disabled">
+            @Html.SidebarItem("cancel", "Cancel", "Cancel action", style: "CancelSideBar")
+        </li>
+    }
 </ul>
-
-

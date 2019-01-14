@@ -1,18 +1,20 @@
-﻿@model IEnumerable<LMS.Models.ViewModels.Book.BookViewModel>
+﻿@using LMS.Infrastructure.HtmlHelpers
+@using LMS.Infrastructure.Authorization
+@using LMS.Infrastructure.Authorization.Constants
+@model IEnumerable<LMS.Models.ViewModels.Book.BookViewModel>
 
 @{
-    bool hasPermissionToAdd = true;
-    bool hasPermissionToSearch = true;
+    var currentUser = (UserSessionObject)Session[SessionConstant.USER];
 }
 
 <div class="col-md-10 col-md-offset-1" style="height:600px;">
     <div class="lms-overview-button-set">
-        @if (hasPermissionToAdd)
+        @if(Html.HasPermission(currentUser, PermissionEnum.ViewAddEBook.ToString()))
         {
             <a class="btn btn-success lms-add-new-ebook-btn" href="/EBook/EBook/ViewForm">Add new e-book</a> 
         }
 
-        @if (hasPermissionToSearch)
+        @if(Html.HasPermission(currentUser, PermissionEnum.ViewSearchEBook.ToString()))
         {
             <a class="btn btn-danger lms-search-ebook-btn" href="/EBook/EBook/ViewSearch">Search for specific</a>
         }

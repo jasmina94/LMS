@@ -1,4 +1,10 @@
 ﻿@using LMS.Infrastructure.HtmlHelpers
+@using LMS.Infrastructure.Authorization
+@using LMS.Infrastructure.Authorization.Constants
+
+@{
+    var currentUser = (UserSessionObject)Session[SessionConstant.USER];
+}
 
 <ul class="nav nav-pills nav-stacked sidebar" id="BookCopySidebar">
     <li class="lms-sidebar-item">
@@ -7,15 +13,28 @@
     <li class="lms-sidebar-item">
         @Html.SidebarItem("filter", "Filter", "Filter content of the table", style: "FilterSideBar")
     </li>
-    <li class="lms-sidebar-item">
-        @Html.SidebarItem("add", "Add", "Add new copy", style: "AddSideBar")
-    </li> 
-    <li class="lms-sidebar-item">
-        @Html.SidebarItem("loan", "Borrow", "Make new book loan", style: "MakeBookLoanSideBar")
-    </li>    
-    <li class="lms-sidebar-item">
-        @Html.SidebarItem("delete", "Delete", "Delete book copy", style: "DeleteSideBar")
-    </li>
+
+    @if (Html.HasPermission(currentUser, PermissionEnum.ViewAddCopy.ToString()))
+    {
+        <li class="lms-sidebar-item">
+            @Html.SidebarItem("add", "Add", "Add new copy", style: "AddSideBar")
+        </li>
+    }
+
+    @if (Html.HasPermission(currentUser, PermissionEnum.MakeLoan.ToString()))
+    {
+        <li class="lms-sidebar-item">
+            @Html.SidebarItem("loan", "Borrow", "Make new book loan", style: "MakeBookLoanSideBar")
+        </li>  
+    }
+
+    @if (Html.HasPermission(currentUser, PermissionEnum.DeleteCopy.ToString()))
+    {
+        <li class="lms-sidebar-item">
+            @Html.SidebarItem("delete", "Delete", "Delete book copy", style: "DeleteSideBar")
+        </li>
+    }
+
     <li class="lms-sidebar-item lms-sidebar-item-disabled">
         @Html.SidebarItem("cancel", "Cancel", "Cancel action", style: "CancelSideBar")
     </li>

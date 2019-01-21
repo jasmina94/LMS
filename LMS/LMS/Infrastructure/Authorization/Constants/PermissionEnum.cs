@@ -55,6 +55,8 @@
         ViewAddCopy,
         DenyViewAddCopy,       
         DeleteCopy,
-        DenyDeleteCopy
+        DenyDeleteCopy,
+        ViewPermissionPanel,
+        DenyViewPermissionPanel
     }
 }

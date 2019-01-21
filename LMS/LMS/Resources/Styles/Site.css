@@ -181,8 +181,9 @@ div.KeywordsFormGroup{
             border-right: 10px solid #555;
         }
 
-/*Profile page styles*/
-.ProfileSidenav {
+/*Profile and Admin page styles*/
+.ProfileSidenav, 
+.AdminSidenav {
     height: 93%;
     width: 160px;
     position: fixed;
@@ -195,7 +196,7 @@ div.KeywordsFormGroup{
     margin-top: 30px;
 }
 
-    .ProfileSidenav a {
+    .ProfileSidenav, .AdminSidenav a {
         padding: 6px 8px 6px 16px;
         text-decoration: none;
         font-size: 16px;
@@ -204,7 +205,7 @@ div.KeywordsFormGroup{
         cursor: pointer;
     }
 
-        .ProfileSidenav a:not(.ActiveSidebarItem):hover {
+        .ProfileSidenav, .AdminSidenav a:not(.ActiveSidebarItem):hover {
             color: #f1f1f1;
         }
 
@@ -212,26 +213,27 @@ a.ActiveSidebarItem {
     color: yellow;
 }
 
-.ProfileMainContainer {
+.ProfileMainContainer, 
+.ProfileCurrentlyLoanContainer, 
+.ProfileHistoryLoanContainer, 
+.AdminNewUserContainer,
+.AdminPermissionContainer{
     margin-left: 160px; /* Same as the width of the sidenav */
     padding: 0px 10px;
 }
 
-.ProfileCurrentlyLoanContainer{
-    margin-left: 160px;
-    padding: 0px 10px;
-}
 
-.ProfileHistoryLoanContainer{
-    margin-left: 160px;
-    padding: 0px 10px;
-}
-
-.SaveProfileInfoForm {
+.SaveProfileInfoForm, {
     display: none;
     width: 150px;
     text-align: center;
     margin-left: 350px;
+}
+
+.SaveNewUserForm{
+    width: 150px;
+    text-align: center;
+    margin-left: 330px;
 }
 
 #ChangeProfileData {
@@ -266,6 +268,11 @@ div#errorlanguageId{
 div#errorsfsFieldValue{
     margin-top: -50px;
     margin-left: 250px;
+}
+
+div#errorroleid{
+    margin-left: 280px;
+    margin-top: -35px;
 }
 
 div#errormfsContent,

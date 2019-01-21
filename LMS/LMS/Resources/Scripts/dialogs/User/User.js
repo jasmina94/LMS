@@ -29,7 +29,8 @@ UserDialog.prototype.initValidator = function () {
                 required: true,
                 email: true,
                 uniqueEmail: true
-            }
+            },
+            RoleId: "required"
         },
         messages: {
             Firstname: "Firstname is required!",
@@ -47,7 +48,8 @@ UserDialog.prototype.initValidator = function () {
                 required: "Email is required!",
                 email: "Email is not valid!",
                 uniqueEmail: "Email is not unique!"
-            }
+            },
+            RoleId: "Role is required!"
         }
     });
 }

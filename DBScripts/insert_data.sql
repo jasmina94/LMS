@@ -79,7 +79,9 @@ VALUES
 (51, -1, 'View add copy', 'ViewAddCopy', 1, GETDATE(), NULL, NULL),
 (52, -1, 'Deny view add copy', 'DenyViewAddCopy', 1, GETDATE(), NULL, NULL),
 (53, -1, 'Delete copy', 'DeleteCopy', 1, GETDATE(), NULL, NULL),
-(54, -1, 'Deny delete copy', 'DenyDeleteCopy', 1, GETDATE(), NULL, NULL);
+(54, -1, 'Deny delete copy', 'DenyDeleteCopy', 1, GETDATE(), NULL, NULL),
+(55, -1, 'View permission panel', 'ViewPermissionPanel', 1, GETDATE(), NULL, NULL),
+(56, -1, 'Deny view permission panel', 'DenyViewPermissionPanel', 1, GETDATE(), NULL, NULL);
 
 
 /*Role Permission -> admin part*/
@@ -132,7 +134,8 @@ VALUES
 (45, -1, 1, 3, 3, GETDATE(), NULL, NULL),
 (46, -1, 1, 5, 3, GETDATE(), NULL, NULL),
 (47, -1, 1, 13, 3, GETDATE(), NULL, NULL),
-(48, -1, 1, 29, 3, GETDATE(), NULL, NULL); 
+(48, -1, 1, 29, 3, GETDATE(), NULL, NULL),
+(49, -1, 1, 55, 1, GETDATE(), NULL, NULL);
 
 
 /*Language*/

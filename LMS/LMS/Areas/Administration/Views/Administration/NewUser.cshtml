@@ -1,0 +1,47 @@
+﻿@using LMS.Infrastructure.HtmlHelpers
+@using LMS.Infrastructure.HtmlHelpers.Utility
+@model LMS.Models.ViewModels.User.UserViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>New user</h4>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" id="AdminNewUserForm" action="/User/User/Save" method="post">
+            <br />
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.IsActive)
+            @Html.HiddenFor(model => model.UserCreatedById)
+            @Html.HiddenFor(model => model.UserCreatedBy)
+            @Html.HiddenFor(model => model.DateTimeCreatedOn)
+            @Html.HiddenFor(model => model.UserDeletedById)
+            @Html.HiddenFor(model => model.UserDeletedBy)
+            @Html.HiddenFor(model => model.DateTimeDeletedOn)
+
+            @Html.SimpleFormInput(model => model.Firstname, "Firstname:", inputId: "NewUserFirstname")
+            @Html.SimpleFormInput(model => model.Lastname, "Lastname:", inputId: "NewUserLastname")
+            @Html.SimpleFormInput(model => model.Username, "Username:", inputId: "NewUserUsername")
+            @Html.SimpleFormInput(model => model.Email, "Email:", inputType: FormInputType.EMAIL,
+                    specialInputClass: "SpecificInputType", inputId: "NewUserEmail")
+            @Html.IconFormInput(model => model.BirthDate, "Date of birth:", inputId: "NewUserBirthDate",
+                    specialInputClass: "InputWithGlyphicon DatePicker",
+                    iconHtmlString: Html.Glyphicon("calendar", true))
+
+            @Html.DropDownSelect(model => model.RoleId, "Role:",
+                    innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Role/Role/GetSelect",
+                    selectId: "AdminSelectRole")
+
+            <div class="AdminCategoryWrapper" style="display:none">
+                @Html.DropDownSelect(model => model.CategoryId, "Subscribe to category:",
+                    innerDivSpecialClass: "lms-selectpicker", selectionSource: "/Category/Category/GetSelect",
+                    selectId: "AdminSelectCategory")
+            </div>                       
+
+            @Html.SimpleFormInput(model => model.UserPassword, "Password:", inputType: FormInputType.PASSWORD,
+                     inputValue: "Welcome", readOnly: true, inputId: "NewUserPassword")
+
+            @Html.FormSubmit(value: "Save changes", specialBtnClass: "SaveNewUserForm", newLine: true)
+
+        </form>
+    </div>
+</div>

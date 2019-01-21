@@ -25,7 +25,11 @@ namespace LMS.Infrastructure.HtmlHelpers
             
             if (body != null)
             {
-                inputId = body.Member.Name.ToLower();
+                if (string.IsNullOrEmpty(inputId))
+                {
+                    inputId = body.Member.Name.ToLower();
+                }
+                                
                 inputName = body.Member.Name;
             }
 

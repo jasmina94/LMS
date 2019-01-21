@@ -30,7 +30,6 @@ namespace LMS.Infrastructure.ModelBuilders.Implementation.User
             viewModel.UserPassword = model.Password;
             viewModel.Email = model.Email;
             viewModel.BirthDate = model.BirthDate;
-            viewModel.BirthDateString = model.BirthDate.ToString("dd/MM/yyyy");
             viewModel.CategoryId = model.CategoryId;
             viewModel.Category = GetCategoryName(model.CategoryId);
             SetRoleToUser(viewModel, model.Id);

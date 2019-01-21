@@ -29,7 +29,10 @@ namespace LMS.Infrastructure.HtmlHelpers
 
             if (body != null)
             {
-                selectId = body.Member.Name.ToLower();
+                if(string.IsNullOrEmpty(selectId))
+                {
+                    selectId = body.Member.Name.ToLower();
+                }                
                 selectName = body.Member.Name;
             }
 

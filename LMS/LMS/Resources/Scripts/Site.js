@@ -24,7 +24,8 @@ $(function () {
     var $changePasswordLink = $("a#ChangePassword");
     var $profileInfoForm = $("#ProfileInfoForm");
     var $logoutLink = $(".lms-logout-link");
-    var $profileSidebarItems = $(".ProfileSidebarItem");    
+    var $profileSidebarItems = $(".ProfileSidebarItem");
+    var $adminSidebarItems = $(".AdminSidebarItem");
     var $deleteEBookBtn = $(".lms-ebook-delete-btn");
     var $downloadEBookBtn = $(".lms-ebook-download-btn");
     
@@ -74,8 +75,8 @@ $(function () {
         }
     };
 
-    var changeSidebarItemsStyle = function (idToActivate) {
-        var $sidebarItems = $(".ProfileSidebarItem");
+    var changeSidebarItemsStyle = function (idToActivate, classToFind) {
+        var $sidebarItems = $("." + classToFind);
         for (var i = 0; i < $sidebarItems.length; i++) {
             var $item = $($sidebarItems[i]);
             var id = $item.attr("id");
@@ -186,7 +187,7 @@ $(function () {
     $profileSidebarItems.on("click", function (e) {
         e.preventDefault();
         var id = $(this).attr("id");
-        changeSidebarItemsStyle(id);
+        changeSidebarItemsStyle(id, "ProfileSidebarItem");
         switch (id) {
             case "profileInfo":                
                 $(".ProfileMainContainer").show();
@@ -206,6 +207,22 @@ $(function () {
             case "chat":
                 var newLocation = location.origin + "/Chat/Chat";
                 location.href = newLocation;
+        }
+    });
+
+    $adminSidebarItems.on("click", function (e) {
+        e.preventDefault();
+        var id = $(this).attr("id");
+        changeSidebarItemsStyle(id, "AdminSidebarItem");
+        switch (id) {
+            case "adminNewUser":
+                $(".AdminNewUserContainer").show();
+                $(".AdminPermissionContainer").hide();
+                break;
+            case "admnPermissions":
+                $(".AdminNewUserContainer").hide();
+                $(".AdminPermissionContainer").show();
+                break;
         }
     });
 

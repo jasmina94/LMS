@@ -1,8 +1,9 @@
-﻿using LMS.Infrastructure.HtmlHelpers.Utility;
-using System;
-using System.Linq.Expressions;
+﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Linq.Expressions;
+using LMS.Infrastructure.HtmlHelpers.Utility;
+
 
 namespace LMS.Infrastructure.HtmlHelpers
 {
@@ -24,7 +25,11 @@ namespace LMS.Infrastructure.HtmlHelpers
             body = ((UnaryExpression)expression.Body).Operand as MemberExpression;
          }
 
-         inputId = body.Member.Name.ToLower();
+            if (string.IsNullOrEmpty(inputId))
+            {
+                inputId = body.Member.Name.ToLower();
+            }
+         
          inputName = body.Member.Name;
          divTag.MergeAttribute("class", divClass);
          labelTag.MergeAttribute("class", labelClass);
@@ -33,7 +38,7 @@ namespace LMS.Infrastructure.HtmlHelpers
 
          TypeResolver.ResolveInputTypeForTag(inputType, inputTag);
 
-         if (!String.IsNullOrEmpty(specialInputClass))
+         if (!string.IsNullOrEmpty(specialInputClass))
          {
             inputClass = inputClass + " " + specialInputClass;
          }

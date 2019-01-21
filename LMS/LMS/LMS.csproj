@@ -202,6 +202,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\AdministrationController.cs" />
     <Compile Include="Areas\Book\Controllers\BookController.cs" />
     <Compile Include="Areas\Book\Controllers\BookCopyController.cs" />
     <Compile Include="Areas\Book\Controllers\OverviewController.cs" />
@@ -269,6 +271,7 @@
     <Compile Include="Infrastructure\Authorization\Abstraction\AbstractMembershipProvider.cs" />
     <Compile Include="Infrastructure\Authorization\Abstraction\ILMSMembershipProvider.cs" />
     <Compile Include="Infrastructure\Authorization\Attributes\AuthorizeUserAttribute.cs" />
+    <Compile Include="Infrastructure\Authorization\Attributes\IsAdminAttribute.cs" />
     <Compile Include="Infrastructure\Authorization\Attributes\IsAuthenticatedAttribute.cs" />
     <Compile Include="Infrastructure\Authorization\Constants\PathConstants.cs" />
     <Compile Include="Infrastructure\Authorization\Constants\PermissionEnum.cs" />
@@ -619,6 +622,11 @@
     <Content Include="Areas\EBook\Views\EBook\Overview.cshtml" />
     <Content Include="Areas\EBook\Views\EBook\Form.cshtml" />
     <Content Include="Areas\EBook\Views\EBook\Search.cshtml" />
+    <Content Include="Areas\Administration\Views\web.config" />
+    <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Administration\Views\Administration\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Administration\NewUser.cshtml" />
+    <Content Include="Areas\Administration\Views\Administration\Permissions.cshtml" />
     <None Include="Resources\Scripts\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="Resources\Scripts\jquery\jquery-1.10.2.js" />
     <None Include="Resources\Scripts\jquery\jquery.validate-vsdoc.js" />
@@ -654,6 +662,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Book\Models\" />
     <Folder Include="Areas\Category\Models\" />
     <Folder Include="Areas\Chat\Models\" />

@@ -19,11 +19,10 @@ namespace LMS.Models.ViewModels.User
         [RequiredProperty("Password is required!")]
         public string UserPassword { get; set; }
 
+        [RequiredProperty("Date of birth is required!")]
         public DateTime BirthDate { get; set; }
 
-        public string BirthDateString { get; set; }
-
-        [RequiredProperty("Email is required")]
+        [RequiredProperty("Email is required!")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
@@ -31,6 +30,7 @@ namespace LMS.Models.ViewModels.User
 
         public string Category { get; set; }
 
+        [RequiredProperty("Role is required!")]
         public int RoleId { get; set; }
 
         public string Role { get; set; }

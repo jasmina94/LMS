@@ -71,7 +71,7 @@ namespace LMS.Infrastructure.Authorization.Attributes
             }
             else
             {
-                redirectValueDictionary.Add("action", "ShowLoginPanel");
+                redirectValueDictionary.Add("action", "Index");
                 redirectValueDictionary.Add("controller", "Account");
             }
 

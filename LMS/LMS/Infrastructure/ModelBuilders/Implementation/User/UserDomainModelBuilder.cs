@@ -19,7 +19,7 @@ namespace LMS.Infrastructure.ModelBuilders.Implementation.User
             model.Lastname = viewModel.Lastname;
             model.Username = viewModel.Username;
             model.Password = viewModel.UserPassword;
-            model.BirthDate = DateTime.ParseExact(viewModel.BirthDateString, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            model.BirthDate = viewModel.BirthDate;
             model.Email = viewModel.Email;
             model.CategoryId = viewModel.CategoryId;
         }

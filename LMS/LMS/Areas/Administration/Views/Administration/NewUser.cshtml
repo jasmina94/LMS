@@ -2,7 +2,14 @@
 @using LMS.Infrastructure.HtmlHelpers.Utility
 @model LMS.Models.ViewModels.User.UserViewModel
 
-<div class="panel panel-default">
+<div class="AdminSidenav">
+    @Html.ActionLink("New user", "ViewNewUserPanel", "Administration", new { area = "Administration" },
+        new { @class = "AdminSidebarItem", @id = "AdminNewUserLink" })
+    @Html.ActionLink("Permissions", "ViewPermissionPanel", "Administration", new { area = "Administration" },
+        new { @class = "AdminSidebarItem", @id = "AdminPermissionLink" })
+</div>
+
+<div class="panel panel-default" style="margin-left:170px;">
     <div class="panel-heading">
         <h4>New user</h4>
     </div>
@@ -45,3 +52,10 @@
         </form>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var handler = new NewUserHandler();
+        handler.init();
+    });
+</script>

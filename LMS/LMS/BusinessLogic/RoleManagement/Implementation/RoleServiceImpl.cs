@@ -1,16 +1,12 @@
-﻿using LMS.Services.Interfaces;
-using System.Collections.Generic;
-using LMS.Models.ViewModels.Role;
-using LMS.DomainModel.DomainObject;
-using LMS.Models.ViewModels.Relation;
-using LMS.DomainModel.DomainObject.Relation;
-using LMS.DomainModel.Repository.Role.Interfaces;
-using LMS.BusinessLogic.RoleManagement.Interfaces;
-using LMS.DomainModel.Repository.Relation.Interfaces;
+﻿using LMS.Infrastructure.ModelBuilders.Implementation.Role;
 using LMS.Infrastructure.ModelConstructor.Interfaces;
-using LMS.Infrastructure.ModelBuilders.Implementation.Role;
-using LMS.Infrastructure.ModelBuilders.Implementation.Relation.UserRole;
-using LMS.Infrastructure.Authorization;
+using LMS.BusinessLogic.RoleManagement.Interfaces;
+using LMS.BusinessLogic.UserManagement.Interfaces;
+using LMS.DomainModel.Repository.Role.Interfaces;
+using LMS.DomainModel.DomainObject;
+using LMS.Models.ViewModels.Role;
+using System.Collections.Generic;
+using LMS.Services.Interfaces;
 
 namespace LMS.BusinessLogic.RoleManagement.Implementation
 {
@@ -18,11 +14,11 @@ namespace LMS.BusinessLogic.RoleManagement.Implementation
     {
         public IRoleRepository RoleRepository { get; set; }
 
-        public IRelationUserRoleRepository RelationUserRoleRepository { get; set; }
-
         public IModelConstructor Constructor { get; set; }
 
         public IBuilderResolverService BuilderResolverService { get; set; }
+
+        public IUserService UserService { get; set; }
 
         public RoleViewModel Get(int? roleId)
         {
@@ -47,7 +43,20 @@ namespace LMS.BusinessLogic.RoleManagement.Implementation
             viewModels = ConvertDataToViewModels(domainModels);
 
             return viewModels;
+        }        
+
+        public RoleViewModel GetRoleFor(int userId)
+        {
+            var roleId = UserService.Get(userId).RoleId;
+            var role = RoleRepository.GetDataById(roleId);
+
+            RoleViewModelBuilder builder = BuilderResolverService.Get<RoleViewModelBuilder, RoleData>(role);
+            Constructor.ConstructViewModelData(builder);
+
+            return builder.GetViewModel();
         }
+
+        #region Private
 
         private List<RoleViewModel> ConvertDataToViewModels(List<RoleData> domainModels)
         {
@@ -63,17 +72,6 @@ namespace LMS.BusinessLogic.RoleManagement.Implementation
             return viewModels;
         }
 
-        public void SaveRelationUserRole(RelationUserRoleViewModel viewModel, UserSessionObject user)
-        {
-            RelationUserRoleDomainModelBuilder builder = BuilderResolverService.Get
-                <RelationUserRoleDomainModelBuilder, RelationUserRoleViewModel>(viewModel);
-            Constructor.ConstructDomainModelData(builder);
-            RelationUserRoleData domainModel = builder.GetDataModel();
-
-            if(viewModel.Id == 0)
-                domainModel.RefUserCreatedBy = user.UserId;
-
-            RelationUserRoleRepository.SaveData(domainModel);            
-        }
+        #endregion
     }
 }

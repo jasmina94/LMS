@@ -211,19 +211,8 @@ $(function () {
     });
 
     $adminSidebarItems.on("click", function (e) {
-        e.preventDefault();
         var id = $(this).attr("id");
         changeSidebarItemsStyle(id, "AdminSidebarItem");
-        switch (id) {
-            case "adminNewUser":
-                $(".AdminNewUserContainer").show();
-                $(".AdminPermissionContainer").hide();
-                break;
-            case "admnPermissions":
-                $(".AdminNewUserContainer").hide();
-                $(".AdminPermissionContainer").show();
-                break;
-        }
     });
 
     $deleteEBookBtn.on("click", function (e) {

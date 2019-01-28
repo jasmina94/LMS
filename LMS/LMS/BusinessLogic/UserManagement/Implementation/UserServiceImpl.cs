@@ -1,23 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using LMS.Infrastructure.ModelBuilders.Implementation.User;
 using LMS.Infrastructure.ModelConstructor.Interfaces;
-using LMS.Services.Interfaces;
-using LMS.DomainModel.DomainObject;
-using LMS.DomainModel.Repository.User.Interfaces;
-using LMS.Models.ViewModels.User;
-using LMS.Infrastructure.ModelBuilders.Implementation.User;
-using LMS.BusinessLogic.UserManagement.Model;
-using LMS.BusinessLogic.UserManagement.Interfaces;
 using LMS.DomainModel.Repository.Relation.Interfaces;
-using LMS.DomainModel.DomainObject.Relation;
+using LMS.BusinessLogic.UserManagement.Interfaces;
 using LMS.BusinessLogic.RoleManagement.Interfaces;
-using LMS.Models.ViewModels.Relation;
-using System;
+using LMS.DomainModel.Repository.User.Interfaces;
+using LMS.BusinessLogic.UserManagement.Model;
+using LMS.DomainModel.DomainObject.Relation;
 using LMS.Infrastructure.Authorization;
+using LMS.DomainModel.DomainObject;
+using System.Collections.Generic;
+using LMS.Models.ViewModels.User;
+using LMS.Services.Interfaces;
+using System;
 
 namespace LMS.BusinessLogic.LanguageManagement.Implementations
 {
     public class UserServiceImpl : IUserService
     {
+        #region Injection
         public IUserRepository UserRepository { get; set; }
 
         public IRelationUserBookCopyRepository RelationUserBookCopyRepository { get; set; }
@@ -27,6 +27,7 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
         public IModelConstructor Constructor { get; set; }
 
         public IBuilderResolverService BuilderResolverService { get; set; }
+        #endregion
 
         public UserViewModel Get(int? userId)
         {
@@ -53,20 +54,6 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             return viewModels;
         }
 
-        private List<UserViewModel> ConvertDataToViewModels(List<UserData> domainModels)
-        {
-            var viewModels = new List<UserViewModel>();
-
-            foreach (var item in domainModels)
-            {
-                UserViewModelBuilder builder = BuilderResolverService.Get<UserViewModelBuilder, UserData>(item);
-                Constructor.ConstructViewModelData(builder);
-                viewModels.Add(builder.GetViewModel());
-            }
-
-            return viewModels;
-        }
-
         public SaveUserResult Save(UserViewModel viewModel, UserSessionObject currentUser)
         {
             var result = new SaveUserResult();
@@ -81,28 +68,10 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             int id = UserRepository.SaveData(domainModel);
             if (id != 0)
             {
-                if (viewModel.RoleId != 0)
-                {
-                    //Save relation user - role
-                    var relationUserRoleViewModel = CreateUserRoleViewModel(id, viewModel.RoleId, 0);
-                    RoleService.SaveRelationUserRole(relationUserRoleViewModel, currentUser);
-                }
                 result = new SaveUserResult(id, domainModel.FullFirstAndLastName);
             }
 
             return result;
-        }
-
-        private RelationUserRoleViewModel CreateUserRoleViewModel(int userId, int roleId, int userCreatedId)
-        {
-            var relation = new RelationUserRoleViewModel()
-            {
-                RoleId = roleId,
-                UserId = userId,
-                UserCreatedById = userCreatedId
-            };
-
-            return relation;
         }
 
         public DeleteUserResult Delete(int? userId, UserSessionObject currentUser)
@@ -129,24 +98,54 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
             return result;
         }
 
-        public bool CheckUniqueUsername(string username)
+        public Tuple<bool, int> CheckUniqueUsername(string username)
         {
-            bool unique = true;
+            Tuple<bool, int> result;
             UserData user = UserRepository.GetUserByUsername(username);
             if (user != null)
-                unique = false;
+            {
+                result = new Tuple<bool, int>(false, user.Id);
+            }
+            else
+            {
+                result = new Tuple<bool, int>(true, 0);
+            }                
 
-            return unique;
+            return result;
         }
 
-        public bool CheckUniqueEmail(string email)
+        public Tuple<bool, int> CheckUniqueEmail(string email)
         {
-            bool unique = true;
+            Tuple<bool, int> result;
             UserData user = UserRepository.GetUserByEmail(email);
-            if (user != null)
-                unique = false;
 
-            return unique;
+            if (user != null)
+            {
+                result = new Tuple<bool, int>(false, user.Id);
+            }
+            else
+            {
+                result = new Tuple<bool, int>(true, 0);
+            }
+                
+
+            return result;
         }
+
+        #region Private
+        private List<UserViewModel> ConvertDataToViewModels(List<UserData> domainModels)
+        {
+            var viewModels = new List<UserViewModel>();
+
+            foreach (var item in domainModels)
+            {
+                UserViewModelBuilder builder = BuilderResolverService.Get<UserViewModelBuilder, UserData>(item);
+                Constructor.ConstructViewModelData(builder);
+                viewModels.Add(builder.GetViewModel());
+            }
+
+            return viewModels;
+        }
+        #endregion
     }
 }

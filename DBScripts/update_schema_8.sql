@@ -9,22 +9,22 @@ SET ANSI_WARNINGS ON
 COMMIT
 BEGIN TRANSACTION
 GO
-CREATE TABLE Roles
+CREATE TABLE Permission
 	(
-	RowId int NOT NULL IDENTITY(1,1) CONSTRAINT PK_Role PRIMARY KEY,
-	IdRole int NOT NULL,
+	RowId int NOT NULL IDENTITY(1,1) CONSTRAINT PK_Permission PRIMARY KEY,
+	IdPermission int NOT NULL,
 	IsActive int NOT NULL,
-	NameRole nvarchar(255) NOT NULL,
-	CodeRole nvarchar(255) NOT NULL,
+	NamePermission nvarchar(255) NOT NULL,
+	CodePermission nvarchar(255) NOT NULL,
 	RefUserCreatedBy int,
 	DateTimeCreatedOn datetime,
 	RefUserDeletedBy int,
 	DateTimeDeletedOn datetime
 	)  ON [PRIMARY]
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_IdRole] ON [dbo].[Roles]
+CREATE UNIQUE NONCLUSTERED INDEX [IX_IdPermission] ON [dbo].[Permission]
 	(
-	[IdRole] ASC	
+	[IdPermission] ASC	
 	) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF,
 	SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF,
 	ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS= ON) 

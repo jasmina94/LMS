@@ -204,6 +204,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\AdministrationController.cs" />
+    <Compile Include="BusinessLogic\PermissionManagement\Model\PermissionResult.cs" />
+    <Compile Include="BusinessLogic\PermissionManagement\Model\PermissionWrapper.cs" />
     <Compile Include="Areas\Book\Controllers\BookController.cs" />
     <Compile Include="Areas\Book\Controllers\BookCopyController.cs" />
     <Compile Include="Areas\Book\Controllers\OverviewController.cs" />
@@ -245,6 +247,8 @@
     <Compile Include="BusinessLogic\LanguageManagement\Interfaces\ILanguageService.cs" />
     <Compile Include="BusinessLogic\LanguageManagement\Model\DeleteLanguageResult.cs" />
     <Compile Include="BusinessLogic\LanguageManagement\Model\SaveLanguageResult.cs" />
+    <Compile Include="BusinessLogic\PermissionManagement\Implementation\PermissionServiceImpl.cs" />
+    <Compile Include="BusinessLogic\PermissionManagement\Interface\IPermissionService.cs" />
     <Compile Include="BusinessLogic\RoleManagement\Implementation\RoleServiceImpl.cs" />
     <Compile Include="BusinessLogic\RoleManagement\Interfaces\IRoleService.cs" />
     <Compile Include="BusinessLogic\UserManagement\Implementation\UserServiceImpl.cs" />
@@ -314,8 +318,6 @@
     <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\UserBookCopy\RelationUserBookCopyViewModelBuilder.cs" />
     <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\UserPermission\RelationUserPermissionDomainModelBuilder.cs" />
     <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\UserPermission\RelationUserPermissionViewModelBuilder.cs" />
-    <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\UserRole\RelationUserRoleDomainModelBuilder.cs" />
-    <Compile Include="Infrastructure\ModelBuilders\Implementation\Relation\UserRole\RelationUserRoleViewModelBuilder.cs" />
     <Compile Include="Infrastructure\ModelBuilders\Implementation\Role\RoleDomainModelBuilder.cs" />
     <Compile Include="Infrastructure\ModelBuilders\Implementation\Role\RoleViewModelBuilder.cs" />
     <Compile Include="Infrastructure\ModelBuilders\Implementation\User\UserDomainModelBuilder.cs" />
@@ -362,11 +364,11 @@
     <Compile Include="Models\ViewModels\Book\EBookSaveViewModel.cs" />
     <Compile Include="Models\ViewModels\Category\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Language\LanguageViewModel.cs" />
+    <Compile Include="Models\ViewModels\Permission\AdministrationUserPermissionViewModel.cs" />
     <Compile Include="Models\ViewModels\Permission\PermissionViewModel.cs" />
     <Compile Include="Models\ViewModels\Relation\RelationRolePermissionViewModel.cs" />
     <Compile Include="Models\ViewModels\Relation\RelationUserBookCopyViewModel.cs" />
     <Compile Include="Models\ViewModels\Relation\RelationUserPermissionViewModel.cs" />
-    <Compile Include="Models\ViewModels\Relation\RelationUserRoleViewModel.cs" />
     <Compile Include="Models\ViewModels\Role\RoleViewModel.cs" />
     <Compile Include="Models\ViewModels\Search\MultiFieldSearchViewModel.cs" />
     <Compile Include="Models\ViewModels\Search\SearchViewModel.cs" />
@@ -379,6 +381,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Images\admin.jpg" />
     <Content Include="Resources\Images\books.png" />
     <Content Include="Resources\Images\bookshelf.png" />
     <Content Include="Resources\Images\book_copies.png" />
@@ -411,12 +414,15 @@
     <Content Include="Resources\Images\return_loan.png" />
     <Content Include="Resources\Images\users.png" />
     <Content Include="Resources\Images\warning.png" />
+    <Content Include="Resources\Scripts\admin\NewUserHandler.js" />
+    <Content Include="Resources\Scripts\admin\PermissionHandler.js" />
     <Content Include="Resources\Scripts\ajax\AjaxHttpSender.js" />
     <Content Include="Resources\Scripts\bootstrap-datetimepicker\bootstrap-datetimepicker.js" />
     <Content Include="Resources\Scripts\bootstrap-datetimepicker\moment.js" />
     <Content Include="Resources\Scripts\css-element-queries\ElementQueries.js" />
     <Content Include="Resources\Scripts\css-element-queries\ResizeSensor.js" />
     <Content Include="Resources\Scripts\data-tables\datatables.min.js" />
+    <Content Include="Resources\Scripts\data-tables\dataTables.select.min.js" />
     <Content Include="Resources\Scripts\dialogs\BaseDialog.js" />
     <Content Include="Resources\Scripts\dialogs\Book\Book.js" />
     <Content Include="Resources\Scripts\dialogs\Book\BookCopy.js" />
@@ -516,6 +522,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Resources\Styles\chat\Chat.css" />
     <Content Include="Resources\Styles\data-tables\datatables.css" />
+    <Content Include="Resources\Styles\data-tables\select.dataTables.css" />
     <Content Include="Resources\Styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Resources\Styles\jqueryUI\base\accordion.css" />

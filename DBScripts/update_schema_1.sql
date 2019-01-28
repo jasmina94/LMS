@@ -25,6 +25,7 @@ CREATE TABLE Users
 	Username nvarchar(255) NOT NULL,
 	UserPassword nvarchar(255) NOT NULL,
 	Email nvarchar(255) NOT NULL,
+	RefRole int NOT NULL,
 	RefCategory int,
 	RefUserCreatedBy int,
 	DateTimeCreatedOn datetime,

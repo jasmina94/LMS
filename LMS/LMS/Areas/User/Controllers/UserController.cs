@@ -76,17 +76,17 @@ namespace LMS.Areas.User.Controllers
         [HttpPost]
         public ActionResult CheckUsername(string username)
         {
-            bool result = UserService.CheckUniqueUsername(username);
+            var result = UserService.CheckUniqueUsername(username);
 
-            return Json(result);
+            return Json(new { success = result.Item1, id = result.Item2 });
         }
 
         [HttpPost]
         public ActionResult CheckEmail(string email)
         {
-            bool result = UserService.CheckUniqueEmail(email);
+            var result = UserService.CheckUniqueEmail(email);
 
-            return Json(result);
+            return Json(new { success = result.Item1, id = result.Item2 });
         }
 
         [HttpGet]

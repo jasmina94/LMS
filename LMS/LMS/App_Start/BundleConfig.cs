@@ -48,7 +48,8 @@ namespace LMS
                    "~/Resources/Scripts/ResizeSensor.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
-                "~/Resources/Scripts/data-tables/datatables.min.js"));
+                "~/Resources/Scripts/data-tables/datatables.min.js",
+                "~/Resources/Scripts/data-tables/dataTables.select.min.js"));
         }
 
         private static void RegisterCustomScripts(BundleCollection bundles)
@@ -82,7 +83,10 @@ namespace LMS
                .IncludeDirectory("~/Resources/Scripts/dialogs/Book", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/bundles/ebook")
-               .IncludeDirectory("~/Resources/Scripts/EBook", "*.js", true));
+               .IncludeDirectory("~/Resources/Scripts/ebook", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/bundles/admin")
+               .IncludeDirectory("~/Resources/Scripts/admin", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/bundles/grid")
                 .IncludeDirectory("~/Resources/Scripts/lms-grid", "*.js", true));
@@ -113,7 +117,8 @@ namespace LMS
                       "~/Resources/Styles/lms-ribbon/LMSRibbon.css"));
 
             bundles.Add(new StyleBundle("~/datatables/css").Include(
-                   "~/Resources/Styles/data-tables/datatables.css"));
+                   "~/Resources/Styles/data-tables/datatables.css",
+                   "~/Resources/Styles/data-tables/select.datatables.css"));
         }
     }
 }

@@ -2,6 +2,7 @@
 using LMS.Infrastructure.Authorization;
 using LMS.Models.ViewModels.User;
 using System.Collections.Generic;
+using System;
 
 namespace LMS.BusinessLogic.UserManagement.Interfaces
 {
@@ -15,8 +16,8 @@ namespace LMS.BusinessLogic.UserManagement.Interfaces
 
         DeleteUserResult Delete(int? userId, UserSessionObject currentUser);
 
-        bool CheckUniqueUsername(string username);
+        Tuple<bool,int> CheckUniqueUsername(string username);
 
-        bool CheckUniqueEmail(string email);
+        Tuple<bool, int> CheckUniqueEmail(string email);
     }
 }

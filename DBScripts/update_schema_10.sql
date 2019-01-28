@@ -9,22 +9,22 @@ SET ANSI_WARNINGS ON
 COMMIT
 BEGIN TRANSACTION
 GO
-CREATE TABLE Languages
+CREATE TABLE Category
 	(
-	RowId int NOT NULL IDENTITY(1,1) CONSTRAINT PK_Language PRIMARY KEY,
-	IdLanguage int NOT NULL,
+	RowId int NOT NULL IDENTITY(1,1) CONSTRAINT PK_Category PRIMARY KEY,
+	IdCategory int NOT NULL,
 	IsActive int NOT NULL,
-	NameLanguage nvarchar(255) NOT NULL,
-	CodeLanguage nvarchar(255) NOT NULL,
+	NameCategory nvarchar(255) NOT NULL,
+	CodeCategory nvarchar(255) NOT NULL,
 	RefUserCreatedBy int,
 	DateTimeCreatedOn datetime,
 	RefUserDeletedBy int,
 	DateTimeDeletedOn datetime
 	)  ON [PRIMARY]
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_IdLanguage] ON [dbo].[Languages]
+CREATE UNIQUE NONCLUSTERED INDEX [IX_IdCategory] ON [dbo].[Category]
 	(
-	[IdLanguage] ASC	
+	[IdCategory] ASC	
 	) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF,
 	SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF,
 	ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS= ON) 

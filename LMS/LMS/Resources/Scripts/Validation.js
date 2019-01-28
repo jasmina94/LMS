@@ -26,6 +26,7 @@ Validator.prototype = {
         $.validator.addMethod("uniqueUsername", function (value, element) {
             var response;
             var data = {};
+            var idUser = $("#Id").val();
             data["username"] = value;
             data = JSON.stringify(data);
             var url = "/User/User/CheckUsername";
@@ -37,7 +38,11 @@ Validator.prototype = {
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (data) {
-                    response = data;
+                    if (!data.success) {
+                        response = data.id == idUser ? true : false;
+                    } else {
+                        response = data.success;
+                    }
                 }
             });
             return response;
@@ -46,6 +51,7 @@ Validator.prototype = {
         $.validator.addMethod("uniqueEmail", function (value, element) {
             var response;
             var data = {};
+            var idUser = $("#Id").val();
             data["email"] = value;
             data = JSON.stringify(data);
             var url = "/User/User/CheckEmail"
@@ -57,7 +63,11 @@ Validator.prototype = {
                 contentType: "application/json; charset=utf-8",
                 async: false,
                 success: function (data) {
-                    response = data;
+                    if (!data.success) {
+                        response = data.id == idUser ? true : false;
+                    } else {
+                        response = data.success;
+                    }
                 }
             });
             return response;
@@ -146,10 +156,40 @@ Validator.prototype = {
             return response;
         }, "* Publication year is not valid!");
 
-        $.validator.addMethod("serbianIsChosen", function (value, element) {
+        $.validator.addMethod("serbianOrEnglish", function (value, element) {
             return $("select#languageid").find("option:selected").val() === "3" || 
             $("select#languageid").find("option:selected").val() === "1";
         }, "* Currently is only available adding e-books on English or Serbian lanugage!");
+
+        $.validator.addMethod("basicCateogoryIsChosen", function (value, element) {
+            var response = true;
+            var $role = $("select#UserFormRole");
+            var roleValue = $role.val();
+
+            if ($(".UserFormCategoryWrapper").is(":visible") && roleValue == "3") {
+                var $category = $("select#UserFormCategory");
+                var category = $category.val();
+
+                response = category != null && category != "";
+            }
+
+            return response;
+        }, "*Category is required for subscriber!");
+
+        $.validator.addMethod("cateogoryIsChosen", function (value, element) {
+            var response = true;
+            var $role = $("select#AdminSelectRole");
+            var roleValue = $role.val();
+
+            if ($(".AdminCategoryWrapper").is(":visible") && roleValue == "3") {
+                var $category = $("select#AdminSelectCategory");
+                var category = $category.val();
+
+                response = category != null && category != "";
+            }
+
+            return response;
+        }, "*Category is required for subscriber!");
     }
 }
 

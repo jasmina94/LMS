@@ -83,13 +83,12 @@
     <Compile Include="DomainObject\BaseData.cs" />
     <Compile Include="DomainObject\BookCopyData.cs" />
     <Compile Include="DomainObject\BookData.cs" />
+    <Compile Include="DomainObject\Relation\RelationRolePermissionData.cs" />
     <Compile Include="DomainObject\Relation\RelationUserBookCopyData.cs" />
     <Compile Include="DomainObject\CategoryData.cs" />
     <Compile Include="DomainObject\LanguageData.cs" />
     <Compile Include="DomainObject\PermissionData.cs" />
-    <Compile Include="DomainObject\Relation\RelationRolePermissionData.cs" />
     <Compile Include="DomainObject\Relation\RelationUserPermissionData.cs" />
-    <Compile Include="DomainObject\Relation\RelationUserRoleData.cs" />
     <Compile Include="DomainObject\RoleData.cs" />
     <Compile Include="DomainObject\UserData.cs" />
     <Compile Include="Infrastructure\FilterMapper\DataCollectionFilterSorter.cs" />
@@ -121,11 +120,9 @@
     <Compile Include="Repository\Relation\Implementation\RelationRolePermissionRepository.cs" />
     <Compile Include="Repository\Relation\Implementation\RelationUserBookCopyRepository.cs" />
     <Compile Include="Repository\Relation\Implementation\RelationUserPermissionRepository.cs" />
-    <Compile Include="Repository\Relation\Implementation\RelationUserRoleRepository.cs" />
     <Compile Include="Repository\Relation\Interfaces\IRelationRolePermissionRepository.cs" />
     <Compile Include="Repository\Relation\Interfaces\IRelationUserBookCopyRepository.cs" />
     <Compile Include="Repository\Relation\Interfaces\IRelationUserPermissionRepository.cs" />
-    <Compile Include="Repository\Relation\Interfaces\IRelationUserRoleRepository.cs" />
     <Compile Include="Repository\Role\Implementation\RolesRepository.cs" />
     <Compile Include="Repository\Role\Interfaces\IRoleRepository.cs" />
     <Compile Include="Repository\User\Implementation\UsersRepository.cs" />

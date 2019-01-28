@@ -18,13 +18,11 @@ namespace LMS.BusinessLogic.AccessControlManagement.Implementation
     {
         #region Injected properties
 
-        public IUserRepository UserRepository { get; set; }
-
-        public IPermissionRepository PermissionRepository { get; set; }
+        public IUserRepository UserRepository { get; set; }        
 
         public IRoleRepository RoleRepository { get; set; }
 
-        public IRelationUserRoleRepository RelationUserRoleRepository { get; set; }
+        public IPermissionRepository PermissionRepository { get; set; }
 
         public IRelationRolePermissionRepository RelationRolePermissionRepository { get; set; }
 
@@ -86,14 +84,11 @@ namespace LMS.BusinessLogic.AccessControlManagement.Implementation
             List<string> rolePermissionCodes = new List<string>();
             List<PermissionData> rolePermissions = new List<PermissionData>();
 
-            UserData user = UserRepository.GetUserByUsername(username);
-            List<RelationUserRoleData> relationUserRoles = RelationUserRoleRepository.GetRelationUserRoleFor(user.Id);
+            UserData user = UserRepository.GetUserByUsername(username);         
 
-            foreach (RelationUserRoleData relationUserRole in relationUserRoles)
-            {
-                List<RelationRolePermissionData> relationRolePermissions = RelationRolePermissionRepository.GetRelationRolePermissionFor(relationUserRole.RoleId);
-                rolePermissionCodes = GetPermissionsFromRolePermissions(relationRolePermissions);
-            }
+            var relationRolePermissions = RelationRolePermissionRepository.GetRelationRolePermissionFor(user.RoleId);
+
+            rolePermissionCodes = GetPermissionsFromRolePermissions(relationRolePermissions);
 
             return rolePermissionCodes;
         }
@@ -112,15 +107,11 @@ namespace LMS.BusinessLogic.AccessControlManagement.Implementation
 
         public List<string> GetRolesFor(string username)
         {
-            List<string> roleCodes = new List<string>();
-            UserData user = UserRepository.GetUserByUsername(username);
-            List<RelationUserRoleData> relationUserRoles = RelationUserRoleRepository.GetRelationUserRoleFor(user.Id);
+            var roleCodes = new List<string>();
 
-            foreach (RelationUserRoleData relationUserRole in relationUserRoles)
-            {
-                RoleData role = RoleRepository.GetDataById(relationUserRole.RoleId);
-                roleCodes.Add(role.CodeRole);
-            }
+            UserData user = UserRepository.GetUserByUsername(username);
+
+            roleCodes.Add(RoleRepository.GetDataById(user.RoleId).CodeRole);
 
             return roleCodes;
         }
@@ -159,9 +150,8 @@ namespace LMS.BusinessLogic.AccessControlManagement.Implementation
             bool hasRole = false;
             UserData user = UserRepository.GetUserByUsername(username);
             RoleData role = RoleRepository.GetRoleByCode(roleCode);
-
-            RelationUserRoleData userInRole = RelationUserRoleRepository.GetRelationUserRoleFor(user.Id, role.Id);
-            if (userInRole != null)
+            
+            if(user.RoleId == role.Id)
             {
                 hasRole = true;
             }

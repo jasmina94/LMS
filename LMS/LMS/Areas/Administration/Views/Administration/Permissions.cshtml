@@ -1,1 +1,41 @@
-﻿<h4>Permissions</h4>
+﻿<div class="AdminSidenav">
+    @Html.ActionLink("New user", "ViewNewUserPanel", "Administration", new { area = "Administration" }, 
+        new { @class = "AdminSidebarItem", @id ="AdminNewUserLink" })
+    @Html.ActionLink("Permissions", "ViewPermissionPanel", "Administration", new { area = "Administration" },
+        new { @class = "AdminSidebarItem", @id = "AdminPermissionLink" })
+</div>
+
+<div class="panel panel-default" style="margin-left:170px;">
+    <div class="panel-heading">
+        <h4>Permissions</h4>
+    </div>
+    <div class="panel-body">
+        <div>
+            <div style="display:flex">
+                <span style="margin-top:8px;margin-right:10px;"><b>Choose user:</b></span>
+                <select class="lms-select-permission-user"></select>
+                <span style="margin-left:100px">
+                    <button class="btn btn-success lms-assign-permission-btn" style="width:100px">Assign</button>
+                </span>
+                <span style="margin-left:10px">
+                    <button class="btn btn-danger lms-remove-permission-btn" style="width:100px">Remove</button>
+                </span>
+            </div>
+        </div>
+        <p class="lms-permission-grid-label"><b>Available permissions</b></p>
+        <div id="AvailablePermissionsGrid" class="lms-permission-grid">
+                
+        </div>
+        <p class="lms-permission-grid-label"><b>Assigned permissions</b></p>
+        <div id="AssignedPermissionsGrid" class="lms-permission-grid">
+            
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var handler = new PermissionHandler();
+        handler.init();
+    });
+</script>

@@ -1,6 +1,4 @@
-﻿using LMS.Infrastructure.Authorization;
-using LMS.Models.ViewModels.Relation;
-using LMS.Models.ViewModels.Role;
+﻿using LMS.Models.ViewModels.Role;
 using System.Collections.Generic;
 
 namespace LMS.BusinessLogic.RoleManagement.Interfaces
@@ -11,6 +9,6 @@ namespace LMS.BusinessLogic.RoleManagement.Interfaces
 
         List<RoleViewModel> GetAll(bool active);
 
-        void SaveRelationUserRole(RelationUserRoleViewModel viewModel, UserSessionObject user);
+        RoleViewModel GetRoleFor(int userId);
     }
 }

@@ -35,7 +35,7 @@
                         <li>@Html.ActionLink("Category", "Index", "Overview", new { area = "Category" }, "")</li>
                         <li>@Html.ActionLink("Book", "Index", "Overview", new { area = "Book" }, "")</li>
                         <li>@Html.Restrict(currentUser, PermissionEnum.ViewOverviewLanguage, Html.ActionLink("Language", "Index", "Overview", new { area = "Language" }, ""))</li>
-                        <li>@Html.Restrict(currentUser, PermissionEnum.ViewOverviewUser, Html.ActionLink("User", "Index", "Overview", new { area = "User" }, ""))</li>
+                        <li>@Html.Restrict(currentUser, PermissionEnum.ViewOverviewUsers, Html.ActionLink("User", "Index", "Overview", new { area = "User" }, ""))</li>
                     </ul>
                 </li>
 

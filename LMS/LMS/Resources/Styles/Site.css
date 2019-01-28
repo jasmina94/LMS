@@ -25,8 +25,8 @@
     font-size: x-small;
 }
 
-.lms-navbar-chat-item{
-   background: url(../Images/chat.png) no-repeat;
+.lms-navbar-chat-item {
+    background: url(../Images/chat.png) no-repeat;
 }
 
 .lms-login-panel {
@@ -113,11 +113,11 @@ input.SpecificInputType {
     max-width: 280px;
 }
 
-input#sfsFieldValue{
+input#sfsFieldValue {
     max-width: 100%;
 }
 
-div.KeywordsFormGroup{
+div.KeywordsFormGroup {
     margin-bottom: 2px;
 }
 
@@ -182,7 +182,7 @@ div.KeywordsFormGroup{
         }
 
 /*Profile and Admin page styles*/
-.ProfileSidenav, 
+.ProfileSidenav,
 .AdminSidenav {
     height: 93%;
     width: 160px;
@@ -196,7 +196,7 @@ div.KeywordsFormGroup{
     margin-top: 30px;
 }
 
-    .ProfileSidenav, .AdminSidenav a {
+    .ProfileSidenav a {
         padding: 6px 8px 6px 16px;
         text-decoration: none;
         font-size: 16px;
@@ -205,7 +205,20 @@ div.KeywordsFormGroup{
         cursor: pointer;
     }
 
-        .ProfileSidenav, .AdminSidenav a:not(.ActiveSidebarItem):hover {
+        .ProfileSidenav, a:not(.ActiveSidebarItem):hover {
+            color: #f1f1f1;
+        }
+
+.AdminSidenav a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 16px;
+        color: #818181;
+        display: block;
+        cursor: pointer;
+    }
+
+        .AdminSidenav, a:not(.ActiveSidebarItem):hover {
             color: #f1f1f1;
         }
 
@@ -213,24 +226,29 @@ a.ActiveSidebarItem {
     color: yellow;
 }
 
-.ProfileMainContainer, 
-.ProfileCurrentlyLoanContainer, 
-.ProfileHistoryLoanContainer, 
+.ProfileMainContainer,
+.ProfileCurrentlyLoanContainer,
+.ProfileHistoryLoanContainer,
 .AdminNewUserContainer,
-.AdminPermissionContainer{
+.AdminPermissionContainer {
     margin-left: 160px; /* Same as the width of the sidenav */
     padding: 0px 10px;
 }
 
 
-.SaveProfileInfoForm, {
+.SaveProfileInfoForm {
     display: none;
     width: 150px;
     text-align: center;
     margin-left: 350px;
 }
 
-.SaveNewUserForm{
+a.ProfileChangeLinks:hover{
+    background-color: yellow;
+    color: black;
+}
+
+.SaveNewUserForm {
     width: 150px;
     text-align: center;
     margin-left: 330px;
@@ -249,68 +267,96 @@ a.ActiveSidebarItem {
     margin-left: 10px;
 }
 
-.ChangePasswordBtn{
+.ChangePasswordBtn {
     margin-left: 200px;
     min-width: 100px;
 }
 
 /*Error tooltip*/
-div#errorfile{
+div#errorfile {
     margin-top: -30px;
     margin-left: 650px;
 }
+
 div#errorcategoryid,
-div#errorlanguageId{
+div#errorlanguageId {
     margin-top: -30px;
     margin-left: 280px;
 }
 
-div#errorsfsFieldValue{
+div#errorsfsFieldValue {
     margin-top: -50px;
     margin-left: 250px;
 }
 
-div#errorroleid{
+div#errorroleid {
     margin-left: 280px;
     margin-top: -35px;
 }
 
 div#errormfsContent,
 div#errormfsAuthor,
-div#errormfsTitle{
+div#errormfsTitle {
     margin-top: -50px;
     margin-left: 130px;
 }
 
-div#errormfsKeywords{
-     margin-top: -50px;
+div#errormfsKeywords {
+    margin-top: -50px;
     margin-left: 150px;
 }
 
+div#errorAdminSelectRole {
+    margin-left: 300px;
+}
+
+div#errorUserFormRole{
+    margin-left: 250px;
+}
+
 /*EBook*/
-.lms-add-new-ebook-btn{
-    margin-right:10px;
+.lms-add-new-ebook-btn {
+    margin-right: 10px;
 }
 
-.lms-overview-button-set{
-    display:inline-block; 
-    padding-bottom:20px;
+.lms-overview-button-set {
+    display: inline-block;
+    padding-bottom: 20px;
 }
 
-.lms-ebook-table{
-   
+.lms-ebook-table {
 }
 
-.lms-ebook-delete-btn, .lms-ebook-download-btn{
-    cursor:pointer;
+.lms-ebook-delete-btn, .lms-ebook-download-btn {
+    cursor: pointer;
 }
 
-.lms-main-message-no-ebooks{
-    padding:10px;
-    font-size:18px;
+.lms-main-message-no-ebooks {
+    padding: 10px;
+    font-size: 18px;
 }
 
-.lms-sub-message-no-ebooks{
-    padding:5px;
-    font-size:12px;
+.lms-sub-message-no-ebooks {
+    padding: 5px;
+    font-size: 12px;
+}
+
+/*Permission*/
+.lms-permission-grid{
+    border: 1px solid black;
+    max-height: 200px;
+    min-height:200px;
+    overflow-y:auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.lms-permission-table{
+    width: 100%;
+}
+
+.lms-permission-grid-label{
+    margin-top:15px;
+    margin-bottom:0px;
+    display:none;
 }

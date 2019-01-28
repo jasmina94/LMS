@@ -144,7 +144,7 @@ namespace LMS.DomainModel.Repository.Base.Implementation
             int idFromSystemTable = 0;
             int idParsed;
 
-            if (id != null && Int32.TryParse(id.ToString(), out idParsed))
+            if (id != null && int.TryParse(id.ToString(), out idParsed))
             {
                 idFromSystemTable = (int)id;
             }

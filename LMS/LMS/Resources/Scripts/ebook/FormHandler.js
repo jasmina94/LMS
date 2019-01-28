@@ -103,7 +103,7 @@
                     CategoryId: "required",
                     LanguageId: {
                         required: true,
-                        serbianIsChosen: true
+                        serbianOrEnglish: true
                     }
                 },
                 messages: {
@@ -120,7 +120,7 @@
                     CategoryId: "Category is required!",
                     LanguageId: {
                         required: "Language is required!",
-                        serbianIsChosen: "Currently is only available adding e-books on English or Serbian lanugage!"
+                        serbianOrEnglish: "Currently is only available adding e-books on English or Serbian lanugage!"
                     }
                 }
             });

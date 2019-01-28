@@ -83,35 +83,7 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             viewModels = ConvertDataToViewModels(domainModels);
 
             return viewModels;
-        }
-
-        private List<BookViewModel> ConvertDataToViewModels(List<BookData> domainModels)
-        {
-            var viewModels = new List<BookViewModel>();
-
-            foreach (var item in domainModels)
-            {
-                BookViewModelBuilder builder = BuilderResolverService.Get<BookViewModelBuilder, BookData>(item);
-                Constructor.ConstructViewModelData(builder);
-                viewModels.Add(builder.GetViewModel());
-            }
-
-            return viewModels;
-        }
-
-        private List<BookCopyViewModel> ConvertDataToViewModels(List<BookCopyData> domainModels)
-        {
-            var viewModels = new List<BookCopyViewModel>();
-
-            foreach (var item in domainModels)
-            {
-                BookCopyViewModelBuilder builder = BuilderResolverService.Get<BookCopyViewModelBuilder, BookCopyData>(item);
-                Constructor.ConstructViewModelData(builder);
-                viewModels.Add(builder.GetViewModel());
-            }
-
-            return viewModels;
-        }
+        }        
 
         public SaveBookResult Save(BookViewModel viewModel, UserSessionObject user)
         {
@@ -255,6 +227,8 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
             return result;
         }
 
+        #region Private methods
+
         private bool CheckIfAnyCopyIsBorrowed(List<BookCopyData> bookCopies)
         {
             bool hasBorrowedCopy = false;
@@ -277,5 +251,35 @@ namespace LMS.BusinessLogic.BookManagement.Implementations
                 BookCopyRepository.DeleteById(item.Id, user.UserId);
             }
         }
+
+        private List<BookViewModel> ConvertDataToViewModels(List<BookData> domainModels)
+        {
+            var viewModels = new List<BookViewModel>();
+
+            foreach (var item in domainModels)
+            {
+                BookViewModelBuilder builder = BuilderResolverService.Get<BookViewModelBuilder, BookData>(item);
+                Constructor.ConstructViewModelData(builder);
+                viewModels.Add(builder.GetViewModel());
+            }
+
+            return viewModels;
+        }
+
+        private List<BookCopyViewModel> ConvertDataToViewModels(List<BookCopyData> domainModels)
+        {
+            var viewModels = new List<BookCopyViewModel>();
+
+            foreach (var item in domainModels)
+            {
+                BookCopyViewModelBuilder builder = BuilderResolverService.Get<BookCopyViewModelBuilder, BookCopyData>(item);
+                Constructor.ConstructViewModelData(builder);
+                viewModels.Add(builder.GetViewModel());
+            }
+
+            return viewModels;
+        }
+       
+        #endregion
     }
 }

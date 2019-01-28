@@ -6,7 +6,25 @@ var UserDialog = function () {
 }
 UserDialog.prototype = Object.create(BaseDialog.prototype);
 
-UserDialog.prototype.initSpecific = function () { }
+UserDialog.prototype.initSpecific = function () {
+
+    $("#UserFormRole").on("select2:select", function (e) {
+        var $selected = $(this);
+        var $categoryWrapper = $(".UserFormCategoryWrapper");
+        var val = $selected.val();
+
+        if (val == "3") {
+            $categoryWrapper.show();
+        } else {
+            $categoryWrapper.hide();
+        }
+    });
+
+    $("#UserFormRole").on("select2:unselect", function (e) {
+        var $categoryWrapper = $(".UserFormCategoryWrapper");
+        $categoryWrapper.hide();
+    });
+}
 
 UserDialog.prototype.initValidator = function () {
 
@@ -30,7 +48,10 @@ UserDialog.prototype.initValidator = function () {
                 email: true,
                 uniqueEmail: true
             },
-            RoleId: "required"
+            RoleId: {
+                required: true,
+                basicCateogoryIsChosen: true
+            }
         },
         messages: {
             Firstname: "Firstname is required!",
@@ -49,7 +70,10 @@ UserDialog.prototype.initValidator = function () {
                 email: "Email is not valid!",
                 uniqueEmail: "Email is not unique!"
             },
-            RoleId: "Role is required!"
+            RoleId: {
+                required: "Role is required!",
+                basicCateogoryIsChosen: "Category is required for subscriber!"
+            }
         }
     });
 }

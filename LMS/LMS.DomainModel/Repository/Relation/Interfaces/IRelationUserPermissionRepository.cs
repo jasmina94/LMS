@@ -7,5 +7,7 @@ namespace LMS.DomainModel.Repository.Relation.Interfaces
     public interface IRelationUserPermissionRepository : IRepository<RelationUserPermissionData>
     {
         List<RelationUserPermissionData> GetRelationUserPermissionFor(int userId);
+
+        RelationUserPermissionData GetRelationUserPermissionFor(int userId, int permissionId);
     }
 }

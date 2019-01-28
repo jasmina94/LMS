@@ -26,6 +26,9 @@ namespace LMS.DomainModel.DomainObject
         [DBColumn("RefCategory")]
         public int CategoryId { get; set; }
 
+        [DBColumn("RefRole")]
+        public int RoleId { get; set; }
+
         public string FullFirstAndLastName
         {
             get

@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using LMS.DomainModel.DomainObject.Relation;
 using LMS.DomainModel.Repository.Base.Implementation;
 using LMS.DomainModel.Repository.Relation.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
 using LMS.DomainModel.ConversionHelper;
+using System;
+using LMS.DomainModel.Infrastructure.ORM.Model.Implementation;
 
 namespace LMS.DomainModel.Repository.Relation.Implementation
 {
@@ -27,6 +28,21 @@ namespace LMS.DomainModel.Repository.Relation.Implementation
             return data;
         }
 
+        public RelationUserPermissionData GetRelationUserPermissionFor(int userId, int permissionId)
+        {
+            RelationUserPermissionData data = null;
+            SqlCommand sqlCommand = CreateCommandGetRelationUserPermissionFor(userId, permissionId);
+            DataRow dataRow = DataSource.GetDataRow(sqlCommand);
+
+            if (dataRow != null)
+            {
+                var mapping = (MappingModel<RelationUserPermissionData>)mappingModel;
+                data = mapping.ExecuteConversion(dataRow);
+            }
+
+            return data;
+        }
+
         private SqlCommand CreateCommandGetRelationUserPermissionFor(int userId)
         {
             string query = @"
@@ -34,12 +50,31 @@ namespace LMS.DomainModel.Repository.Relation.Implementation
                FROM     {0}
                WHERE    IsActive = @IsActive
                AND      RefUser LIKE @UserId
-         ";
+            ";
 
             SqlCommand sqlCommand = new SqlCommand(string.Format(query, tableName));
 
             sqlCommand.Parameters.AddWithValue("@IsActive", true.ToDBFromBool());
             sqlCommand.Parameters.AddWithValue("@UserId", userId);
+
+            return sqlCommand;
+        }
+
+        private SqlCommand CreateCommandGetRelationUserPermissionFor(int userId, int permissionId)
+        {
+            string query = @"
+               SELECT   * 
+               FROM     {0}
+               WHERE    IsActive = @IsActive
+               AND      RefUser LIKE @UserId
+               AND      RefPermission LIKE @PermissionId
+            ";
+
+            SqlCommand sqlCommand = new SqlCommand(string.Format(query, tableName));
+
+            sqlCommand.Parameters.AddWithValue("@IsActive", true.ToDBFromBool());
+            sqlCommand.Parameters.AddWithValue("@UserId", userId);
+            sqlCommand.Parameters.AddWithValue("@PermissionId", permissionId);
 
             return sqlCommand;
         }

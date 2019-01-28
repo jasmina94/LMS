@@ -1,7 +1,8 @@
 ﻿using LMS.Infrastructure.Attributes.Implementation;
+using System.ComponentModel.DataAnnotations;
 using LMS.Infrastructure.Validation;
 using System;
-using System.ComponentModel.DataAnnotations;
+
 
 namespace LMS.Models.ViewModels.User
 {

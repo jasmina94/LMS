@@ -19,5 +19,9 @@ namespace LMS.BusinessLogic.UserManagement.Interfaces
         Tuple<bool,int> CheckUniqueUsername(string username);
 
         Tuple<bool, int> CheckUniqueEmail(string email);
+
+        string HashPassword(string password);
+
+        bool IsPasswordValid(string given, string real);
     }
 }

@@ -45,7 +45,7 @@
             </div>                       
 
             @Html.SimpleFormInput(model => model.UserPassword, "Password:", inputType: FormInputType.PASSWORD,
-                     inputValue: "Welcome", readOnly: true, inputId: "NewUserPassword")
+                     inputValue: "*******", readOnly: true, inputId: "NewUserPassword")
 
             @Html.FormSubmit(value: "Save changes", specialBtnClass: "SaveNewUserForm", newLine: true)
 

@@ -1,6 +1,7 @@
 ﻿using LMS.DomainModel.DomainObject;
 using LMS.DomainModel.Repository.User.Interfaces;
 using System;
+using System.Security.Cryptography;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -169,15 +170,27 @@ namespace LMS.Infrastructure.Authorization.Abstraction
 
         public override bool ValidateUser(string username, string password)
         {
-            bool valid = false;
+            bool valid = true;
             UserData user = UserRepository.GetUserByUsername(username);
+            string savedPasswordHash = user.Password;
 
-            if (user != null)
+            byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
+
+            /* Get the salt */
+            byte[] salt = new byte[16];
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+
+            /* Compute the hash on the password the user entered */
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            /* Compare the results */
+            for (int i = 0; i < 20; i++)
             {
-                //Heshing mechanism possible instead
-                if (password.Equals(user.Password))
+                if (hashBytes[i + 16] != hash[i])
                 {
-                    valid = true;
+                    valid = false;
+                    break;
                 }
             }
 

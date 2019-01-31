@@ -45,9 +45,9 @@ namespace LMS.Areas.Profile.Controllers
 
             if (viewModel.NewPassword == viewModel.RepeatPassword &&
                 viewModel.OldPassword != viewModel.NewPassword &&
-                viewModel.OldPassword == userViewModel.UserPassword)
+                UserService.IsPasswordValid(viewModel.OldPassword, userViewModel.UserPassword))
             {
-                userViewModel.UserPassword = viewModel.NewPassword;
+                userViewModel.UserPassword = UserService.HashPassword(viewModel.NewPassword);
                 saveResult = UserService.Save(userViewModel, currentUser);
 
                 if (saveResult.Success)

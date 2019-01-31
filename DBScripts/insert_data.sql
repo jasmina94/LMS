@@ -1,11 +1,11 @@
 /*User*/
 INSERT INTO [LMS].[dbo].[Users]([IdUser],[IsActive],[BirthDate],[Firstname],[Lastname],[Username],[UserPassword],[Email],[RefRole],[RefCategory],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])
 VALUES
-(1, -1, '1994-08-02 22:10:00.00', 'Admin', 'Admin', 'admin', 'admin', 'admin@gmail.com', 1, 0, 1, GETDATE(), NULL, NULL),
-(2, -1, '1984-08-22 22:10:00.00', 'Jane', 'Smith', 'jane', 'jane', 'jane@gmail.com', 2, 0, 1, GETDATE(), NULL, NULL),
-(3, -1, '1994-05-07 21:30:00.00', 'Mike', 'Gosling', 'mike123', 'mike123', 'mike@gmail.com', 2, 0, 1, GETDATE(), NULL, NULL),
-(4, -1, '1991-01-29 09:45:00.00', 'Sophie', 'Turner', 'sophiee', 'sophiee', 'sophieturner@gmail.com', 3, 1, 1, GETDATE(), NULL, NULL),
-(5, -1, '1991-01-29 09:45:00.00', 'Nick', 'Potter', 'nickpotter', 'nickpotter', 'nick@gmail.com', 3, 6, 1, GETDATE(), NULL, NULL);
+(1, -1, '1994-08-02 22:10:00.00', 'Admin', 'Admin', 'admin', 'KlQr5A/uIaqRvyKkk+rSUIf9h7duKV3MOUlP94getLXoMkF9', 'admin@gmail.com', 1, 0, 1, GETDATE(), NULL, NULL),
+(2, -1, '1984-08-22 22:10:00.00', 'Jane', 'Smith', 'jane', 'cweIH68CREp+r+Q95Zx7anXxYs6csZZg/UBIFveHGkyPKfUP', 'jane@gmail.com', 2, 0, 1, GETDATE(), NULL, NULL),
+(3, -1, '1994-05-07 21:30:00.00', 'Mike', 'Gosling', 'mike123', 'WddHxmavT32m431kPvClgUYx9qTv3h8hhNnYdIC3usYOv6ME', 'mike@gmail.com', 2, 0, 1, GETDATE(), NULL, NULL),
+(4, -1, '1991-01-29 09:45:00.00', 'Sophie', 'Turner', 'sophiee', 'TtW//VSaUoGxb9Xlbf/t7Pnr/pBM0vC9vd52T9fnv/hYCsrM', 'sophieturner@gmail.com', 3, 1, 1, GETDATE(), NULL, NULL),
+(5, -1, '1991-01-29 09:45:00.00', 'Nick', 'Potter', 'nickpotter', 'jpHEq6NmDj6nl0yFobSzyECRxMT/evKgxcB0kLkM8GhwIDqo', 'nick@gmail.com', 3, 6, 1, GETDATE(), NULL, NULL);
 
 /*Role*/
 INSERT INTO [LMS].[dbo].[Roles]([IdRole],[IsActive],[NameRole],[CodeRole],[RefUserCreatedBy],[DateTimeCreatedOn],[RefUserDeletedBy],[DateTimeDeletedOn])

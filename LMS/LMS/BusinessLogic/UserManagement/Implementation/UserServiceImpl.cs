@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using LMS.Models.ViewModels.User;
 using LMS.Services.Interfaces;
 using System;
+using System.Configuration;
+using System.Security.Cryptography;
 
 namespace LMS.BusinessLogic.LanguageManagement.Implementations
 {
@@ -57,6 +59,11 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
         public SaveUserResult Save(UserViewModel viewModel, UserSessionObject currentUser)
         {
             var result = new SaveUserResult();
+
+            if (viewModel.IsNew)
+            {
+                viewModel.UserPassword = ConfigurationManager.AppSettings["DefaultPassword"];
+            }
 
             UserDomainModelBuilder builder = BuilderResolverService.Get<UserDomainModelBuilder, UserViewModel>(viewModel);
             Constructor.ConstructDomainModelData(builder);
@@ -130,6 +137,47 @@ namespace LMS.BusinessLogic.LanguageManagement.Implementations
                 
 
             return result;
+        }
+
+        public string HashPassword(string password)
+        {
+            string savedPasswordHash;
+
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            savedPasswordHash = Convert.ToBase64String(hashBytes);
+
+            return savedPasswordHash;
+        }
+
+        public bool IsPasswordValid(string given, string real)
+        {
+            bool valid = true;
+            byte[] hashBytes = Convert.FromBase64String(real);
+            byte[] salt = new byte[16];
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+
+            var pbkdf2 = new Rfc2898DeriveBytes(given, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            for (int i = 0; i < 20; i++)
+            {
+                if (hashBytes[i + 16] != hash[i])
+                {
+                    valid = false;
+                    break;
+                }
+            }
+
+            return valid;
         }
 
         #region Private

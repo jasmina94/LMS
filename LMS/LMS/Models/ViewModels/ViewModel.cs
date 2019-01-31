@@ -28,13 +28,7 @@ namespace LMS.Models.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateTimeDeletedOn { get; set; }
 
-        public bool IsNew
-        {
-            get
-            {
-                return Id == 0 ? true : false;
-            }
-        }
+        public bool IsNew => Id == 0 ? true : false;
 
         public abstract string Validate(ILMSValidator validator);
     }

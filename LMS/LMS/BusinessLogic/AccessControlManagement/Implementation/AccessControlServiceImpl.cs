@@ -49,9 +49,9 @@ namespace LMS.BusinessLogic.AccessControlManagement.Implementation
             {
                 foreach (string permission in userPermissions)
                 {
-                    if (permission.StartsWith("DENY_"))
+                    if (permission.StartsWith("Deny"))
                     {
-                        rolePermissions.Remove(permission.Replace("DENY_", "ALLOW_"));
+                        rolePermissions.Remove(permission.Replace("Deny", ""));
                     }
                     else
                     {
